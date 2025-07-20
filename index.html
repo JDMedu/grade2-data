@@ -1740,7 +1740,7 @@
                 token: token
             };
             
-            dataUrl = 'https://raw.githubusercontent.com/' + username + '/' + repo + '/main/grade-data.json';
+            var apiUrl = 'https://api.github.com/repos/' + githubConfig.username + '/' + githubConfig.repo + '/contents/grade2-data.json';
             
             localStorage.setItem('githubConfig', JSON.stringify(githubConfig));
             localStorage.setItem('dataUrl', dataUrl);
@@ -1864,7 +1864,7 @@
                 throw new Error('GitHub 설정이 필요합니다.');
             }
             
-            var apiUrl = 'https://api.github.com/repos/' + githubConfig.username + '/' + githubConfig.repo + '/contents/grade-data.json';
+            var apiUrl = 'https://api.github.com/repos/' + githubConfig.username + '/' + githubConfig.repo + '/contents/grade2-data.json';
             
             return fetch(apiUrl)
                 .then(function(response) {
@@ -1875,7 +1875,7 @@
                 })
                 .then(function(existingFile) {
                     var requestBody = {
-                        message: '성적 데이터 업데이트 - ' + new Date().toLocaleString('ko-KR'),
+                        message: '고2 성적 데이터 업데이트 - ' + new Date().toLocaleString('ko-KR'),
                         content: btoa(unescape(encodeURIComponent(JSON.stringify(jsonData, null, 2))))
                     };
                     
@@ -2715,7 +2715,7 @@
                 console.log('설정 사용 (' + configSource + '):', finalConfig);
                 
                 githubConfig = finalConfig;
-                dataUrl = 'https://raw.githubusercontent.com/' + finalConfig.username + '/' + finalConfig.repo + '/main/grade-data.json';
+                dataUrl = 'https://raw.githubusercontent.com/' + finalConfig.username + '/' + finalConfig.repo + '/main/grade2-data.json';
                 
                 // localStorage에 저장 (다음에 더 빠르게 로드하기 위해)
                 localStorage.setItem('githubConfig', JSON.stringify(githubConfig));
