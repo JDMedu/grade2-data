@@ -1703,7 +1703,7 @@
         
         // 관리자 인증 상태 확인
         function checkAdminAuthStatus() {
-            var savedAuth = localStorage.getItem('adminAuth');
+            var savedAuth = localStorage.getItem('grade2-adminAuth');
             
             if (savedAuth === 'true') {
                 isAdminAuthenticated = true;
@@ -2693,7 +2693,7 @@
             }
             
             // 저장된 GitHub 설정 불러오기
-            var savedConfig = localStorage.getItem('githubConfig');
+            var savedConfig = localStorage.getItem('grade2-githubConfig');
             var savedDataUrl = localStorage.getItem('dataUrl');
             
             var finalConfig = null;
