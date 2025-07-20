@@ -1619,7 +1619,7 @@
             
             if (password === 'teacher123') {
                 isAdminAuthenticated = true;
-                localStorage.setItem('adminAuth', 'true');
+                localStorage.setItem('grade2-adminAuth', 'true');
                 
                 document.getElementById('adminAuthSection').style.display = 'none';
                 document.getElementById('githubSetup').style.display = 'block';
@@ -1637,9 +1637,9 @@
         // 관리자 접근 초기화
         function resetAdminAccess() {
             isAdminAuthenticated = false;
-            localStorage.removeItem('adminAuth');
-            localStorage.removeItem('githubConfig');
-            localStorage.removeItem('dataUrl');
+            localStorage.removeItem('grade2-adminAuth'); // 고2용
+            localStorage.removeItem('grade2-githubConfig'); // 고2용
+            localStorage.removeItem('grade2-dataUrl'); // 고2용
             
             document.getElementById('adminAuthSection').style.display = 'block';
             document.getElementById('githubSetup').style.display = 'none';
