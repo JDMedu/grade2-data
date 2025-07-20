@@ -893,7 +893,7 @@
             </div>
         </div>
         
-        <!-- 관리자 탭 (기존과 동일하므로 생략) -->
+        <!-- 관리자 탭 -->
         <div id="adminTab" class="tab-content">
             <!-- 관리자 인증 섹션 -->
             <div id="adminAuthSection" class="admin-check">
@@ -913,12 +913,12 @@
             <div id="githubSetup" class="setup-section">
                 <h3>🔧 GitHub 저장소 설정</h3>
                 <p><strong>처음 사용 시 한 번만 설정하면 됩니다!</strong></p>
-                <p>1. GitHub에서 새 저장소를 만드세요 (예: grade-data)</p>
+                <p>1. GitHub에서 새 저장소를 만드세요 (예: grade2-data)</p>
                 <p>2. 저장소를 Public으로 설정하고 GitHub Pages를 활성화하세요</p>
                 <p>3. 아래에 저장소 정보를 입력하세요:</p>
                 
                 <input type="text" id="githubUsername" class="setup-input" placeholder="GitHub 사용자명 (예: myusername)" autocomplete="off">
-                <input type="text" id="githubRepo" class="setup-input" placeholder="저장소 이름 (예: grade-data)" autocomplete="off">
+                <input type="text" id="githubRepo" class="setup-input" placeholder="저장소 이름 (예: grade2-data)" autocomplete="off">
                 <input type="password" id="githubToken" class="setup-input" placeholder="GitHub Personal Access Token (선택사항)">
                 
                 <button onclick="saveGitHubConfig()" class="setup-btn">설정 저장</button>
@@ -1601,18 +1601,6 @@
             aiContentDiv.innerHTML = html;
         }
 
-        // HEX 색상을 RGB로 변환하는 헬퍼 함수
-        function hexToRgb(hex) {
-            var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-            if (result) {
-                var r = parseInt(result[1], 16);
-                var g = parseInt(result[2], 16);
-                var b = parseInt(result[3], 16);
-                return r + ',' + g + ',' + b;
-            }
-            return '0,0,0';
-        }
-
         // 관리자 인증 확인
         function checkAdminPassword() {
             var password = document.getElementById('adminPassword').value.trim();
@@ -1637,9 +1625,9 @@
         // 관리자 접근 초기화
         function resetAdminAccess() {
             isAdminAuthenticated = false;
-            localStorage.removeItem('grade2-adminAuth'); // 고2용
-            localStorage.removeItem('grade2-githubConfig'); // 고2용
-            localStorage.removeItem('grade2-dataUrl'); // 고2용
+            localStorage.removeItem('grade2-adminAuth');
+            localStorage.removeItem('grade2-githubConfig');
+            localStorage.removeItem('grade2-dataUrl');
             
             document.getElementById('adminAuthSection').style.display = 'block';
             document.getElementById('githubSetup').style.display = 'none';
@@ -1651,8 +1639,8 @@
         
         // 기존 설정 로드
         function loadExistingConfig() {
-            var savedConfig = localStorage.getItem('githubConfig');
-            var savedDataUrl = localStorage.getItem('dataUrl');
+            var savedConfig = localStorage.getItem('grade2-githubConfig');
+            var savedDataUrl = localStorage.getItem('grade2-dataUrl');
             
             if (savedConfig && savedDataUrl) {
                 try {
@@ -1740,10 +1728,10 @@
                 token: token
             };
             
-            var apiUrl = 'https://api.github.com/repos/' + githubConfig.username + '/' + githubConfig.repo + '/contents/grade2-data.json';
+            dataUrl = 'https://raw.githubusercontent.com/' + username + '/' + repo + '/main/grade2-data.json';
             
-            localStorage.setItem('githubConfig', JSON.stringify(githubConfig));
-            localStorage.setItem('dataUrl', dataUrl);
+            localStorage.setItem('grade2-githubConfig', JSON.stringify(githubConfig));
+            localStorage.setItem('grade2-dataUrl', dataUrl);
             
             showStatus('GitHub 설정이 저장되었습니다!', 'success');
             
@@ -1989,7 +1977,7 @@
                             updateProgress(100, '완료!');
                             setTimeout(function() {
                                 showProgress(false);
-                                showStatus('✅ 데이터가 성공적으로 GitHub에 업로드되었습니다!', 'success');
+                                showStatus('✅ 고2 데이터가 성공적으로 GitHub에 업로드되었습니다!', 'success');
                                 
                                 setTimeout(function() {
                                     loadDataFromGitHub();
@@ -2694,7 +2682,7 @@
             
             // 저장된 GitHub 설정 불러오기
             var savedConfig = localStorage.getItem('grade2-githubConfig');
-            var savedDataUrl = localStorage.getItem('dataUrl');
+            var savedDataUrl = localStorage.getItem('grade2-dataUrl');
             
             var finalConfig = null;
             var configSource = '';
@@ -2718,8 +2706,8 @@
                 dataUrl = 'https://raw.githubusercontent.com/' + finalConfig.username + '/' + finalConfig.repo + '/main/grade2-data.json';
                 
                 // localStorage에 저장 (다음에 더 빠르게 로드하기 위해)
-                localStorage.setItem('githubConfig', JSON.stringify(githubConfig));
-                localStorage.setItem('dataUrl', dataUrl);
+                localStorage.setItem('grade2-githubConfig', JSON.stringify(githubConfig));
+                localStorage.setItem('grade2-dataUrl', dataUrl);
                 
                 console.log('데이터 로드 시작...');
                 // 약간의 지연 후 데이터 로드 시도
