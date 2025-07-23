@@ -965,11 +965,12 @@
 
     <script>
 
-        // 학업 운세 데이터 (더 다양하고 구체적으로 확장)
+        // 학업 운세 데이터 (행운의 과목 추가)
         var fortuneData = {
             excellent: {
                 icon: "⭐",
-                title: "최고의 학습일! ⭐⭐⭐⭐⭐",
+                title: "최고의 학습일!",
+                stars: "⭐⭐⭐⭐⭐",
                 color: "from-yellow-400 to-orange-500",
                 bgColor: "rgba(255, 215, 0, 0.1)",
                 advice: [
@@ -982,6 +983,7 @@
                     "선생님께 어려운 질문을 던져보세요",
                     "새로운 학습 앱이나 도구를 활용해보세요"
                 ],
+                luckySubjects: ["수학", "과학", "철학", "논리"],
                 studyTips: [
                     "오늘은 평소보다 30% 더 집중할 수 있는 날입니다!",
                     "가장 어려운 과목부터 시작해보세요!",
@@ -991,7 +993,8 @@
             },
             verygood: {
                 icon: "🌟",
-                title: "매우 좋은 학습 기운! ⭐⭐⭐⭐",
+                title: "매우 좋은 학습 기운!",
+                stars: "⭐⭐⭐⭐",
                 color: "from-orange-400 to-red-500",
                 bgColor: "rgba(255, 140, 0, 0.1)",
                 advice: [
@@ -1004,6 +1007,7 @@
                     "예습보다는 심화 학습에 시간을 투자하세요",
                     "오늘 정리한 내용은 시험에 나올 확률이 높아요"
                 ],
+                luckySubjects: ["물리", "화학", "수학", "영어"],
                 studyTips: [
                     "깊이 있는 학습에 집중해보세요!",
                     "어려운 문제집을 도전해보는 날이에요!",
@@ -1013,7 +1017,8 @@
             },
             good: {
                 icon: "📈",
-                title: "좋은 학습 흐름! ⭐⭐⭐⭐",
+                title: "좋은 학습 흐름!",
+                stars: "⭐⭐⭐⭐",
                 color: "from-green-400 to-blue-500",
                 bgColor: "rgba(76, 175, 80, 0.1)",
                 advice: [
@@ -1026,6 +1031,7 @@
                     "오답노트 정리하기에 최적의 날입니다",
                     "여러 과목을 골고루 공부하세요"
                 ],
+                luckySubjects: ["국어", "사회", "역사", "지리"],
                 studyTips: [
                     "포모도로 기법(25분 집중 + 5분 휴식)을 활용해보세요!",
                     "컬러펜으로 중요한 부분을 표시해보세요!",
@@ -1035,7 +1041,8 @@
             },
             normal: {
                 icon: "📚",
-                title: "평범한 학습일 ⭐⭐⭐",
+                title: "평범한 학습일",
+                stars: "⭐⭐⭐",
                 color: "from-blue-400 to-purple-500",
                 bgColor: "rgba(33, 150, 243, 0.1)",
                 advice: [
@@ -1048,6 +1055,7 @@
                     "평소 좋아하는 과목부터 시작하세요",
                     "충분한 수면과 휴식을 취하며 공부하세요"
                 ],
+                luckySubjects: ["국어", "영어", "도덕", "예술"],
                 studyTips: [
                     "오늘은 가벼운 독서나 요약 정리가 좋겠어요!",
                     "기본 개념 위주로 천천히 공부해보세요!",
@@ -1057,7 +1065,8 @@
             },
             caution: {
                 icon: "⚡",
-                title: "주의가 필요한 학습일 ⭐⭐",
+                title: "주의가 필요한 학습일",
+                stars: "⭐⭐",
                 color: "from-yellow-500 to-orange-600",
                 bgColor: "rgba(255, 152, 0, 0.1)",
                 advice: [
@@ -1070,6 +1079,7 @@
                     "복잡한 내용보다 간단한 것부터 시작하세요",
                     "친구들과의 잡담은 잠시 미뤄두세요"
                 ],
+                luckySubjects: ["체육", "음악", "미술", "기술"],
                 studyTips: [
                     "오늘은 한 과목에만 집중해보세요!",
                     "타이머를 설정해서 짧게 짧게 공부해보세요!",
@@ -1079,7 +1089,8 @@
             },
             challenging: {
                 icon: "🧠",
-                title: "집중력 필요한 날 ⭐⭐",
+                title: "집중력 필요한 날",
+                stars: "⭐⭐",
                 color: "from-purple-400 to-pink-500",
                 bgColor: "rgba(156, 39, 176, 0.1)",
                 advice: [
@@ -1092,6 +1103,7 @@
                     "스트레스를 받지 말고 여유롭게 접근하세요",
                     "평소보다 휴식 시간을 늘려가며 공부하세요"
                 ],
+                luckySubjects: ["체육", "음악", "미술", "생활"],
                 studyTips: [
                     "오늘은 복습 위주로 가볍게 공부하세요!",
                     "친구와 함께 공부하면 더 좋을 거예요!",
@@ -1101,7 +1113,8 @@
             },
             review: {
                 icon: "🔄",
-                title: "복습의 날! ⭐⭐⭐",
+                title: "복습의 날!",
+                stars: "⭐⭐⭐",
                 color: "from-indigo-400 to-purple-600",
                 bgColor: "rgba(103, 58, 183, 0.1)",
                 advice: [
@@ -1114,6 +1127,7 @@
                     "개념 간의 연결고리를 찾아보세요",
                     "시험 범위를 전체적으로 정리해보세요"
                 ],
+                luckySubjects: ["모든 과목", "복습", "정리", "암기"],
                 studyTips: [
                     "지난주 배운 내용을 훑어보는 시간을 가져보세요!",
                     "오답노트를 꺼내서 다시 풀어보세요!",
@@ -1123,7 +1137,8 @@
             },
             creative: {
                 icon: "🎨",
-                title: "창의적 학습일! ⭐⭐⭐⭐",
+                title: "창의적 학습일!",
+                stars: "⭐⭐⭐⭐",
                 color: "from-pink-400 to-red-500",
                 bgColor: "rgba(233, 30, 99, 0.1)",
                 advice: [
@@ -1136,6 +1151,7 @@
                     "암기보다는 이미지로 연상해서 기억하세요",
                     "새로운 학습 도구나 앱을 활용해보세요"
                 ],
+                luckySubjects: ["미술", "음악", "국어", "창작"],
                 studyTips: [
                     "오늘은 색깔 펜으로 예쁘게 노트 정리를 해보세요!",
                     "마인드맵을 그려가며 공부해보세요!",
@@ -1145,7 +1161,8 @@
             },
             motivated: {
                 icon: "🔥",
-                title: "동기부여 최고조! ⭐⭐⭐⭐⭐",
+                title: "동기부여 최고조!",
+                stars: "⭐⭐⭐⭐⭐",
                 color: "from-red-500 to-pink-600",
                 bgColor: "rgba(244, 67, 54, 0.1)",
                 advice: [
@@ -1158,6 +1175,7 @@
                     "경쟁 의식을 활용해서 공부해보세요",
                     "성취감을 느낄 수 있는 작은 목표들을 만들어보세요"
                 ],
+                luckySubjects: ["수학", "과학", "영어", "논술"],
                 studyTips: [
                     "오늘은 꿈과 목표를 다시 한번 되새겨보세요!",
                     "가장 어려운 문제집을 도전해보세요!",
@@ -1167,7 +1185,8 @@
             },
             calm: {
                 icon: "🧘",
-                title: "차분한 학습일 ⭐⭐⭐",
+                title: "차분한 학습일",
+                stars: "⭐⭐⭐",
                 color: "from-teal-400 to-blue-600",
                 bgColor: "rgba(0, 150, 136, 0.1)",
                 advice: [
@@ -1180,6 +1199,7 @@
                     "급하게 서두르지 말고 차근차근 진행하세요",
                     "내면의 집중력을 끌어올려보세요"
                 ],
+                luckySubjects: ["국어", "철학", "명상", "독서"],
                 studyTips: [
                     "조용한 음악을 들으며 공부해보세요!",
                     "깊은 호흡을 하며 마음을 차분히 하세요!",
@@ -1189,7 +1209,7 @@
             }
         };
         
-        // 학업 운세 계산 함수 (기존과 동일)
+        // 학업 운세 계산 함수 (3개 조언만 선택)
         function calculateStudyFortune(name) {
             if (!name) return null;
             
@@ -1206,8 +1226,8 @@
             var index = sum % fortuneTypes.length;
             var type = fortuneTypes[index];
             
-            // 랜덤하게 조언과 팁 선택
-            var selectedAdvice = fortuneData[type].advice.slice().sort(() => 0.5 - Math.random()).slice(0, 4);
+            // 랜덤하게 조언 3개와 팁 1개 선택
+            var selectedAdvice = fortuneData[type].advice.slice().sort(() => 0.5 - Math.random()).slice(0, 3);
             var selectedTip = fortuneData[type].studyTips[Math.floor(Math.random() * fortuneData[type].studyTips.length)];
             
             return {
@@ -1220,7 +1240,7 @@
             };
         }
         
-        // 운세 표시 함수 (기존 AI 분석과 동일한 스타일)
+        // 운세 표시 함수 (기존 채팅 스타일 적용)
         function displayStudyFortune(name) {
             var fortune = calculateStudyFortune(name);
             if (!fortune) return '';
@@ -1232,8 +1252,11 @@
                             ${fortune.data.icon}
                         </div>
                         <div>
-                            <h3 style="color: #333;">오늘의 학업 운세</h3>
-                            <p style="opacity: 0.8; margin: 0; color: #555;">${fortune.data.title}</p>
+                            <h3 style="color: #333; font-size: 1.5em;">${name}님의 학업 운세</h3>
+                            <div style="font-size: 1.8em; font-weight: bold; margin-top: 8px;">
+                                <span style="color: #333;">${fortune.data.title}</span>
+                                <span style="color: #FFD700; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); margin-left: 8px;">${fortune.data.stars}</span>
+                            </div>
                         </div>
                     </div>
                     
@@ -1246,13 +1269,39 @@
                         </div>
                         
                         <div style="background: rgba(255, 255, 255, 0.3); border-radius: 12px; padding: 15px; margin: 15px 0;">
-                            <p style="color: #444; font-weight: 500; margin: 0;">
-                                🎯 ${fortune.data.selectedTip}
+                            <h4 style="color: #444; margin-bottom: 10px;">📚 행운의 과목</h4>
+                            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                ${fortune.data.luckySubjects.map(subject => 
+                                    `<span style="background: linear-gradient(45deg, #667eea, #764ba2); color: white; padding: 4px 12px; border-radius: 15px; font-size: 0.9em; font-weight: bold;">${subject}</span>`
+                                ).join('')}
+                            </div>
+                        </div>
+                        
+                        <div style="background: rgba(255, 255, 255, 0.3); border-radius: 12px; padding: 15px; margin: 15px 0;">
+                            <h4 style="color: #444; margin-bottom: 10px;">🎯 오늘의 학습 팁</h4>
+                            <p style="color: #444; font-weight: 500; margin: 0; font-style: italic;">
+                                "${fortune.data.selectedTip}"
                             </p>
                         </div>
                         
-                        <div style="font-size: 0.85em; color: #666; text-align: center; margin-top: 10px;">
+                       <div style="font-size: 0.85em; color: #666; text-align: center; margin-top: 10px;">
                             💡 운세는 재미로만 참고하세요. 진짜 중요한 건 꾸준한 노력입니다!
+                            <br><br>
+                            <a href="https://www.instagram.com/swwweet.daekun/" target="_blank" style="
+                                display: inline-flex; 
+                                align-items: center; 
+                                gap: 8px; 
+                                background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45, #FFDC80);
+                                color: white; 
+                                text-decoration: none; 
+                                padding: 8px 16px; 
+                                border-radius: 20px; 
+                                font-weight: bold; 
+                                font-size: 0.9em;
+                                transition: transform 0.2s;
+                            " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                                📸 Instagram 팔로우하기
+                            </a>
                         </div>
                     </div>
                 </div>
