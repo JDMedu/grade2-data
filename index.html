@@ -970,6 +970,32 @@
         font-weight: bold;
         color: #333;
     }
+
+        /* 🚀 여기부터 새로운 CSS 추가! */
+        /* 그랜드 마스터 애니메이션 */
+        @keyframes grand-master-glow {
+            0% { 
+                box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+                transform: scale(1);
+            }
+            100% { 
+                box-shadow: 0 12px 35px rgba(255, 215, 0, 0.6);
+                transform: scale(1.02);
+            }
+        }
+        
+        /* 그랜드 마스터 전용 스타일 */
+        .grand-master-message {
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+            animation: grand-master-glow 2s infinite alternate;
+        }
+        
         
     </style>
 </head>
@@ -3131,39 +3157,39 @@
                         var ratio = gradeData.ratios[subject] || 0;
                         var ratioColor = ratio >= 80 ? '#e74c3c' : ratio >= 60 ? '#f39c12' : ratio >= 40 ? '#f1c40f' : '#95a5a6';
                         
-                        detailsHtml += 
-                            '<div class="grade-item">' +
-                            '<span class="grade-label">' + subject + '</span>' +
-                            '<span class="grade-value">' + score + '점 ' +
-                            '<span style="color: ' + ratioColor + '; font-size: 0.85em;">(' + ratio + '%)</span>' +
+                       detailsHtml += 
+                            '<div class="grade-item" style="padding: 4px 8px; font-size: 0.8em;">' +
+                            '<span class="grade-label" style="font-size: 0.75em;">' + subject + '</span>' +
+                            '<span class="grade-value" style="font-size: 0.8em;">' + score + '점 ' +
+                            '<span style="color: ' + ratioColor + '; font-size: 0.7em;">(' + ratio + '%)</span>' +
                             '</span></div>';
                     }
                 }
                 
                 var cutInfo = '';
-                if (gradeData.gradeCut) {
-                    cutInfo += '<div class="grade-summary-item"><div class="grade-summary-value">' + gradeData.gradeCut + '점</div><div class="grade-summary-label">내 등급컷</div></div>';
+                  if (gradeData.gradeCut) {
+                    cutInfo += '<div class="grade-summary-item"><div class="grade-summary-value" style="font-size: 1.1em;">' + gradeData.gradeCut + '점</div><div class="grade-summary-label" style="font-size: 0.75em;">내 등급컷</div></div>';
                 }
                 
                 if (gradeData.needScore !== null && gradeData.needScore !== undefined) {
                     var needScoreDisplay = gradeData.needScore > 0 ? '+' + gradeData.needScore : gradeData.needScore;
                     var needScoreColor = gradeData.needScore <= 0 ? '#2ecc71' : '#e74c3c';
-                    cutInfo += '<div class="grade-summary-item"><div class="grade-summary-value" style="color: ' + needScoreColor + '">' + needScoreDisplay + '점</div><div class="grade-summary-label">한등급↑ 필요점수</div></div>';
+                    cutInfo += '<div class="grade-summary-item"><div class="grade-summary-value" style="color: ' + needScoreColor + '; font-size: 1.1em;">' + needScoreDisplay + '점</div><div class="grade-summary-label" style="font-size: 0.75em;">한등급↑ 필요점수</div></div>';
                 }
                 
                 var sourceInfo = '';
                 if (gradeData.source && gradeData.source.trim() !== '') {
-                    sourceInfo = '<div class="grade-summary-item"><div class="grade-summary-value" style="font-size: 0.9em; color: #666;">' + gradeData.source + '</div><div class="grade-summary-label">출처</div></div>';
+                    sourceInfo = '<div class="grade-summary-item"><div class="grade-summary-value" style="font-size: 0.8em; color: #666;">' + gradeData.source + '</div><div class="grade-summary-label" style="font-size: 0.75em;">출처</div></div>';
                 }
                 
                 gradeCard.innerHTML = 
-                    '<h3>📝 ' + testName + '</h3>' +
-                    '<div class="grade-summary">' +
-                    '<div class="grade-summary-item"><div class="grade-summary-value grade-' + gradeData.grade + '">' + gradeData.grade + '등급</div><div class="grade-summary-label">내 등급</div></div>' +
-                    '<div class="grade-summary-item"><div class="grade-summary-value">' + gradeData.score + '점</div><div class="grade-summary-label">내 점수</div></div>' +
-                    cutInfo + sourceInfo + '</div>' +
-                    (detailsHtml ? '<div style="margin: 15px 0; padding: 10px; background: #f8f9fa; border-radius: 8px;"><h4 style="margin-bottom: 10px; color: #333; font-size: 1em;">📊 과목별 성취도 (점수 및 비율)</h4><div class="grade-details">' + detailsHtml + '</div></div>' : '');
-                
+                '<h3 style="font-size: 1.1em; margin-bottom: 12px;">📝 ' + testName + '</h3>' +
+                '<div class="grade-summary" style="grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 8px; margin-bottom: 12px; padding: 10px;">' +
+                '<div class="grade-summary-item"><div class="grade-summary-value grade-' + gradeData.grade + '" style="font-size: 1.1em;">' + gradeData.grade + '등급</div><div class="grade-summary-label" style="font-size: 0.75em;">내 등급</div></div>' +
+                '<div class="grade-summary-item"><div class="grade-summary-value" style="font-size: 1.1em;">' + gradeData.score + '점</div><div class="grade-summary-label" style="font-size: 0.75em;">내 점수</div></div>' +
+                cutInfo + sourceInfo + '</div>' +
+                (detailsHtml ? '<div style="margin: 10px 0; padding: 8px; background: #f8f9fa; border-radius: 6px;"><h4 style="margin-bottom: 8px; color: #333; font-size: 0.85em;">📊 과목별 성취도 (점수 및 비율)</h4><div class="grade-details" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 6px;">' + detailsHtml + '</div></div>' : '');
+               
                 gradeCardsDiv.appendChild(gradeCard);
             }
         }
@@ -3375,113 +3401,168 @@
                 if (avg >= 80) strongSubjects++;
             });
             
-            // 🏆 뱃지 조건 체크 (14개+ 뱃지, 중복 가능)
+        // 🏆 확장된 뱃지 시스템 (20개)
+        function generateAchievementBadges(student, stats) {
+            var badges = [];
+            var grades = student.grades;
+            var gradeKeys = Object.keys(grades);
             
-            // 1. 등급 관련 뱃지
-            if (stats.bestGrade === 1) {
-                badges.push({ icon: "👑", text: "1등급 달성", type: "grade", isNew: true });
-            }
-            if (stats.bestGrade <= 2) {
-                badges.push({ icon: "🏆", text: "상위등급 달성", type: "grade", isNew: false });
-            }
-            if (stats.bestGrade <= 3) {
-                badges.push({ icon: "🥉", text: "3등급 이내", type: "grade", isNew: false });
-            }
+            if (!stats) return badges;
             
-            // 2. 점수 관련 뱃지
-            if (stats.bestScore >= 95) {
-                badges.push({ icon: "💎", text: "95점 이상", type: "score", isNew: true });
-            }
-            if (stats.avgScore >= 85) {
-                badges.push({ icon: "🌟", text: "고득점자", type: "score", isNew: false });
-            }
-            if (stats.bestScore >= 100) {
-                badges.push({ icon: "🎯", text: "만점 달성", type: "score", isNew: true });
-            }
+            // 점수와 등급 데이터 준비
+            var scores = [];
+            var gradeValues = [];
+            var subjectScores = {};
             
-            // 3. 성적 변화 뱃지
-            if (maxConsecutiveUp >= 2) {
-                badges.push({ icon: "🔥", text: "연속 상승", type: "trend", isNew: true });
-            }
-            if (maxConsecutiveUp >= 3) {
-                badges.push({ icon: "🚀", text: "3연속 상승", type: "trend", isNew: true });
-            }
-            if (stats.scoreChange >= 15) {
-                badges.push({ icon: "📈", text: "대폭 상승", type: "improvement", isNew: true });
-            }
-            if (stats.scoreChange >= 25) {
-                badges.push({ icon: "⚡", text: "폭발적 상승", type: "improvement", isNew: true });
-            }
+            gradeKeys.forEach(function(testName) {
+                var gradeData = grades[testName];
+                if (gradeData.score) scores.push(parseInt(gradeData.score));
+                if (gradeData.grade) gradeValues.push(parseInt(gradeData.grade));
+                
+                // 과목별 점수 수집
+                if (gradeData.details) {
+                    Object.keys(gradeData.details).forEach(function(subject) {
+                        if (!subjectScores[subject]) subjectScores[subject] = [];
+                        subjectScores[subject].push(gradeData.details[subject]);
+                    });
+                }
+            });
             
-            // 4. 출석 및 성실성 뱃지
-            if (stats.testCount >= 5) {
-                badges.push({ icon: "⭐", text: "성실한 응시", type: "attendance", isNew: false });
-            }
-            if (stats.testCount >= 8) {
-                badges.push({ icon: "💪", text: "꾸준한 도전", type: "attendance", isNew: false });
-            }
-            if (stats.testCount === stats.totalTests) {
-                badges.push({ icon: "🎖️", text: "완벽한 출석", type: "attendance", isNew: true });
-            }
+            // 연속 상승/하락 체크
+            var consecutiveUp = 0;
+            var consecutiveDown = 0;
+            var maxConsecutiveUp = 0;
+            var maxConsecutiveDown = 0;
             
-            // 5. 특별 성취 뱃지
-            if (strongSubjects >= 3) {
-                badges.push({ icon: "🧠", text: "다재다능", type: "special", isNew: false });
-            }
-            
-            // 6. 안정성 뱃지 (점수 편차가 적을 때)
-            if (scores.length >= 3) {
-                var scoreVariance = calculateVariance(scores);
-                if (scoreVariance < 50) { // 편차가 적으면
-                    badges.push({ icon: "🛡️", text: "안정적 성취", type: "stability", isNew: false });
+            for (var i = 1; i < scores.length; i++) {
+                if (scores[i] > scores[i-1]) {
+                    consecutiveUp++;
+                    consecutiveDown = 0;
+                    maxConsecutiveUp = Math.max(maxConsecutiveUp, consecutiveUp);
+                } else if (scores[i] < scores[i-1]) {
+                    consecutiveDown++;
+                    consecutiveUp = 0;
+                    maxConsecutiveDown = Math.max(maxConsecutiveDown, consecutiveDown);
+                } else {
+                    consecutiveUp = 0;
+                    consecutiveDown = 0;
                 }
             }
             
-            // 7. 순위 관련 뱃지
-            if (stats.percentile <= 5) {
-                badges.push({ icon: "🏅", text: "상위 5%", type: "rank", isNew: true });
-            }
-            if (stats.percentile <= 20) {
-                badges.push({ icon: "🎭", text: "상위 20%", type: "rank", isNew: false });
-            }
+            // 과목별 강점 체크
+            var strongSubjects = 0;
+            var excellentSubjects = 0;
+            Object.keys(subjectScores).forEach(function(subject) {
+                var avg = subjectScores[subject].reduce((a, b) => a + b) / subjectScores[subject].length;
+                if (avg >= 80) strongSubjects++;
+                if (avg >= 90) excellentSubjects++;
+            });
             
-            // 8. 회복력 뱃지 (큰 하락 후 회복)
-            if (maxConsecutiveDown >= 2 && consecutiveUp >= 2) {
-                badges.push({ icon: "🔄", text: "극적 회복", type: "recovery", isNew: true });
-            }
-            
-            // 9. 시작 뱃지 (첫 시험)
-            if (stats.testCount === 1) {
-                badges.push({ icon: "🌱", text: "새로운 시작", type: "start", isNew: true });
-            }
-            
-            // 10. 기념일 뱃지 (특정 횟수 달성)
-            if (stats.testCount === 10) {
-                badges.push({ icon: "🎉", text: "10회 달성", type: "milestone", isNew: true });
-            }
-            
-            // 11. 추가 점수 뱃지
-            if (stats.avgScore >= 90) {
-                badges.push({ icon: "✨", text: "우수한 평균", type: "score", isNew: false });
-            }
-            
-            // 12. 추가 등급 뱃지
-            if (stats.avgGrade <= 2.5) {
-                badges.push({ icon: "🎪", text: "우수한 등급", type: "grade", isNew: false });
-            }
-            
-            // 13. 꾸준함 뱃지
-            if (stats.testCount >= 6 && scoreVariance < 100) {
-                badges.push({ icon: "⚖️", text: "꾸준한 성취", type: "stability", isNew: false });
-            }
-            
-            // 14. 도전자 뱃지
-            if (stats.testCount >= 3) {
-                badges.push({ icon: "🎲", text: "도전자", type: "special", isNew: false });
-            }
-            
-            return badges;
+        // 🏆 뱃지 조건 체크 (20개 뱃지, 중복 가능)
+        
+        // 1. 등급 관련 뱃지 (5개)
+        if (stats.bestGrade === 1) {
+            badges.push({ icon: "👑", text: "1등급 달성", type: "grade", isNew: true });
         }
+        if (stats.bestGrade <= 2) {
+            badges.push({ icon: "🏆", text: "상위등급 달성", type: "grade", isNew: false });
+        }
+        if (stats.bestGrade <= 3) {
+            badges.push({ icon: "🥉", text: "3등급 이내", type: "grade", isNew: false });
+        }
+        if (stats.avgGrade <= 2.5) {
+            badges.push({ icon: "🎪", text: "우수한 등급", type: "grade", isNew: false });
+        }
+        if (stats.avgGrade <= 1.5) {
+            badges.push({ icon: "🎖️", text: "최상위 등급", type: "grade", isNew: true });
+        }
+        
+        // 2. 점수 관련 뱃지 (4개)
+        if (stats.bestScore >= 95) {
+            badges.push({ icon: "💎", text: "95점 이상", type: "score", isNew: true });
+        }
+        if (stats.avgScore >= 85) {
+            badges.push({ icon: "🌟", text: "고득점자", type: "score", isNew: false });
+        }
+        if (stats.bestScore >= 100) {
+            badges.push({ icon: "🎯", text: "만점 달성", type: "score", isNew: true });
+        }
+        if (stats.avgScore >= 90) {
+            badges.push({ icon: "✨", text: "우수한 평균", type: "score", isNew: false });
+        }
+        
+        // 3. 성적 변화 뱃지 (3개)
+        if (maxConsecutiveUp >= 2) {
+            badges.push({ icon: "🔥", text: "연속 상승", type: "trend", isNew: true });
+        }
+        if (maxConsecutiveUp >= 3) {
+            badges.push({ icon: "🚀", text: "3연속 상승", type: "trend", isNew: true });
+        }
+        if (maxConsecutiveUp >= 4) {
+            badges.push({ icon: "🌪️", text: "폭풍 상승", type: "trend", isNew: true });
+        }
+        
+        // 4. 점수 개선 뱃지 (3개)
+        if (stats.scoreChange >= 15) {
+            badges.push({ icon: "📈", text: "대폭 상승", type: "improvement", isNew: true });
+        }
+        if (stats.scoreChange >= 25) {
+            badges.push({ icon: "⚡", text: "폭발적 상승", type: "improvement", isNew: true });
+        }
+        if (stats.scoreChange >= 35) {
+            badges.push({ icon: "🎆", text: "기적의 상승", type: "improvement", isNew: true });
+        }
+        
+        // 5. 출석 및 성실성 뱃지 (3개)
+        if (stats.testCount >= 5) {
+            badges.push({ icon: "⭐", text: "성실한 응시", type: "attendance", isNew: false });
+        }
+        if (stats.testCount >= 8) {
+            badges.push({ icon: "💪", text: "꾸준한 도전", type: "attendance", isNew: false });
+        }
+        if (stats.testCount === stats.totalTests) {
+            badges.push({ icon: "🏅", text: "완벽한 출석", type: "attendance", isNew: true });
+        }
+        
+        // 6. 특별 성취 뱃지 (2개)
+        if (strongSubjects >= 3) {
+            badges.push({ icon: "🧠", text: "다재다능", type: "special", isNew: false });
+        }
+        if (excellentSubjects >= 2) {
+            badges.push({ icon: "🎨", text: "과목 마스터", type: "special", isNew: false });
+        }
+        
+        // 새로 추가된 뱃지들 (6개)
+        
+        // 7. 안정성 뱃지 (2개)
+        if (scores.length >= 3) {
+            var scoreVariance = calculateVariance(scores);
+            if (scoreVariance < 50) {
+                badges.push({ icon: "🛡️", text: "안정적 성취", type: "stability", isNew: false });
+            }
+            if (scoreVariance < 25) {
+                badges.push({ icon: "🏰", text: "완벽한 안정", type: "stability", isNew: true });
+            }
+        }
+        
+        // 8. 순위 관련 뱃지 (2개)
+        if (stats.percentile <= 5) {
+            badges.push({ icon: "🥇", text: "상위 5%", type: "rank", isNew: true });
+        }
+        if (stats.percentile <= 20) {
+            badges.push({ icon: "🎖️", text: "상위 20%", type: "rank", isNew: false });
+        }
+        
+        // 9. 특수 상황 뱃지 (2개)
+        if (maxConsecutiveDown >= 2 && consecutiveUp >= 2) {
+            badges.push({ icon: "🔄", text: "극적 회복", type: "recovery", isNew: true });
+        }
+        if (scores.length >= 5 && scores[scores.length-1] > scores[0] + 20) {
+            badges.push({ icon: "📊", text: "장기 성장", type: "recovery", isNew: false });
+        }
+        
+        return badges;
+    }
         
         // 📅 D-day 계산
         function calculateDday() {
@@ -3602,9 +3683,34 @@
                     
                     <!-- 🏆 성취 뱃지 -->
                     <div class="dashboard-card">
-                        <h3>🏆 성취 뱃지 <span style="font-size: 0.8em; color: #667eea;">(${badges.length}개 획득)</span></h3>
+                        <h3>🏆 성취 뱃지 <span style="font-size: 0.8em; color: #667eea;">(${badges.length}/20개 획득)</span></h3>
+                        
+                        ${badges.length >= 20 ? 
+                            `<div style="
+                                background: linear-gradient(135deg, #ffd700, #ff8c00); 
+                                color: white; 
+                                border-radius: 15px; 
+                                padding: 20px; 
+                                margin: 15px 0; 
+                                text-align: center; 
+                                box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+                                animation: grand-master-glow 2s infinite alternate;
+                            ">
+                                <div style="font-size: 2em; margin-bottom: 10px;">🎊👑🎊</div>
+                                <div style="font-size: 1.3em; font-weight: bold; margin-bottom: 10px;">
+                                    축하합니다! 모든 뱃지를 모아<br>
+                                    국어 그랜드 마스터가 되었습니다! 🏆
+                                </div>
+                                <div style="font-size: 1.1em; opacity: 0.95;">
+                                    이대건T에게 가서 선물을 수령하세요! 🎁
+                                </div>
+                            </div>` : 
+                            ''
+                        }
+                        
                         ${badges.length > 0 ? 
-                            '<div class="badge-summary">총 ' + badges.length + '개의 뱃지를 획득했습니다!</div>' +
+                            '<div class="badge-summary">총 ' + badges.length + '/20개의 뱃지를 획득했습니다!' + 
+                            (badges.length >= 20 ? ' 🎉 그랜드 마스터 달성!' : badges.length >= 15 ? ' 거의 다 모았어요!' : '') + '</div>' +
                             '<div class="badge-container">' +
                             badges.map(badge => 
                                 `<div class="achievement-badge ${badge.type} ${badge.isNew ? 'badge-new' : ''}">
