@@ -3346,61 +3346,7 @@
             return variance;
         }
         
-        // 🏆 확장된 뱃지 시스템 (14개+)
-        function generateAchievementBadges(student, stats) {
-            var badges = [];
-            var grades = student.grades;
-            var gradeKeys = Object.keys(grades);
-            
-            if (!stats) return badges;
-            
-            // 점수와 등급 데이터 준비
-            var scores = [];
-            var gradeValues = [];
-            var subjectScores = {};
-            
-            gradeKeys.forEach(function(testName) {
-                var gradeData = grades[testName];
-                if (gradeData.score) scores.push(parseInt(gradeData.score));
-                if (gradeData.grade) gradeValues.push(parseInt(gradeData.grade));
-                
-                // 과목별 점수 수집
-                if (gradeData.details) {
-                    Object.keys(gradeData.details).forEach(function(subject) {
-                        if (!subjectScores[subject]) subjectScores[subject] = [];
-                        subjectScores[subject].push(gradeData.details[subject]);
-                    });
-                }
-            });
-            
-            // 연속 상승/하락 체크
-            var consecutiveUp = 0;
-            var consecutiveDown = 0;
-            var maxConsecutiveUp = 0;
-            var maxConsecutiveDown = 0;
-            
-            for (var i = 1; i < scores.length; i++) {
-                if (scores[i] > scores[i-1]) {
-                    consecutiveUp++;
-                    consecutiveDown = 0;
-                    maxConsecutiveUp = Math.max(maxConsecutiveUp, consecutiveUp);
-                } else if (scores[i] < scores[i-1]) {
-                    consecutiveDown++;
-                    consecutiveUp = 0;
-                    maxConsecutiveDown = Math.max(maxConsecutiveDown, consecutiveDown);
-                } else {
-                    consecutiveUp = 0;
-                    consecutiveDown = 0;
-                }
-            }
-            
-            // 과목별 강점 체크
-            var strongSubjects = 0;
-            Object.keys(subjectScores).forEach(function(subject) {
-                var avg = subjectScores[subject].reduce((a, b) => a + b) / subjectScores[subject].length;
-                if (avg >= 80) strongSubjects++;
-            });
-            
+                   
         // 🏆 확장된 뱃지 시스템 (20개)
         function generateAchievementBadges(student, stats) {
             var badges = [];
