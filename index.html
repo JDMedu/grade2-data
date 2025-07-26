@@ -837,6 +837,28 @@
                 font-size: 2.8vw;
             }
             
+            /* 테이블 컨테이너 오버플로우 해결 */
+            .summary-table {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch; /* iOS 부드러운 스크롤 */
+            }
+            
+            .grade-table {
+                min-width: 100%;
+                white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+            }
+            
+            .grade-table th,
+            .grade-table td {
+                min-width: 60px; /* 최소 너비 설정 */
+                padding: 2vw 1vw; /* 패딩을 뷰포트 단위로 */
+                font-size: 2.5vw; /* 조금 더 작게 */
+            }
+            
+            .test-name {
+                min-width: 80px !important; /* 시험명 칸은 조금 더 넓게 */
+            }
+            
             /* 기존 레이아웃 조정들 */
             .search-box {
                 flex-direction: column;
@@ -856,6 +878,15 @@
             
             .recent-tests-grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+
+            /* 과목별 성취도 테이블 개선 */
+            .summary-table div[style*="overflow-x: auto"] {
+                padding-bottom: 10px; /* 스크롤바 여백 */
+            }
+            
+            .summary-table table[style*="min-width: 1200px"] {
+                min-width: 800px !important; /* 모바일에서는 800px로 축소 */
             }
         }
         /* 추가 기능 스타일 */
