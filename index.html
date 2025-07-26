@@ -791,10 +791,53 @@
         }
         
         @media (max-width: 768px) {
+            /* 뷰포트 단위로 전체 크기 자동 조정 */
             .container {
-                padding: 20px;
+                padding: 4vw; /* 화면 너비의 4% */
+                font-size: 3.5vw; /* 기본 폰트를 화면 너비의 3.5%로 */
             }
             
+            /* 제목들 뷰포트 단위 적용 */
+            .header h1 {
+                font-size: 7vw; /* 화면 너비의 7% */
+            }
+            
+            .header p {
+                font-size: 4vw; /* 화면 너비의 4% */
+            }
+            
+            /* 탭 버튼 크기 조정 */
+            .tab {
+                font-size: 3.5vw;
+                padding: 3vw 5vw;
+            }
+            
+            /* 검색 입력창과 버튼 */
+            .search-input {
+                font-size: 4vw;
+                padding: 3vw;
+            }
+            
+            .search-btn {
+                font-size: 3.5vw;
+                padding: 3vw 5vw;
+            }
+            
+            /* AI 분석 섹션 */
+            .ai-analysis h3 {
+                font-size: 4.5vw;
+            }
+            
+            .ai-analysis h4 {
+                font-size: 3.5vw;
+            }
+            
+            /* 테이블 */
+            .grade-table {
+                font-size: 2.8vw;
+            }
+            
+            /* 기존 레이아웃 조정들 */
             .search-box {
                 flex-direction: column;
             }
@@ -807,10 +850,6 @@
                 flex-direction: column;
             }
             
-            .grade-table {
-                font-size: 0.8em;
-            }
-            
             .analysis-grid {
                 grid-template-columns: 1fr;
             }
@@ -819,7 +858,6 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
-
         /* 추가 기능 스타일 */
 .dashboard-grid {
     display: grid;
