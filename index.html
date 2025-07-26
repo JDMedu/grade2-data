@@ -3765,20 +3765,33 @@
         
         // 북마크 추가 함수
         function addToBookmarks() {
-            if (window.sidebar && window.sidebar.addPanel) {
-                // Firefox
-                window.sidebar.addPanel(document.title, window.location.href, '');
-            } else if (window.external && ('AddFavorite' in window.external)) {
-                // Internet Explorer
-                window.external.AddFavorite(window.location.href, document.title);
-            } else {
-                // 다른 브라우저들 (Chrome, Safari 등)
-                alert('북마크 추가 방법:\n\n' +
-                      'Chrome/Edge: Ctrl+D\n' +
-                      'Safari: Cmd+D\n' +
-                      'Firefox: Ctrl+D\n\n' +
-                      '또는 브라우저 주소창 오른쪽 별표(⭐) 클릭!');
-            }
+            // Ctrl+D 키 이벤트 시뮬레이션
+            const event = new KeyboardEvent('keydown', {
+                key: 'd',
+                code: 'KeyD',
+                keyCode: 68,
+                ctrlKey: true,
+                bubbles: true,
+                cancelable: true
+            });
+            
+            // 문서에 이벤트 발송
+            document.dispatchEvent(event);
+            
+            // 대부분의 모던 브라우저에서는 보안상 이유로 프로그래밍 방식의 Ctrl+D가 차단됨
+            // 따라서 fallback으로 안내 메시지 표시
+            setTimeout(() => {
+                if (window.sidebar && window.sidebar.addPanel) {
+                    // Firefox
+                    window.sidebar.addPanel(document.title, window.location.href, '');
+                } else if (window.external && ('AddFavorite' in window.external)) {
+                    // Internet Explorer
+                    window.external.AddFavorite(window.location.href, document.title);
+                } else {
+                    // 다른 브라우저들
+                    alert('🔖 북마크를 추가하려면 Ctrl+D를 눌러주세요!\n\n(또는 주소창 오른쪽 ⭐ 클릭)');
+                }
+            }, 100);
         }
         
         
