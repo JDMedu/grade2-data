@@ -1497,10 +1497,10 @@
                                     background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45, #FFDC80);
                                     color: white; 
                                     text-decoration: none; 
-                                    padding: 16px 32px; 
-                                    border-radius: 25px; 
+                                    padding: 24px 48px; 
+                                    border-radius: 30px; 
                                     font-weight: bold; 
-                                    font-size: 1.1em;
+                                    font-size: 1.4em;
                                     transition: transform 0.2s;
                                 " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                                     📸 관리자 대건T Instagram
@@ -1512,14 +1512,30 @@
                                     background: linear-gradient(45deg, #4CAF50, #45a049, #66BB6A, #81C784);
                                     color: white; 
                                     text-decoration: none; 
-                                    padding: 16px 32px; 
-                                    border-radius: 25px; 
+                                    padding: 24px 48px; 
+                                    border-radius: 30px; 
                                     font-weight: bold; 
-                                    font-size: 1.1em;
+                                    font-size: 1.4em;
                                     transition: transform 0.2s;
                                 " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                                     🎓 대입 합격 예측 시스템
                                 </a>
+                                <button onclick="addToBookmarks()" style="
+                                    display: inline-flex; 
+                                    align-items: center; 
+                                    gap: 8px; 
+                                    background: linear-gradient(45deg, #FF6B6B, #FF8E53, #FF6B35, #FF4757);
+                                    color: white; 
+                                    border: none;
+                                    cursor: pointer;
+                                    padding: 24px 48px; 
+                                    border-radius: 30px; 
+                                    font-weight: bold; 
+                                    font-size: 1.4em;
+                                    transition: transform 0.2s;
+                                " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                                    ⭐ 북마크 추가
+                                </button>
                             </div>
                     </div>
                 </div>
@@ -3745,7 +3761,26 @@
                     }
                 }
             });
+         }
+        
+        // 북마크 추가 함수
+        function addToBookmarks() {
+            if (window.sidebar && window.sidebar.addPanel) {
+                // Firefox
+                window.sidebar.addPanel(document.title, window.location.href, '');
+            } else if (window.external && ('AddFavorite' in window.external)) {
+                // Internet Explorer
+                window.external.AddFavorite(window.location.href, document.title);
+            } else {
+                // 다른 브라우저들 (Chrome, Safari 등)
+                alert('북마크 추가 방법:\n\n' +
+                      'Chrome/Edge: Ctrl+D\n' +
+                      'Safari: Cmd+D\n' +
+                      'Firefox: Ctrl+D\n\n' +
+                      '또는 브라우저 주소창 오른쪽 별표(⭐) 클릭!');
+            }
         }
+        
         
     </script>
 </body>
