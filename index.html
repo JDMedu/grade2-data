@@ -888,6 +888,74 @@
             .summary-table table[style*="min-width: 1200px"] {
                 min-width: 800px !important; /* 모바일에서는 800px로 축소 */
             }
+            
+            /* 대시보드 모바일 최적화 */
+            .dashboard-grid {
+                grid-template-columns: 1fr !important; /* 한 열로 변경 */
+                gap: 15px;
+            }
+            
+            .dashboard-card {
+                padding: 15px; /* 패딩 축소 */
+                font-size: 3.2vw; /* 뷰포트 단위 적용 */
+            }
+            
+            .dashboard-card h3 {
+                font-size: 4vw;
+                margin-bottom: 12px;
+            }
+            
+            .stat-item {
+                padding: 2vw 0;
+                font-size: 3vw;
+            }
+            
+            .stat-label {
+                font-size: 3vw;
+            }
+            
+            .stat-value {
+                font-size: 3.2vw;
+            }
+            
+            /* D-day 카운터 모바일 최적화 */
+            .dday-counter {
+                padding: 15px;
+                margin: 15px 0;
+            }
+            
+            .dday-number {
+                font-size: 2.5em; /* 3em에서 축소 */
+            }
+            
+            .dday-text {
+                font-size: 4vw;
+            }
+            
+            /* 뱃지 컨테이너 모바일 최적화 */
+            .badge-container {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* 140px에서 120px로 축소 */
+                gap: 6px;
+            }
+            
+            .achievement-badge {
+                padding: 6px 8px; /* 8px 10px에서 축소 */
+                font-size: 2.8vw; /* 0.85em에서 뷰포트 단위로 */
+                min-height: 32px; /* 36px에서 축소 */
+            }
+            
+            .badge-summary {
+                font-size: 3vw;
+                padding: 8px;
+                margin: 12px 0;
+            }
+            
+            /* 차트 컨테이너 모바일 최적화 */
+            .chart-container {
+                height: 250px; /* 300px에서 축소 */
+                margin: 15px 0;
+            }
+        }
         }
         /* 추가 기능 스타일 */
 .dashboard-grid {
