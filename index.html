@@ -1497,10 +1497,10 @@
                                     background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45, #FFDC80);
                                     color: white; 
                                     text-decoration: none; 
-                                    padding: 24px 48px; 
-                                    border-radius: 30px; 
+                                    padding: 22px 42px; 
+                                    border-radius: 27px; 
                                     font-weight: bold; 
-                                    font-size: 1.4em;
+                                    font-size: 1.2em;
                                     transition: transform 0.2s;
                                 " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                                     📸 관리자 대건T Instagram
@@ -1512,30 +1512,15 @@
                                     background: linear-gradient(45deg, #4CAF50, #45a049, #66BB6A, #81C784);
                                     color: white; 
                                     text-decoration: none; 
-                                    padding: 24px 48px; 
-                                    border-radius: 30px; 
+                                   padding: 22px 42px; 
+                                    border-radius: 27px; 
                                     font-weight: bold; 
-                                    font-size: 1.4em;
+                                    font-size: 1.2em;
                                     transition: transform 0.2s;
                                 " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                                     🎓 대입 합격 예측 시스템
                                 </a>
-                                <button onclick="addToBookmarks()" style="
-                                    display: inline-flex; 
-                                    align-items: center; 
-                                    gap: 8px; 
-                                    background: linear-gradient(45deg, #FF6B6B, #FF8E53, #FF6B35, #FF4757);
-                                    color: white; 
-                                    border: none;
-                                    cursor: pointer;
-                                    padding: 24px 48px; 
-                                    border-radius: 30px; 
-                                    font-weight: bold; 
-                                    font-size: 1.4em;
-                                    transition: transform 0.2s;
-                                " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                                    ⭐ 북마크 추가
-                                </button>
+                                
                             </div>
                     </div>
                 </div>
@@ -3763,36 +3748,6 @@
             });
          }
         
-        // 북마크 추가 함수
-        function addToBookmarks() {
-            // Ctrl+D 키 이벤트 시뮬레이션
-            const event = new KeyboardEvent('keydown', {
-                key: 'd',
-                code: 'KeyD',
-                keyCode: 68,
-                ctrlKey: true,
-                bubbles: true,
-                cancelable: true
-            });
-            
-            // 문서에 이벤트 발송
-            document.dispatchEvent(event);
-            
-            // 대부분의 모던 브라우저에서는 보안상 이유로 프로그래밍 방식의 Ctrl+D가 차단됨
-            // 따라서 fallback으로 안내 메시지 표시
-            setTimeout(() => {
-                if (window.sidebar && window.sidebar.addPanel) {
-                    // Firefox
-                    window.sidebar.addPanel(document.title, window.location.href, '');
-                } else if (window.external && ('AddFavorite' in window.external)) {
-                    // Internet Explorer
-                    window.external.AddFavorite(window.location.href, document.title);
-                } else {
-                    // 다른 브라우저들
-                    alert('🔖 북마크를 추가하려면 Ctrl+D를 눌러주세요!\n\n(또는 주소창 오른쪽 ⭐ 클릭)');
-                }
-            }, 100);
-        }
         
         
     </script>
