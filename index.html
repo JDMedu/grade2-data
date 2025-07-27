@@ -4055,7 +4055,11 @@
                 badge.removeEventListener('mouseleave', badge._mouseleaveHandler);
                 badge.removeEventListener('click', badge._clickHandler);
                 
-                var badgeText = badge.textContent.replace('NEW!', '').trim();
+                var badgeText = badge.textContent
+                .replace('NEW!', '')
+                .replace(/[\n\r\t]/g, ' ')  // 줄바꿈, 탭 문자를 공백으로 변경
+                .replace(/\s+/g, ' ')       // 연속된 공백을 하나로 통합
+                .trim();                    // 앞뒤 공백 제거
                 console.log('뱃지 설정:', index, badgeText);
                 
                 // PC: 마우스 이벤트
