@@ -3193,12 +3193,17 @@
             displaySummaryTable(student);
             displayGrades(student.grades);
             resultsDiv.style.display = 'block';
-            setTimeout(addBadgeTooltipEvents, 100);
+
+        
+            // 뱃지 툴팁 이벤트를 더 긴 지연 후 실행
+            setTimeout(addBadgeTooltipEvents, 500);
 
             // 그래프 생성 (약간의 지연 후)
             setTimeout(function() {
                 createChart(student);
             }, 100);
+            
+        }
             
         }
 
@@ -3958,11 +3963,18 @@
         
         // 뱃지 툴팁 표시 함수
         function showBadgeTooltip(event, badgeText) {
+            console.log('툴팁 표시 시도:', badgeText);
+            
             // 기존 툴팁 제거
             hideBadgeTooltip();
             
             var description = badgeDescriptions[badgeText];
-            if (!description) return;
+            if (!description) {
+                console.log('설명을 찾을 수 없음:', badgeText);
+                return;
+            }
+            
+            console.log('툴팁 생성 중:', description);
             
             // 툴팁 생성
             var tooltip = document.createElement('div');
@@ -3972,6 +3984,7 @@
             
             // 모바일 체크
             var isMobile = window.innerWidth <= 768;
+            console.log('isMobile:', isMobile);
             
             if (!isMobile) {
                 // PC: 마우스 위치 기준
@@ -3985,11 +3998,18 @@
                 left = Math.max(10, Math.min(left, window.innerWidth - tooltipRect.width - 10));
                 if (top < 10) {
                     top = rect.bottom + 10;
-                    tooltip.style.transform = 'translateY(0)';
                 }
                 
                 tooltip.style.left = left + 'px';
                 tooltip.style.top = top + 'px';
+                tooltip.style.position = 'absolute';
+            } else {
+                // 모바일: 화면 하단 고정
+                tooltip.style.position = 'fixed';
+                tooltip.style.bottom = '20px';
+                tooltip.style.left = '20px';
+                tooltip.style.right = '20px';
+                tooltip.style.maxWidth = 'none';
             }
             
             // 애니메이션으로 표시
@@ -4003,6 +4023,8 @@
             if (isMobile) {
                 tooltipTimeout = setTimeout(hideBadgeTooltip, 3000);
             }
+            
+            console.log('툴팁 표시 완료');
         }
         
         // 뱃지 툴팁 숨김 함수
@@ -4026,40 +4048,58 @@
         // 뱃지에 이벤트 리스너 추가하는 함수
         function addBadgeTooltipEvents() {
             var badges = document.querySelectorAll('.achievement-badge');
+            console.log('뱃지 툴팁 이벤트 설정 중... 발견된 뱃지 수:', badges.length);
             
-            badges.forEach(function(badge) {
+            badges.forEach(function(badge, index) {
+                // 기존 이벤트 리스너 제거
+                badge.removeEventListener('mouseenter', badge._mouseenterHandler);
+                badge.removeEventListener('mouseleave', badge._mouseleaveHandler);
+                badge.removeEventListener('click', badge._clickHandler);
+                
                 var badgeText = badge.textContent.replace('NEW!', '').trim();
+                console.log('뱃지 설정:', index, badgeText);
                 
                 // PC: 마우스 이벤트
-                badge.addEventListener('mouseenter', function(e) {
+                badge._mouseenterHandler = function(e) {
                     if (window.innerWidth > 768) {
+                        console.log('마우스 엔터:', badgeText);
                         showBadgeTooltip(e, badgeText);
                     }
-                });
+                };
                 
-                badge.addEventListener('mouseleave', function() {
+                badge._mouseleaveHandler = function() {
                     if (window.innerWidth > 768) {
+                        console.log('마우스 리브:', badgeText);
                         hideBadgeTooltip();
                     }
-                });
+                };
                 
                 // 모바일: 클릭 이벤트
-                badge.addEventListener('click', function(e) {
+                badge._clickHandler = function(e) {
                     e.preventDefault();
-                    if (window.innerWidth <= 768) {
-                        if (currentTooltip) {
-                            hideBadgeTooltip();
-                        } else {
-                            showBadgeTooltip(e, badgeText);
-                        }
+                    e.stopPropagation();
+                    console.log('뱃지 클릭:', badgeText, 'isMobile:', window.innerWidth <= 768);
+                    
+                    if (currentTooltip) {
+                        hideBadgeTooltip();
+                    } else {
+                        showBadgeTooltip(e, badgeText);
                     }
-                });
+                };
+                
+                badge.addEventListener('mouseenter', badge._mouseenterHandler);
+                badge.addEventListener('mouseleave', badge._mouseleaveHandler);
+                badge.addEventListener('click', badge._clickHandler);
             });
         }
         
         // 전역 클릭 이벤트로 툴팁 숨김 (모바일)
         document.addEventListener('click', function(e) {
-            if (currentTooltip && !e.target.classList.contains('achievement-badge')) {
+            // 뱃지나 툴팁을 클릭한 경우가 아니라면 툴팁 숨김
+            if (currentTooltip && 
+                !e.target.classList.contains('achievement-badge') && 
+                !e.target.closest('.achievement-badge') &&
+                !e.target.closest('.badge-tooltip')) {
                 hideBadgeTooltip();
             }
         });
