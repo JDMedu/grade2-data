@@ -1133,7 +1133,16 @@
             animation: grand-master-glow 2s infinite alternate;
         }
         
-        
+        /* 새로운 뱃지 스타일 */
+        .achievement-badge.single-jump { 
+            background: linear-gradient(45deg, #16a085, #2ecc71); 
+        }
+        .achievement-badge.total-growth { 
+            background: linear-gradient(45deg, #27ae60, #2ecc71); 
+        }
+        .achievement-badge.subject-master { 
+            background: linear-gradient(45deg, #9b59b6, #8e44ad); 
+        }
     </style>
 </head>
 <body>
@@ -3511,6 +3520,7 @@
             var scores = [];
             var gradeValues = [];
             var subjectScores = {};
+            var subjectRatios = {}; // 과목별 성취도 비율 저장
             
             gradeKeys.forEach(function(testName) {
                 var gradeData = grades[testName];
@@ -3522,6 +3532,10 @@
                     Object.keys(gradeData.details).forEach(function(subject) {
                         if (!subjectScores[subject]) subjectScores[subject] = [];
                         subjectScores[subject].push(gradeData.details[subject]);
+                        if (!subjectRatios[subject]) subjectRatios[subject] = [];
+                        if (gradeData.ratios && gradeData.ratios[subject]) {
+                            subjectRatios[subject].push(gradeData.ratios[subject]);
+                        }
                     });
                 }
             });
@@ -3775,6 +3789,7 @@
         }
         
         return badges;
+    }  // 
         
         // 📅 D-day 계산
         function calculateDday() {
