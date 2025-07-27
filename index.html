@@ -4255,7 +4255,7 @@
                  badges.length >= 25 ? ' 💪 많이 모았네요!' : '') + '</div>' +
                     '<div class="badge-container">' +
                     badges.map(badge => 
-                       `<div class="achievement-badge ${badge.type} ${badge.isNew ? 'badge-new' : ''}" title="${badge.text}">
+                       `<div class="achievement-badge ${badge.type} ${badge.isNew ? 'badge-new' : ''}">
                             <span>${badge.icon}</span>
                             <span>${badge.text}</span>
                             ${badge.isNew ? '<span style="font-size: 0.7em;">NEW!</span>' : ''}
