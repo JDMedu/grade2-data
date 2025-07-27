@@ -3556,7 +3556,7 @@
                 if (avg >= 90) excellentSubjects++;
             });
             
-        // 🏆 뱃지 조건 체크 (20개 뱃지, 중복 가능)
+      // 🏆 뱃지 조건 체크 (43개 뱃지, 중복 가능)
         
         // 1. 등급 관련 뱃지 (5개)
         if (stats.bestGrade === 1) {
@@ -3597,10 +3597,10 @@
             badges.push({ icon: "🚀", text: "3연속 상승", type: "trend", isNew: true });
         }
         if (maxConsecutiveUp >= 4) {
-            badges.push({ icon: "🌪️", text: "폭풍 상승", type: "trend", isNew: true });
+            badges.push({ icon: "🌪️", text: "4연속 폭풍 상승", type: "trend", isNew: true });
         }
         
-        // 4. 점수 개선 뱃지 (3개)
+        // 4. 점수 개선 뱃지 (3개) - 최근 변화량
         if (stats.scoreChange >= 15) {
             badges.push({ icon: "📈", text: "대폭 상승", type: "improvement", isNew: true });
         }
@@ -3630,8 +3630,6 @@
             badges.push({ icon: "🎨", text: "과목 마스터", type: "special", isNew: false });
         }
         
-        // 새로 추가된 뱃지들 (6개)
-        
         // 7. 안정성 뱃지 (2개)
         if (scores.length >= 3) {
             var scoreVariance = calculateVariance(scores);
@@ -3651,7 +3649,7 @@
             badges.push({ icon: "🎖️", text: "상위 20%", type: "rank", isNew: false });
         }
         
-        // 9. 특수 상황 뱃지 (2개)
+        // 9. 회복/성장 뱃지 (2개)
         if (maxConsecutiveDown >= 2 && consecutiveUp >= 2) {
             badges.push({ icon: "🔄", text: "극적 회복", type: "recovery", isNew: true });
         }
@@ -3659,8 +3657,124 @@
             badges.push({ icon: "📊", text: "장기 성장", type: "recovery", isNew: false });
         }
         
+        // ========== 🆕 새로 추가된 뱃지들 ==========
+        
+        // 10. 한 번의 큰 점프 뱃지 (3개)
+        var maxSingleJump = 0;
+        if (scores.length >= 2) {
+            for (var i = 1; i < scores.length; i++) {
+                var jump = scores[i] - scores[i-1];
+                maxSingleJump = Math.max(maxSingleJump, jump);
+            }
+            
+            // 한 번의 큰 점프 뱃지
+            if (maxSingleJump >= 35) {
+                badges.push({ icon: "🌈", text: "놀라운 점프", type: "single-jump", isNew: true });
+            }
+            if (maxSingleJump >= 25) {
+                badges.push({ icon: "🎢", text: "큰 도약", type: "single-jump", isNew: false });
+            }
+            if (maxSingleJump >= 15) {
+                badges.push({ icon: "📍", text: "성공적 점프", type: "single-jump", isNew: false });
+            }
+        }
+        
+        // 11. 전체 성장 뱃지 (2개)
+        if (scores.length >= 3) {
+            // 역전 스토리 뱃지 (한번 많이 떨어졌다가 다시 올라온 경우)
+            var minScore = Math.min(...scores);
+            var maxScore = Math.max(...scores);
+            var minIndex = scores.indexOf(minScore);
+            var maxIndex = scores.lastIndexOf(maxScore);
+            
+            if (minIndex < maxIndex && (maxScore - minScore) >= 40) {
+                badges.push({ icon: "🔄", text: "역전의 스토리", type: "total-growth", isNew: true });
+            }
+            
+            // 안정적 상승 (전체적으로 꾸준히 오름)
+            var upwardCount = 0;
+            for (var i = 1; i < scores.length; i++) {
+                if (scores[i] >= scores[i-1]) upwardCount++;
+            }
+            var upwardRatio = upwardCount / (scores.length - 1);
+            
+            var firstScore = scores[0];
+            var lastScore = scores[scores.length - 1];
+            var totalChange = lastScore - firstScore;
+            
+            if (upwardRatio >= 0.8 && totalChange >= 15) {
+                badges.push({ icon: "🚀", text: "꾸준한 상승세", type: "total-growth", isNew: false });
+            }
+        }
+
+        // 12. 과목별 마스터 뱃지 (9개)
+        var subjectMasters = [];
+        
+        // 9개 국어 세부 과목
+        var koreanSubjects = [
+            '화법과 작문', '문법', '독서(인문)', '독서(사회)', '독서(과학)',
+            '문학(현대시)', '문학(현대소설)', '문학(고전시가)', '문학(고전소설)'
+        ];
+        
+        koreanSubjects.forEach(function(targetSubject) {
+            // 과목명 매핑 (여러 표기법 대응)
+            var subjectMapping = {
+                '화법과 작문': ['화법과 작문', '화법과작문', '화작'],
+                '문법': ['문법', '언어와 매체', '언어와매체', '언매'],
+                '독서(인문)': ['독서(인문)', '독서인문', '인문'],
+                '독서(사회)': ['독서(사회)', '독서사회', '사회'],
+                '독서(과학)': ['독서(과학)', '독서과학', '과학'],
+                '문학(현대시)': ['문학(현대시)', '문학현대시', '현대시', '현시'],
+                '문학(현대소설)': ['문학(현대소설)', '문학현대소설', '현대소설', '현소'],
+                '문학(고전시가)': ['문학(고전시가)', '문학고전시가', '고전시가', '고시'],
+                '문학(고전소설)': ['문학(고전소설)', '문학고전소설', '고전소설', '고소']
+            };
+            
+            var possibleNames = subjectMapping[targetSubject] || [targetSubject];
+            var matchedSubject = null;
+            
+            // 실제 데이터에서 매칭되는 과목 찾기
+            for (var actualSubject in subjectRatios) {
+                for (var i = 0; i < possibleNames.length; i++) {
+                    if (actualSubject === possibleNames[i] || 
+                        actualSubject.includes(possibleNames[i]) || 
+                        possibleNames[i].includes(actualSubject)) {
+                        matchedSubject = actualSubject;
+                        break;
+                    }
+                }
+                if (matchedSubject) break;
+            }
+            
+            if (matchedSubject && subjectRatios[matchedSubject]) {
+                var ratios = subjectRatios[matchedSubject];
+                var recent4 = ratios.slice(-4); // 최근 4회
+                
+                // 최근 4회 모두 100% 달성
+                if (recent4.length >= 4 && recent4.every(ratio => ratio >= 100)) {
+                    badges.push({ 
+                        icon: "🏆", 
+                        text: targetSubject + " 마스터", 
+                        type: "subject-master", 
+                        isNew: true 
+                    });
+                    subjectMasters.push(targetSubject);
+                }
+            }
+        });
+        
+        // 13. 종합 뱃지 (3개)
+        if (subjectMasters.length >= 3) {
+            badges.push({ icon: "🎓", text: "국어 올라운더", type: "subject-master", isNew: true });
+        }
+        if (subjectMasters.length >= 5) {
+            badges.push({ icon: "📚", text: "국어 마에스트로", type: "subject-master", isNew: true });
+        }
+        if (subjectMasters.length >= 9) {
+            badges.push({ icon: "👑", text: "국어 레전더리", type: "subject-master", isNew: true });
+        }
+        
         return badges;
-    }
         
         // 📅 D-day 계산
         function calculateDday() {
@@ -3779,49 +3893,51 @@
                         </div>
                     </div>
                     
-                    <!-- 🏆 성취 뱃지 -->
-                    <div class="dashboard-card">
-                        <h3>🏆 성취 뱃지 <span style="font-size: 0.8em; color: #667eea;">(${badges.length}/20개 획득)</span></h3>
-                        
-                        ${badges.length >= 20 ? 
-                            `<div style="
-                                background: linear-gradient(135deg, #ffd700, #ff8c00); 
-                                color: white; 
-                                border-radius: 15px; 
-                                padding: 20px; 
-                                margin: 15px 0; 
-                                text-align: center; 
-                                box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
-                                animation: grand-master-glow 2s infinite alternate;
-                            ">
-                                <div style="font-size: 2em; margin-bottom: 10px;">🎊👑🎊</div>
-                                <div style="font-size: 1.3em; font-weight: bold; margin-bottom: 10px;">
-                                    축하합니다! 모든 뱃지를 모아<br>
-                                    국어 그랜드 마스터가 되었습니다! 🏆
-                                </div>
-                                <div style="font-size: 1.1em; opacity: 0.95;">
-                                    이대건T에게 가서 선물을 수령하세요! 🎁
-                                </div>
-                            </div>` : 
-                            ''
-                        }
-                        
-                        ${badges.length > 0 ? 
-                            '<div class="badge-summary">총 ' + badges.length + '/20개의 뱃지를 획득했습니다!' + 
-                            (badges.length >= 20 ? ' 🎉 그랜드 마스터 달성!' : badges.length >= 15 ? ' 거의 다 모았어요!' : '') + '</div>' +
-                            '<div class="badge-container">' +
-                            badges.map(badge => 
-                                `<div class="achievement-badge ${badge.type} ${badge.isNew ? 'badge-new' : ''}">
-                                    <span>${badge.icon}</span>
-                                    <span>${badge.text}</span>
-                                    ${badge.isNew ? '<span style="font-size: 0.7em;">NEW!</span>' : ''}
-                                </div>`
-                            ).join('') +
-                            '</div>' :
-                            '<p style="color: #666; text-align: center; padding: 20px;">더 많은 시험을 치르면 뱃지를 획득할 수 있어요!</p>'
-                        }
+                   <!-- 🏆 성취 뱃지 -->
+            <div class="dashboard-card">
+                <h3>🏆 성취 뱃지 <span style="font-size: 0.8em; color: #667eea;">(${badges.length}/43개 획득)</span></h3>
+                
+                ${badges.length >= 30 ? 
+                `<div style="
+                    background: linear-gradient(135deg, #ffd700, #ff8c00); 
+                    color: white; 
+                    border-radius: 15px; 
+                    padding: 20px; 
+                    margin: 15px 0; 
+                    text-align: center; 
+                    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+                    animation: grand-master-glow 2s infinite alternate;
+                ">
+                    <div style="font-size: 2em; margin-bottom: 10px;">🎊👑🎊</div>
+                    <div style="font-size: 1.3em; font-weight: bold; margin-bottom: 10px;">
+                        축하합니다! 30개 이상의 뱃지를 모아<br>
+                        국어 그랜드 마스터가 되었습니다! 🏆
                     </div>
-                </div>
+                    <div style="font-size: 1.1em; opacity: 0.95;">
+                        이대건T에게 가서 선물을 수령하세요! 🎁
+                    </div>
+                </div>` : 
+                ''
+            }
+            
+            ${badges.length > 0 ? 
+                '<div class="badge-summary">총 ' + badges.length + '/43개의 뱃지를 획득했습니다!' + 
+                (badges.length >= 40 ? ' 🔥 노력하는 제자에게 응援을 보냅니다!' : 
+                 badges.length >= 35 ? ' 🌟 거의 다 모았어요!' : 
+                 badges.length >= 30 ? ' 🎉 국어 그랜드 마스터 달성!' : 
+                 badges.length >= 25 ? ' 💪 많이 모았네요!' : '') + '</div>' +
+                    '<div class="badge-container">' +
+                    badges.map(badge => 
+                        `<div class="achievement-badge ${badge.type} ${badge.isNew ? 'badge-new' : ''}">
+                            <span>${badge.icon}</span>
+                            <span>${badge.text}</span>
+                            ${badge.isNew ? '<span style="font-size: 0.7em;">NEW!</span>' : ''}
+                        </div>`
+                    ).join('') +
+                    '</div>' :
+                    '<p style="color: #666; text-align: center; padding: 20px;">더 많은 시험을 치르면 뱃지를 획득할 수 있어요!</p>'
+                }
+            </div>
                 
                 <!-- 📈 성적 변화 그래프 -->
                 <div class="dashboard-card" style="margin: 25px 0;">
