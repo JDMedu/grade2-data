@@ -1143,6 +1143,81 @@
         .achievement-badge.subject-master { 
             background: linear-gradient(45deg, #9b59b6, #8e44ad); 
         }
+
+        /* 뱃지 설명 툴팁 스타일 */
+        .badge-tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            max-width: 250px;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            pointer-events: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            line-height: 1.4;
+        }
+        
+        .badge-tooltip.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .badge-tooltip::after {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-bottom: 6px solid rgba(0, 0, 0, 0.9);
+        }
+        
+        .achievement-badge {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .achievement-badge:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+        
+        /* 모바일에서 클릭 피드백 */
+        .achievement-badge:active {
+            transform: scale(0.95);
+        }
+        
+        @media (max-width: 768px) {
+            .badge-tooltip {
+                position: fixed;
+                bottom: 20px;
+                left: 20px;
+                right: 20px;
+                max-width: none;
+                text-align: center;
+            }
+            
+            .badge-tooltip::after {
+                display: none;
+            }
+        }
+        
+        .badge-new {
+            animation: pulse-badge 2s infinite;
+        }
+        
+        @keyframes pulse-badge {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
     </style>
 </head>
 <body>
@@ -3118,6 +3193,7 @@
             displaySummaryTable(student);
             displayGrades(student.grades);
             resultsDiv.style.display = 'block';
+            setTimeout(addBadgeTooltipEvents, 100);
 
             // 그래프 생성 (약간의 지연 후)
             setTimeout(function() {
@@ -3762,19 +3838,31 @@
                 }
                 
                 if (matchedSubject && subjectRatios[matchedSubject]) {
-                    var ratios = subjectRatios[matchedSubject];
-                    var recent4 = ratios.slice(-4);
-                    
-                    if (recent4.length >= 4 && recent4.every(ratio => ratio >= 100)) {
-                        badges.push({ 
-                            icon: "🏆", 
-                            text: targetSubject + " 마스터", 
-                            type: "subject-master", 
-                            isNew: true 
-                        });
-                        subjectMasters.push(targetSubject);
+                var ratios = subjectRatios[matchedSubject];
+                
+                // 전체 시험 중 연속된 4회 100% 달성 여부 체크
+                var hasConsecutive4Perfect = false;
+                
+                if (ratios.length >= 4) {
+                    for (var i = 0; i <= ratios.length - 4; i++) {
+                        var consecutive4 = ratios.slice(i, i + 4);
+                        if (consecutive4.every(ratio => ratio >= 100)) {
+                            hasConsecutive4Perfect = true;
+                            break;
+                        }
                     }
                 }
+                
+                if (hasConsecutive4Perfect) {
+                    badges.push({ 
+                        icon: "🏆", 
+                        text: targetSubject + " 마스터", 
+                        type: "subject-master", 
+                        isNew: true 
+                    });
+                    subjectMasters.push(targetSubject);
+                }
+            }
             });
             
             // 13. 종합 뱃지 (3개)
@@ -3791,6 +3879,190 @@
             // 
             return badges;
         }
+
+        // 뱃지 설명 데이터
+        var badgeDescriptions = {
+            // 등급 관련 뱃지
+            "1등급 달성": "국어 모의고사에서 최고 등급인 1등급을 달성했습니다! 상위 4% 안에 드는 뛰어난 성취입니다.",
+            "상위등급 달성": "2등급 이상의 상위 등급을 달성했습니다. 꾸준한 노력의 결과입니다!",
+            "3등급 이내": "3등급 이내의 준수한 성적을 기록했습니다. 상위권 진입의 발판이 되었네요!",
+            "우수한 등급": "평균 2.5등급 이상의 우수한 성적을 유지하고 있습니다.",
+            "최상위 등급": "평균 1.5등급 이상! 최상위권 학생의 증거입니다.",
+            
+            // 점수 관련 뱃지
+            "95점 이상": "95점 이상의 고득점을 달성했습니다! 거의 만점에 가까운 실력이네요.",
+            "고득점자": "평균 85점 이상의 안정적인 고득점을 유지하고 있습니다.",
+            "만점 달성": "100점 만점을 달성했습니다! 완벽한 실력을 보여주었네요.",
+            "우수한 평균": "평균 90점 이상의 뛰어난 실력을 보여주고 있습니다.",
+            
+            // 성적 변화 뱃지
+            "연속 상승": "2회 연속으로 성적이 상승했습니다. 꾸준한 발전이 돋보입니다!",
+            "3연속 상승": "3회 연속 상승! 지속적인 성장 곡선을 그리고 있습니다.",
+            "4연속 폭풍 상승": "4회 연속 상승의 놀라운 기록! 멈출 수 없는 상승세입니다.",
+            
+            // 점수 개선 뱃지
+            "대폭 상승": "이전 시험 대비 15점 이상 상승했습니다. 큰 발전이네요!",
+            "폭발적 상승": "25점 이상의 폭발적인 상승을 기록했습니다!",
+            "기적의 상승": "35점 이상의 기적 같은 상승! 놀라운 발전입니다.",
+            
+            // 출석 및 성실성 뱃지
+            "성실한 응시": "5회 이상의 모의고사에 성실하게 참여했습니다.",
+            "꾸준한 도전": "8회 이상 꾸준히 모의고사에 도전하는 성실함을 보였습니다.",
+            "완벽한 출석": "모든 모의고사에 빠짐없이 참여했습니다. 성실성의 상징!",
+            
+            // 특별 성취 뱃지
+            "다재다능": "3개 이상의 과목에서 80점 이상의 우수한 성적을 기록했습니다.",
+            "과목 마스터": "2개 이상의 과목에서 90점 이상의 뛰어난 실력을 보였습니다.",
+            
+            // 안정성 뱃지
+            "안정적 성취": "성적의 편차가 적어 안정적인 실력을 보여주고 있습니다.",
+            "완벽한 안정": "매우 안정적인 성적 유지! 실력이 확고히 자리잡았습니다.",
+            
+            // 순위 관련 뱃지
+            "상위 5%": "상위 5% 안에 드는 최상위권 학생입니다!",
+            "상위 20%": "상위 20% 안에 드는 우수한 학생입니다.",
+            
+            // 회복/성장 뱃지
+            "극적 회복": "연속 하락 후 극적으로 회복한 드라마틱한 스토리를 만들었습니다!",
+            "장기 성장": "장기간에 걸쳐 20점 이상의 꾸준한 성장을 보였습니다.",
+            
+            // 한번의 큰 점프 뱃지
+            "놀라운 점프": "한 번에 35점 이상의 놀라운 점수 향상을 이뤘습니다!",
+            "큰 도약": "25점 이상의 큰 도약을 해냈습니다!",
+            "성공적 점프": "15점 이상의 성공적인 점수 향상을 기록했습니다.",
+            
+            // 전체 성장 뱃지
+            "역전의 스토리": "최저점에서 최고점까지, 감동적인 역전 드라마를 써냈습니다!",
+            "꾸준한 상승세": "전체적으로 꾸준한 상승세를 보이며 성장하고 있습니다.",
+            
+            // 과목별 마스터 뱃지
+            "화법과 작문 마스터": "화법과 작문 영역에서 최근 4회 연속 만점! 완벽한 마스터입니다.",
+            "문법 마스터": "문법 영역 최근 4회 연속 만점! 언어 규칙을 완벽히 습득했습니다.",
+            "독서(인문) 마스터": "인문 독서 영역 최근 4회 연속 만점! 인문학적 사고력이 뛰어납니다.",
+            "독서(사회) 마스터": "사회 독서 영역 최근 4회 연속 만점! 사회 현상 이해력이 우수합니다.",
+            "독서(과학) 마스터": "과학 독서 영역 최근 4회 연속 만점! 과학적 사고력이 탁월합니다.",
+            "문학(현대시) 마스터": "현대시 영역 최근 4회 연속 만점! 시적 감수성이 뛰어납니다.",
+            "문학(현대소설) 마스터": "현대소설 영역 최근 4회 연속 만점! 서사 이해력이 완벽합니다.",
+            "문학(고전시가) 마스터": "고전시가 영역 최근 4회 연속 만점! 고전 문학의 진수를 이해했습니다.",
+            "문학(고전소설) 마스터": "고전소설 영역 최근 4회 연속 만점! 고전 서사의 대가입니다.",
+            
+            // 종합 뱃지
+            "국어 올라운더": "3개 이상의 과목에서 마스터 달성! 국어의 다양한 영역에 능통합니다.",
+            "국어 마에스트로": "5개 이상의 과목에서 마스터 달성! 국어 실력이 대가 수준입니다.",
+            "국어 레전더리": "모든 9개 과목에서 마스터 달성! 국어계의 전설이 되었습니다!"
+        };
+        
+        // 툴팁 관리 변수
+        var currentTooltip = null;
+        var tooltipTimeout = null;
+        
+        // 뱃지 툴팁 표시 함수
+        function showBadgeTooltip(event, badgeText) {
+            // 기존 툴팁 제거
+            hideBadgeTooltip();
+            
+            var description = badgeDescriptions[badgeText];
+            if (!description) return;
+            
+            // 툴팁 생성
+            var tooltip = document.createElement('div');
+            tooltip.className = 'badge-tooltip';
+            tooltip.innerHTML = '<strong>' + badgeText + '</strong><br>' + description;
+            document.body.appendChild(tooltip);
+            
+            // 모바일 체크
+            var isMobile = window.innerWidth <= 768;
+            
+            if (!isMobile) {
+                // PC: 마우스 위치 기준
+                var rect = event.target.getBoundingClientRect();
+                var tooltipRect = tooltip.getBoundingClientRect();
+                
+                var left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
+                var top = rect.top - tooltipRect.height - 10;
+                
+                // 화면 밖으로 나가지 않도록 조정
+                left = Math.max(10, Math.min(left, window.innerWidth - tooltipRect.width - 10));
+                if (top < 10) {
+                    top = rect.bottom + 10;
+                    tooltip.style.transform = 'translateY(0)';
+                }
+                
+                tooltip.style.left = left + 'px';
+                tooltip.style.top = top + 'px';
+            }
+            
+            // 애니메이션으로 표시
+            requestAnimationFrame(function() {
+                tooltip.classList.add('visible');
+            });
+            
+            currentTooltip = tooltip;
+            
+            // 모바일에서는 3초 후 자동 숨김
+            if (isMobile) {
+                tooltipTimeout = setTimeout(hideBadgeTooltip, 3000);
+            }
+        }
+        
+        // 뱃지 툴팁 숨김 함수
+        function hideBadgeTooltip() {
+            if (currentTooltip) {
+                currentTooltip.classList.remove('visible');
+                setTimeout(function() {
+                    if (currentTooltip && currentTooltip.parentNode) {
+                        currentTooltip.parentNode.removeChild(currentTooltip);
+                    }
+                    currentTooltip = null;
+                }, 300);
+            }
+            
+            if (tooltipTimeout) {
+                clearTimeout(tooltipTimeout);
+                tooltipTimeout = null;
+            }
+        }
+        
+        // 뱃지에 이벤트 리스너 추가하는 함수
+        function addBadgeTooltipEvents() {
+            var badges = document.querySelectorAll('.achievement-badge');
+            
+            badges.forEach(function(badge) {
+                var badgeText = badge.textContent.replace('NEW!', '').trim();
+                
+                // PC: 마우스 이벤트
+                badge.addEventListener('mouseenter', function(e) {
+                    if (window.innerWidth > 768) {
+                        showBadgeTooltip(e, badgeText);
+                    }
+                });
+                
+                badge.addEventListener('mouseleave', function() {
+                    if (window.innerWidth > 768) {
+                        hideBadgeTooltip();
+                    }
+                });
+                
+                // 모바일: 클릭 이벤트
+                badge.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (window.innerWidth <= 768) {
+                        if (currentTooltip) {
+                            hideBadgeTooltip();
+                        } else {
+                            showBadgeTooltip(e, badgeText);
+                        }
+                    }
+                });
+            });
+        }
+        
+        // 전역 클릭 이벤트로 툴팁 숨김 (모바일)
+        document.addEventListener('click', function(e) {
+            if (currentTooltip && !e.target.classList.contains('achievement-badge')) {
+                hideBadgeTooltip();
+            }
+        });
         
         // 📅 D-day 계산
         function calculateDday() {
@@ -3944,15 +4216,20 @@
                  badges.length >= 25 ? ' 💪 많이 모았네요!' : '') + '</div>' +
                     '<div class="badge-container">' +
                     badges.map(badge => 
-                        `<div class="achievement-badge ${badge.type} ${badge.isNew ? 'badge-new' : ''}">
+                       `<div class="achievement-badge ${badge.type} ${badge.isNew ? 'badge-new' : ''}" title="${badge.text}">
                             <span>${badge.icon}</span>
                             <span>${badge.text}</span>
                             ${badge.isNew ? '<span style="font-size: 0.7em;">NEW!</span>' : ''}
                         </div>`
                     ).join('') +
                     '</div>' :
-                    '<p style="color: #666; text-align: center; padding: 20px;">더 많은 시험을 치르면 뱃지를 획득할 수 있어요!</p>'
+                '<p style="color: #666; text-align: center; padding: 20px;">더 많은 시험을 치르면 뱃지를 획득할 수 있어요!</p>'
                 }
+                
+                <div style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 8px; font-size: 0.85em; text-align: center;">
+                    💡 <strong>PC:</strong> 마우스를 뱃지에 올리면 설명을 볼 수 있어요!<br>
+                    📱 <strong>모바일:</strong> 뱃지를 터치하면 설명이 나타납니다!
+                </div>
             </div>
                 
                 <!-- 📈 성적 변화 그래프 -->
