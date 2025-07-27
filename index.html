@@ -4046,37 +4046,21 @@
                 .trim();                    // 앞뒤 공백 제거
                 console.log('뱃지 설정:', index, badgeText);
                 
-                // PC: 마우스 이벤트
-                badge._mouseenterHandler = function(e) {
-                    if (window.innerWidth > 768) {
-                        console.log('마우스 엔터:', badgeText);
-                        showBadgeTooltip(e, badgeText);
-                    }
-                };
-                
-                badge._mouseleaveHandler = function() {
-                    if (window.innerWidth > 768) {
-                        console.log('마우스 리브:', badgeText);
-                        hideBadgeTooltip();
-                    }
-                };
-                
+                                
                 // 모바일: 클릭 이벤트
                 badge._clickHandler = function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log('뱃지 클릭:', badgeText, 'isMobile:', window.innerWidth <= 768);
-                    
-                    if (currentTooltip) {
-                        hideBadgeTooltip();
-                    } else {
-                        showBadgeTooltip(e, badgeText);
-                    }
-                };
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('뱃지 클릭:', badgeText);
                 
-                badge.addEventListener('mouseenter', badge._mouseenterHandler);
-                badge.addEventListener('mouseleave', badge._mouseleaveHandler);
-                badge.addEventListener('click', badge._clickHandler);
+                if (currentTooltip) {
+                    hideBadgeTooltip();
+                } else {
+                    showBadgeTooltip(e, badgeText);
+                }
+            };
+                
+               badge.addEventListener('click', badge._clickHandler);
             });
         }
         
@@ -4254,7 +4238,7 @@
                 }
                 
                 <div style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 8px; font-size: 0.85em; text-align: center;">
-                    💡 <strong>PC:</strong> 마우스를 뱃지에 올리면 설명을 볼 수 있어요!<br>
+                    💡 <strong>PC:</strong> 뱃지를 클릭하면 설명을 볼 수 있어요!<br>
                     📱 <strong>모바일:</strong> 뱃지를 터치하면 설명이 나타납니다!
                 </div>
             </div>
