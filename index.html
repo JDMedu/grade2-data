@@ -4059,6 +4059,9 @@
                 .replace('NEW!', '')
                 .replace(/[\n\r\t]/g, ' ')  // 줄바꿈, 탭 문자를 공백으로 변경
                 .replace(/\s+/g, ' ')       // 연속된 공백을 하나로 통합
+                .replace(/[\u{1F000}-\u{1F9FF}]/gu, '') // 모든 이모지 제거 (유니코드 범위)
+                .replace(/[\u{2600}-\u{26FF}]/gu, '') // 기타 심볼 제거
+                .replace(/[\u{2700}-\u{27BF}]/gu, '') // Dingbats 제거
                 .trim();                    // 앞뒤 공백 제거
                 console.log('뱃지 설정:', index, badgeText);
                 
