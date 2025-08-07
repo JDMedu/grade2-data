@@ -1225,7 +1225,413 @@
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
         }
+
+
+               /* 🆕 고급 학습 계획서 스타일 */
+        .plan-target-setting {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
         
+        .target-input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .target-input-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+        }
+        
+        .target-input-item label {
+            display: block;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+        
+        .target-input-item input,
+        .target-input-item select {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 0.95em;
+        }
+        
+        .generate-plan-btn {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 30px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+        
+        .generate-plan-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+        }
+        
+        /* 고급 계획서 결과 스타일 */
+        .advanced-study-plan {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .plan-document-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .plan-document-header h3 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.95);
+        }
+        
+        .student-info-banner {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .status-dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .status-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid;
+        }
+        
+        .current-status-card {
+            border-left-color: #dc3545;
+        }
+        
+        .target-status-card {
+            border-left-color: #28a745;
+        }
+        
+        .status-card h4 {
+            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .status-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 10px;
+        }
+        
+        .metric-item {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 12px 8px;
+        }
+        
+        .metric-value {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 5px;
+        }
+        
+        .metric-label {
+            font-size: 0.8em;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .improvement-analysis {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .weak-subject-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid;
+        }
+        
+        .weak-subject-card.priority-high {
+            border-left-color: #dc3545;
+        }
+        
+        .weak-subject-card.priority-medium {
+            border-left-color: #ffc107;
+        }
+        
+        .weak-subject-card.priority-low {
+            border-left-color: #17a2b8;
+        }
+        
+        .subject-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .subject-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.95);
+        }
+        
+        .priority-badge {
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .priority-high { background: #dc3545; }
+        .priority-medium { background: #ffc107; color: #333; }
+        .priority-low { background: #17a2b8; }
+        
+        .subject-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .detail-metric {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .detail-value {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 3px;
+        }
+        
+        .detail-label {
+            font-size: 0.8em;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .study-materials {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .material-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .material-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .material-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            text-decoration: none;
+            color: white;
+        }
+        
+        .weekly-schedule-advanced {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .schedule-week-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        .schedule-day {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 15px 10px;
+            text-align: center;
+            min-height: 120px;
+        }
+        
+        .day-name {
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .study-session {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            padding: 8px;
+            margin-bottom: 6px;
+            font-size: 0.8em;
+            line-height: 1.2;
+        }
+        
+        .session-subject {
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+        
+        .session-time {
+            opacity: 0.8;
+        }
+        
+        .motivation-banner {
+            background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+            color: #333;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+        
+        .motivation-banner h4 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .motivation-text {
+            font-size: 1.1em;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+        
+        .plan-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .action-button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .pdf-download-btn {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            color: white;
+        }
+        
+        .pdf-download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4);
+        }
+        
+        .edit-plan-btn {
+            background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+            color: white;
+        }
+        
+        .edit-plan-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 117, 125, 0.4);
+        }
+        
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            .target-input-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .status-dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .schedule-week-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .plan-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .subject-details {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .material-links {
+                flex-direction: column;
+            }
+        }
+        
+        /* 인쇄용 스타일 */
+        @media print {
+            .advanced-study-plan {
+                background: white;
+                color: black;
+            }
+            
+            .plan-actions {
+                display: none;
+            }
+        } 
     </style>
 </head>
 <body>
@@ -1287,6 +1693,69 @@
                                 <div class="loading-dot"></div>
                                 <div class="loading-dot"></div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 🆕 고급 학습 계획서 섹션 -->
+                <div id="studyPlanSection" class="ai-analysis" style="display: none; margin-top: 20px;">
+                    <div class="ai-analysis-header">
+                        <div class="ai-icon">📋</div>
+                        <div>
+                            <h3>맞춤형 학습 계획서 생성</h3>
+                            <p style="opacity: 0.9; margin: 0;">현재 성적 기반 개인별 학습 전략 + 맞춤 문제 자료</p>
+                        </div>
+                    </div>
+                    
+                    <div id="studyPlanContent" class="ai-content">
+                        <!-- 목표 설정 -->
+                        <div class="plan-target-setting">
+                            <h4 style="margin-bottom: 15px; color: rgba(255,255,255,0.9);">🎯 목표 설정</h4>
+                            <div class="target-input-grid">
+                                <div class="target-input-item">
+                                    <label>목표 등급</label>
+                                    <select id="planTargetGrade">
+                                        <option value="">선택하세요</option>
+                                        <option value="1">1등급 (상위 4%)</option>
+                                        <option value="2">2등급 (상위 11%)</option>
+                                        <option value="3">3등급 (상위 23%)</option>
+                                        <option value="4">4등급 (상위 40%)</option>
+                                        <option value="5">5등급 (상위 60%)</option>
+                                    </select>
+                                </div>
+                                <div class="target-input-item">
+                                    <label>목표 점수</label>
+                                    <input type="number" id="planTargetScore" placeholder="목표 점수" min="0" max="100">
+                                </div>
+                                <div class="target-input-item">
+                                    <label>희망 대학</label>
+                                    <input type="text" id="planTargetUniversity" placeholder="예: 연세대학교">
+                                </div>
+                                <div class="target-input-item">
+                                    <label>희망 학과</label>
+                                    <input type="text" id="planTargetMajor" placeholder="예: 국어국문학과">
+                                </div>
+                                <div class="target-input-item">
+                                    <label>목표 달성 기간</label>
+                                    <select id="planTargetPeriod">
+                                        <option value="1">1개월 (집중)</option>
+                                        <option value="2">2개월 (단기)</option>
+                                        <option value="3" selected>3개월 (권장)</option>
+                                        <option value="6">6개월 (장기)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div style="text-align: center; margin-top: 20px;">
+                                <button onclick="generateAdvancedStudyPlan()" class="generate-plan-btn">
+                                    📋 맞춤 학습 계획서 생성하기
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- 생성된 계획서 -->
+                        <div id="generatedAdvancedPlan" style="display: none;">
+                            <!-- 여기에 고급 계획서가 표시됩니다 -->
                         </div>
                     </div>
                 </div>
@@ -1764,6 +2233,948 @@
         
         var maxScores = {}; // 하드코딩된 값 제거, 엑셀에서 추출한 값만 사용
 
+        // 🆕 정동민국어논술학원 실제 구글드라이브 학습 자료 링크 데이터베이스
+var studyMaterialsDB = {
+    "화법과 작문": {
+        "기본": [
+            {
+                name: "종합 모의고사 기초",
+                url: "https://drive.google.com/file/d/1qOkQKIX1lWt37tNxePyTjINXB6MNcayG/view?usp=drive_link",
+                description: "화법과 작문 포함 기초 종합 문제집"
+            }
+        ],
+        "심화": [
+            {
+                name: "화법과 작문 심화",
+                url: "https://drive.google.com/file/d/1ZbDEBiPnj-TDwSk79GlXWgnprAwti-na/view?usp=drive_link",
+                description: "화법과 작문 고난도 문제 완전 정복"
+            },
+            {
+                name: "종합 비기출 모의고사 1회",
+                url: "https://drive.google.com/file/d/1IgMkqG6TGaqXnn6hGgN4nOeY3X0SuSlF/view?usp=sharing",
+                description: "최신 비기출 종합 모의고사"
+            }
+        ],
+        "일일학습": [
+            {
+                name: "매일 푸는 주간지 1",
+                url: "https://drive.google.com/file/d/1bcUdiiC-fMD-YbWZefIem3vZhJKNtGMg/view?usp=drive_link",
+                description: "매일 꾸준히 푸는 학습지"
+            },
+            {
+                name: "매일 푸는 주간지 2",
+                url: "https://drive.google.com/file/d/10zxhT-TtlrpRuaZ3l0Hx0hvzZ6XR0Cs2/view?usp=drive_link",
+                description: "매일 꾸준히 푸는 학습지"
+            }
+        ]
+    },
+    "문법": {
+        "기본": [
+            {
+                name: "문법 기초",
+                url: "https://drive.google.com/file/d/1asKNJifDXFQso-e5zP9DjH8HT5cxY0js/view?usp=drive_link",
+                description: "국어 문법의 기초를 다지는 필수 문제집"
+            }
+        ],
+        "심화": [
+            {
+                name: "문법 심화",
+                url: "https://drive.google.com/file/d/1aMPZD1Q5OTIjrQHVx2toqzQrZfHbHEOp/view?usp=drive_link",
+                description: "고난도 문법 문제 완전 정복"
+            },
+            {
+                name: "문법 심화2",
+                url: "https://drive.google.com/file/d/1cxfkSUPePQnOWxj6zquvtO8ItZyYGxj7/view?usp=drive_link",
+                description: "심화 문법 추가 문제집"
+            }
+        ]
+    },
+    "독서(인문)": {
+        "기본": [
+            {
+                name: "독서 인문 철학 기초",
+                url: "https://drive.google.com/file/d/1Jh6h_XVFYMbsKkljwNA3WP7ZjUg8cZ11/view?usp=drive_link",
+                description: "인문·철학 지문 기초 다지기"
+            },
+            {
+                name: "독서 종합 기초",
+                url: "https://drive.google.com/file/d/1sU0Kx9WCA-zofVKkbGF-PGwfR5JBSAsD/view?usp=drive_link",
+                description: "독서 영역 전체 기초 문제집"
+            }
+        ],
+        "심화": [
+            {
+                name: "독서 인문 사회 심화",
+                url: "https://drive.google.com/file/d/1wXD1xGlMMtQn34_07Y_11jovcNvXH5gc/view?usp=drive_link",
+                description: "인문·사회 복합 지문 심화 학습"
+            },
+            {
+                name: "독서 인문 법 심화2",
+                url: "https://drive.google.com/file/d/17XOc0IM4Pk1ug6sutzFp2pBvtXaPm1ec/view?usp=drive_link",
+                description: "법학 관련 고난도 지문 모음"
+            },
+            {
+                name: "독서 인문 종합",
+                url: "https://drive.google.com/file/d/1K6SSBbdcjeqNOGXRhTtjBKOMljmaAal6/view?usp=drive_link",
+                description: "인문 영역 종합 마스터"
+            }
+        ]
+    },
+    "독서(사회)": {
+        "기본": [
+            {
+                name: "독서 사회 경제 기초",
+                url: "https://drive.google.com/file/d/1VvA5ba5egy3-cq8ekWZrKuEpVsSWw-fl/view?usp=drive_link",
+                description: "사회·경제 지문 기초 완성"
+            }
+        ],
+        "심화": [
+            {
+                name: "독서 사회 경제 심화2",
+                url: "https://drive.google.com/file/d/1F9Hogy9j6A92zwlBE8aJOU4wqb2Py7Cs/view?usp=drive_link",
+                description: "사회·경제 고난도 지문 정복"
+            }
+        ]
+    },
+    "독서(과학)": {
+        "기본": [
+            {
+                name: "독서 과학 기초",
+                url: "https://drive.google.com/file/d/1gcElUHAEJ6aa0aiV53HoBNd7DXc5GZah/view?usp=drive_link",
+                description: "과학 지문 기초 실력 다지기"
+            }
+        ],
+        "심화": [
+            {
+                name: "독서 과학 심화",
+                url: "https://drive.google.com/file/d/1aMlCh4f4xCyR81oDdHweBzauGlNh5hCB/view?usp=drive_link",
+                description: "과학 지문 고난도 문제 완전 정복"
+            },
+            {
+                name: "독서 과학 심화2",
+                url: "https://drive.google.com/file/d/1tTOhtdZhICu09hEJo_KvipKtMV8gkZWH/view?usp=drive_link",
+                description: "과학 지문 추가 심화 문제집"
+            }
+        ]
+    },
+    "문학(현대시)": {
+        "기본": [
+            {
+                name: "문학 시 종합 기초1",
+                url: "https://drive.google.com/file/d/1JZCK5w2TediHz1JAv2LG-Dazkt_xgb8k/view?usp=drive_link",
+                description: "현대시·고전시가 기초 완성"
+            },
+            {
+                name: "문학 시 종합 기초2",
+                url: "https://drive.google.com/file/d/1SXMtvDQeitWKd4xqE5fMVxAtylUizwNe/view?usp=drive_link",
+                description: "시 갈래별 심화 기초"
+            },
+            {
+                name: "문학 종합 기초",
+                url: "https://drive.google.com/file/d/1XB5O4TVAxLmPrp4WMy0GxC0pBDgSDTnC/view?usp=drive_link",
+                description: "문학 전 영역 기초 문제집"
+            }
+        ],
+        "심화": [
+            {
+                name: "문학 현대시 심화",
+                url: "https://drive.google.com/file/d/1CMmDDBUPRBmr63GV_y0EvnNyTsozl5u9/view?usp=drive_link",
+                description: "현대시 고난도 문제 완전 정복"
+            }
+        ]
+    },
+    "문학(현대소설)": {
+        "기본": [
+            {
+                name: "문학 소설종합 기초",
+                url: "https://drive.google.com/file/d/1pCNTOOPmLpXcaXrRpkELE0dG4wvBpsfS/view?usp=drive_link",
+                description: "현대소설·고전소설 기초 완성"
+            }
+        ],
+        "심화": []
+    },
+    "문학(고전시가)": {
+        "기본": [
+            {
+                name: "문학 고전시가 기초",
+                url: "https://drive.google.com/file/d/1WDY_n8NIokdSx7xjivsMiOg01hNnJKvz/view?usp=drive_link",
+                description: "고전시가 기초 완전 정복"
+            },
+            {
+                name: "문학 고전시가 기초2",
+                url: "https://drive.google.com/file/d/1He6vP4_xVfat16bvFAFcG0MmD8bDYOf6/view?usp=drive_link",
+                description: "고전시가 추가 기초 문제집"
+            }
+        ],
+        "심화": [
+            {
+                name: "문학 고전시가 심화",
+                url: "https://drive.google.com/file/d/1VkTFSQiRAIoyHbAmz4f7FhuXGSbSDCTI/view?usp=drive_link",
+                description: "고전시가 고난도 문제 완전 정복"
+            }
+        ]
+    },
+    "문학(고전소설)": {
+        "기본": [
+            {
+                name: "문학 고전소설 기초",
+                url: "https://drive.google.com/file/d/17-dgV_wngT5QxOYBeusMHTAFKDNrPpcc/view?usp=drive_link",
+                description: "고전소설 기초 완전 정복"
+            },
+            {
+                name: "문학 고전소설 기초2",
+                url: "https://drive.google.com/file/d/1pI2GXelXVFIwUYrLxVwabw8Ww-mkRryF/view?usp=drive_link",
+                description: "고전소설 추가 기초 문제집"
+            }
+        ],
+        "심화": [
+            {
+                name: "문학 고전소설 심화",
+                url: "https://drive.google.com/file/d/1qHvAH6fVK0LNzjG28TAiUw5XAv-crO1c/view?usp=drive_link",
+                description: "고전소설 고난도 문제 완전 정복"
+            }
+        ]
+    },
+    "종합모의고사": {
+        "기본": [
+            {
+                name: "종합 모의고사 기초",
+                url: "https://drive.google.com/file/d/1qOkQKIX1lWt37tNxePyTjINXB6MNcayG/view?usp=drive_link",
+                description: "종합 실력 점검용 기초 모의고사"
+            }
+        ],
+        "심화": [
+            {
+                name: "종합 비기출 모의고사 1회",
+                url: "https://drive.google.com/file/d/1IgMkqG6TGaqXnn6hGgN4nOeY3X0SuSlF/view?usp=sharing",
+                description: "최신 비기출 문제 종합 모의고사"
+            },
+            {
+                name: "종합 비기출 모의고사 2회",
+                url: "https://drive.google.com/file/d/1MULcNrG5Sum6MSIS-_b7fOQENLi_6EZL/view?usp=drive_link",
+                description: "최신 비기출 문제 종합 모의고사"
+            },
+            {
+                name: "종합 비기출 모의고사 3회",
+                url: "https://drive.google.com/file/d/1cVBxTc-Ib5Izjft3pVaynv6o8RR6GI6t/view?usp=drive_link",
+                description: "최신 비기출 문제 종합 모의고사"
+            },
+            {
+                name: "종합 비기출 모의고사 4회",
+                url: "https://drive.google.com/file/d/1HkyUbvtuB2UoLqcpeJ4KG8z-WtMDqcs3/view?usp=drive_link",
+                description: "최신 비기출 문제 종합 모의고사"
+            },
+            {
+                name: "종합 비기출 모의고사 5회",
+                url: "https://drive.google.com/file/d/1BodwpPNu0bLZqGrHMdl8KJqclIhXH5et/view?usp=drive_link",
+                description: "최신 비기출 문제 종합 모의고사"
+            }
+        ]
+    },
+    "매일학습": {
+        "기본": [
+            {
+                name: "매일 푸는 주간지 1",
+                url: "https://drive.google.com/file/d/1bcUdiiC-fMD-YbWZefIem3vZhJKNtGMg/view?usp=drive_link",
+                description: "매일 꾸준히 풀 수 있는 학습지"
+            },
+            {
+                name: "매일 푸는 주간지 2",
+                url: "https://drive.google.com/file/d/10zxhT-TtlrpRuaZ3l0Hx0hvzZ6XR0Cs2/view?usp=drive_link",
+                description: "매일 꾸준히 풀 수 있는 학습지"
+            },
+            {
+                name: "매일 푸는 주간지 3",
+                url: "https://drive.google.com/file/d/1KiuExb_gwW1a-0PiEK0Kkt2eutmUYlmy/view?usp=drive_link",
+                description: "매일 꾸준히 풀 수 있는 학습지"
+            },
+            {
+                name: "매일 푸는 주간지 4",
+                url: "https://drive.google.com/file/d/15J21QHAnBeeXmf23JM08uN-IXpriAp_W/view?usp=drive_link",
+                description: "매일 꾸준히 풀 수 있는 학습지"
+            },
+            {
+                name: "매일 푸는 주간지 5",
+                url: "https://drive.google.com/file/d/1erTgXs51SZbM2EIOdve5SyBoAlMdPAWZ/view?usp=drive_link",
+                description: "매일 꾸준히 풀 수 있는 학습지"
+            }
+        ],
+        "심화": [
+            {
+                name: "매일 푸는 주간지 6",
+                url: "https://drive.google.com/file/d/1dhjMMd3-7Nnbr515Z7RjtHFTSRTvBoJ5/view?usp=drive_link",
+                description: "심화 단계 매일 학습지"
+            },
+            {
+                name: "매일 푸는 주간지 7",
+                url: "https://drive.google.com/file/d/1YueLR2rVHSaIfR_kq2YIChUE7FyRzCgh/view?usp=drive_link",
+                description: "심화 단계 매일 학습지"
+            },
+            {
+                name: "매일 푸는 주간지 8",
+                url: "https://drive.google.com/file/d/1Sso3wQ0VUewT-59gzKm30iKLqQJL661t/view?usp=drive_link",
+                description: "심화 단계 매일 학습지"
+            },
+            {
+                name: "매일 푸는 주간지 9",
+                url: "https://drive.google.com/file/d/1oyMOqkquGUd49oUbHKisjNsu1HVSjmLX/view?usp=drive_link",
+                description: "심화 단계 매일 학습지"
+            },
+            {
+                name: "매일 푸는 주간지 10",
+                url: "https://drive.google.com/file/d/1l6a8nKlfdOLIgNKTuegA0KJkdEOis93L/view?usp=drive_link",
+                description: "최고 난이도 매일 학습지"
+            }
+        ]
+    }
+};
+
+// 구글드라이브 링크를 다운로드 링크로 변환하는 함수
+function convertGoogleDriveLink(shareLink) {
+    // "https://drive.google.com/file/d/FILE_ID/view?usp=sharing" 
+    // → "https://drive.google.com/uc?export=download&id=FILE_ID"
+    var fileId = shareLink.match(/\/d\/([a-zA-Z0-9-_]+)/);
+    if (fileId) {
+        return "https://drive.google.com/uc?export=download&id=" + fileId[1];
+    }
+    return shareLink; // 변환 실패 시 원본 반환
+}
+ // 🆕 고급 학습 계획서 생성 메인 함수
+function generateAdvancedStudyPlan() {
+    const targetGrade = document.getElementById('planTargetGrade').value;
+    const targetScore = document.getElementById('planTargetScore').value;
+    const targetUniversity = document.getElementById('planTargetUniversity').value;
+    const targetMajor = document.getElementById('planTargetMajor').value;
+    const targetPeriod = document.getElementById('planTargetPeriod').value;
+    
+    if (!targetGrade) {
+        alert('목표 등급을 선택해주세요.');
+        return;
+    }
+    
+    // 현재 표시된 학생 데이터 가져오기
+    const currentStudent = getCurrentStudentData();
+    if (!currentStudent) {
+        alert('먼저 학생의 성적을 조회해주세요.');
+        return;
+    }
+    
+    // 고급 학습 계획 생성
+    const advancedPlan = createAdvancedStudyPlan(currentStudent, {
+        targetGrade: parseInt(targetGrade),
+        targetScore: parseInt(targetScore) || getTargetScoreFromGrade(targetGrade),
+        targetUniversity: targetUniversity || '목표 대학',
+        targetMajor: targetMajor || '목표 학과',
+        targetPeriod: parseInt(targetPeriod)
+    });
+    
+    // 고급 계획서 표시
+    displayAdvancedStudyPlan(advancedPlan);
+    document.getElementById('generatedAdvancedPlan').style.display = 'block';
+    
+    // 스크롤을 계획서로 이동
+    document.getElementById('generatedAdvancedPlan').scrollIntoView({ 
+        behavior: 'smooth' 
+    });
+}     
+
+      // 🆕 현재 학생 데이터 가져오기 함수
+function getCurrentStudentData() {
+    // 현재 검색된 학생의 출결번호로 데이터 가져오기
+    const searchInput = document.getElementById('searchInput').value.trim();
+    if (!searchInput || !studentByNumber[searchInput]) {
+        return null;
+    }
+    
+    const student = studentByNumber[searchInput];
+    const grades = student.grades;
+    const gradeKeys = Object.keys(grades);
+    
+    if (gradeKeys.length === 0) return null;
+    
+    // 최신 성적 데이터 추출
+    const latestTest = gradeKeys[gradeKeys.length - 1];
+    const latestGrade = grades[latestTest];
+    
+    return {
+        name: student.name,
+        attendanceNumber: student.attendanceNumber,
+        currentGrade: parseInt(latestGrade.grade),
+        currentScore: parseInt(latestGrade.score),
+        subjects: latestGrade.ratios || {},
+        allGrades: grades,
+        latestTest: latestTest
+    };
+}
+
+// 🆕 고급 학습 계획 생성 함수
+function createAdvancedStudyPlan(student, targets) {
+    // 약한 과목 찾기 (70% 미만)
+    const weakSubjects = [];
+    const subjectNames = {
+        '화법과 작문': '화법과 작문',
+        '화법과작문': '화법과 작문',
+        '화작': '화법과 작문',
+        '문법': '문법',
+        '언어와 매체': '문법',
+        '언어와매체': '문법',
+        '언매': '문법',
+        '독서(인문)': '독서(인문)',
+        '독서인문': '독서(인문)',
+        '인문': '독서(인문)',
+        '독서(사회)': '독서(사회)',
+        '독서사회': '독서(사회)',
+        '사회': '독서(사회)',
+        '독서(과학)': '독서(과학)',
+        '독서과학': '독서(과학)',
+        '과학': '독서(과학)',
+        '문학(현대시)': '문학(현대시)',
+        '문학현대시': '문학(현대시)',
+        '현대시': '문학(현대시)',
+        '현시': '문학(현대시)',
+        '문학(현대소설)': '문학(현대소설)',
+        '문학현대소설': '문학(현대소설)',
+        '현대소설': '문학(현대소설)',
+        '현소': '문학(현대소설)',
+        '문학(고전시가)': '문학(고전시가)',
+        '문학고전시가': '문학(고전시가)',
+        '고전시가': '문학(고전시가)',
+        '고시': '문학(고전시가)',
+        '문학(고전소설)': '문학(고전소설)',
+        '문학고전소설': '문학(고전소설)',
+        '고전소설': '문학(고전소설)',
+        '고소': '문학(고전소설)'
+    };
+    
+    Object.entries(student.subjects).forEach(([subject, ratio]) => {
+        if (ratio > 0 && ratio < 70) {
+            const displayName = subjectNames[subject] || subject;
+            const priority = ratio < 50 ? 'high' : ratio < 60 ? 'medium' : 'low';
+            
+            weakSubjects.push({
+                name: displayName,
+                original: subject,
+                current: ratio,
+                target: 85,
+                improvement: 85 - ratio,
+                priority: priority,
+                materials: getStudyMaterials(displayName, ratio)
+            });
+        }
+    });
+    
+    // 우선순위 정렬 (낮은 점수부터)
+    weakSubjects.sort((a, b) => a.current - b.current);
+    
+    return {
+        student: student,
+        targets: targets,
+        weakSubjects: weakSubjects,
+        weeklyPlan: generateAdvancedWeeklyPlan(weakSubjects, targets.targetPeriod),
+        motivationMessage: generateMotivationMessage(student, targets)
+    };
+}
+
+// 🆕 과목별 학습 자료 추천 함수
+function getStudyMaterials(subjectName, currentScore) {
+    const materials = [];
+    
+    // 기본 자료 (50% 미만이면 기본부터)
+    if (currentScore < 60 && studyMaterialsDB[subjectName] && studyMaterialsDB[subjectName]["기본"]) {
+        materials.push(...studyMaterialsDB[subjectName]["기본"]);
+    }
+    
+    // 심화 자료 (60% 이상이거나 기본이 없으면)
+    if ((currentScore >= 50 || !studyMaterialsDB[subjectName]["기본"]) && 
+        studyMaterialsDB[subjectName] && studyMaterialsDB[subjectName]["심화"]) {
+        materials.push(...studyMaterialsDB[subjectName]["심화"]);
+    }
+    
+    // 매일 학습 자료 추가
+    if (studyMaterialsDB["매일학습"]) {
+        const dailyMaterials = currentScore < 50 ? 
+            studyMaterialsDB["매일학습"]["기본"].slice(0, 2) : 
+            studyMaterialsDB["매일학습"]["심화"].slice(0, 2);
+        materials.push(...dailyMaterials);
+    }
+    
+    return materials;
+}
+
+// 🆕 고급 주간 계획 생성 함수
+function generateAdvancedWeeklyPlan(weakSubjects, targetPeriod) {
+    const days = ['월', '화', '수', '목', '금', '토', '일'];
+    const plan = {};
+    
+    days.forEach(day => {
+        plan[day] = [];
+    });
+    
+    // 약한 과목들을 요일별로 분배
+    weakSubjects.forEach((subject, index) => {
+        let frequency;
+        let sessionTime;
+        
+        // 우선순위별 빈도와 시간 설정
+        switch (subject.priority) {
+            case 'high':
+                frequency = 5; // 주 5회
+                sessionTime = 40;
+                break;
+            case 'medium':
+                frequency = 4; // 주 4회
+                sessionTime = 30;
+                break;
+            case 'low':
+                frequency = 3; // 주 3회
+                sessionTime = 25;
+                break;
+        }
+        
+        // 요일별 배치 (겹치지 않게)
+        for (let i = 0; i < frequency; i++) {
+            const dayIndex = (index * 2 + i) % 7;
+            const day = days[dayIndex];
+            
+            plan[day].push({
+                subject: subject.name,
+                time: sessionTime,
+                task: getDetailedStudyTask(subject.name, subject.current),
+                priority: subject.priority
+            });
+        }
+    });
+    
+    // 빈 날에는 종합 학습 추가
+    days.forEach(day => {
+        if (plan[day].length === 0) {
+            plan[day].push({
+                subject: '종합 복습',
+                time: 30,
+                task: '전체 영역 복습 및 모의고사',
+                priority: 'medium'
+            });
+        }
+    });
+    
+    return plan;
+}
+
+// 🆕 상세 학습 과제 생성 함수
+function getDetailedStudyTask(subject, currentScore) {
+    const tasks = {
+        '화법과 작문': {
+            basic: '화법의 기본 원리 학습 → 작문 과정 이해 → 기본 문제 풀이',
+            advanced: '다양한 화법 상황 분석 → 작문 유형별 전략 → 실전 문제 적용'
+        },
+        '문법': {
+            basic: '품사와 어미 활용 → 문장 성분 분석 → 기본 문법 문제 연습',
+            advanced: '복합 문법 현상 분석 → 함정 문제 유형 파악 → 고난도 문제 도전'
+        },
+        '독서(인문)': {
+            basic: '인문학 기본 개념 → 지문 구조 파악 → 핵심 내용 요약 연습',
+            advanced: '복잡한 논리 구조 분석 → 함축적 의미 파악 → 빠른 독해 훈련'
+        },
+        '독서(사회)': {
+            basic: '사회과학 용어 정리 → 원인-결과 구조 파악 → 기본 문제 해결',
+            advanced: '복합 사회 현상 분석 → 다층적 논리 구조 → 고난도 지문 정복'
+        },
+        '독서(과학)': {
+            basic: '과학 기본 용어 → 실험 과정 이해 → 관찰 결과 분석 연습',
+            advanced: '복잡한 과학 원리 → 가설-검증 과정 → 응용 실험 분석'
+        },
+        '문학(현대시)': {
+            basic: '화자와 상황 파악 → 시어 의미 분석 → 정서와 주제 이해',
+            advanced: '복합적 화자 의식 → 고급 표현 기법 → 문학사적 의미 탐구'
+        },
+        '문학(현대소설)': {
+            basic: '인물 관계도 작성 → 사건 전개 정리 → 갈등 구조 파악',
+            advanced: '복잡한 서술 구조 → 다층적 주제 의식 → 문학 기법 종합 분석'
+        },
+        '문학(고전시가)': {
+            basic: '고어 현대어 풀이 → 화자 정서 파악 → 주요 소재 의미 이해',
+            advanced: '시상 전개 과정 → 문학사적 특징 → 갈래별 심화 이해'
+        },
+        '문학(고전소설)': {
+            basic: '등장인물 정리 → 사건 순서 파악 → 주제 의식 기본 이해',
+            advanced: '구조적 특징 분석 → 현대적 의의 탐구 → 문학사적 가치 평가'
+        }
+    };
+    
+    const subjectTasks = tasks[subject];
+    if (!subjectTasks) return '기본 개념 학습 및 문제 풀이 연습';
+    
+    return currentScore < 50 ? subjectTasks.basic : subjectTasks.advanced;
+}
+
+// 🆕 동기부여 메시지 생성 함수
+function generateMotivationMessage(student, targets) {
+    const gradeImprovement = student.currentGrade - targets.targetGrade;
+    const messages = [];
+    
+    messages.push(`${student.name} 학생! 현재 ${student.currentGrade}등급에서 ${targets.targetGrade}등급으로의 도약을 위한 체계적인 계획을 수립했습니다.`);
+    
+    if (gradeImprovement >= 2) {
+        messages.push(`${gradeImprovement}등급 상승은 충분히 달성 가능한 목표입니다. 꾸준한 노력으로 반드시 성취할 수 있습니다!`);
+    } else {
+        messages.push(`현재 실력을 바탕으로 한 단계 더 발전할 수 있는 완벽한 시점입니다!`);
+    }
+    
+    messages.push(`${targets.targetUniversity} ${targets.targetMajor} 진학이라는 꿈에 한 발 더 가까워지도록 정동민국어논술학원이 함께하겠습니다.`);
+    
+    messages.push(`매일 조금씩이라도 꾸준히 실천하면, ${targets.targetPeriod}개월 후 놀라운 변화를 경험하게 될 것입니다! 화이팅! 💪`);
+    
+    return messages.join(' ');
+}
+
+// 🆕 등급별 목표 점수 반환 함수
+function getTargetScoreFromGrade(grade) {
+    const scoreMap = {
+        '1': 92,
+        '2': 82,
+        '3': 72,
+        '4': 62,
+        '5': 52
+    };
+    return scoreMap[grade] || 80;
+}  
+
+     // 🆕 고급 학습 계획서 표시 함수
+function displayAdvancedStudyPlan(plan) {
+    const planContainer = document.getElementById('generatedAdvancedPlan');
+    const student = plan.student;
+    const targets = plan.targets;
+    
+    // D-day 계산
+    const today = new Date();
+    const examDate = new Date('2025-11-13'); // 2025년 수능일
+    const diffTime = examDate - today;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    let html = `
+        <div class="advanced-study-plan">
+            <!-- 계획서 헤더 -->
+            <div class="plan-document-header">
+                <h3>📋 맞춤형 학습 계획서</h3>
+                <div class="student-info-banner">
+                    <strong>${student.name} 학생 (출결번호: ${student.attendanceNumber})</strong>
+                    <div style="margin-top: 8px; opacity: 0.9;">
+                        계획 수립일: ${new Date().toLocaleDateString('ko-KR')} | 
+                        목표 기간: ${targets.targetPeriod}개월 | 
+                        수능까지 D-${diffDays}일
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 현재 vs 목표 대시보드 -->
+            <div class="status-dashboard">
+                <div class="status-card current-status-card">
+                    <h4>📊 현재 상태</h4>
+                    <div class="status-metrics">
+                        <div class="metric-item">
+                            <div class="metric-value">${student.currentGrade}</div>
+                            <div class="metric-label">등급</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-value">${student.currentScore}</div>
+                            <div class="metric-label">점수</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-value">${getGradePercentile(student.currentGrade)}</div>
+                            <div class="metric-label">상위 %</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-value">${student.latestTest}</div>
+                            <div class="metric-label">최근 시험</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="status-card target-status-card">
+                    <h4>🎯 목표 상태</h4>
+                    <div class="status-metrics">
+                        <div class="metric-item">
+                            <div class="metric-value">${targets.targetGrade}</div>
+                            <div class="metric-label">목표 등급</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-value">${targets.targetScore}</div>
+                            <div class="metric-label">목표 점수</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-value">${getGradePercentile(targets.targetGrade)}</div>
+                            <div class="metric-label">목표 상위 %</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-value">+${targets.targetScore - student.currentScore}</div>
+                            <div class="metric-label">필요 상승</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    `;
+    
+    // 목표 대학 정보 추가
+    if (targets.targetUniversity && targets.targetUniversity !== '목표 대학') {
+        html += `
+            <div style="text-align: center; background: rgba(255,255,255,0.1); border-radius: 12px; padding: 15px; margin-bottom: 25px;">
+                <h4 style="color: rgba(255,255,255,0.9); margin-bottom: 8px;">🏫 희망 진로</h4>
+                <div style="font-size: 1.2em; font-weight: bold;">
+                    ${targets.targetUniversity} ${targets.targetMajor}
+                </div>
+            </div>
+        `;
+    }
+    
+    // 개선 필요 과목 분석
+    if (plan.weakSubjects.length > 0) {
+        html += `
+            <div class="improvement-analysis">
+                <h4 style="margin-bottom: 20px; color: rgba(255,255,255,0.95);">
+                    ⚠️ 집중 보강 과목 분석 (${plan.weakSubjects.length}개 과목)
+                </h4>
+        `;
+        
+        plan.weakSubjects.forEach((subject, index) => {
+            const priorityText = {
+                'high': '🔴 최우선',
+                'medium': '🟡 중요',
+                'low': '🔵 보통'
+            };
+            
+            html += `
+                <div class="weak-subject-card priority-${subject.priority}">
+                    <div class="subject-header">
+                        <div class="subject-name">${subject.name}</div>
+                        <div class="priority-badge priority-${subject.priority}">
+                            ${priorityText[subject.priority]} • ${subject.improvement.toFixed(1)}% 향상 필요
+                        </div>
+                    </div>
+                    
+                    <div class="subject-details">
+                        <div class="detail-metric">
+                            <div class="detail-value">${subject.current}%</div>
+                            <div class="detail-label">현재 성취도</div>
+                        </div>
+                        <div class="detail-metric">
+                            <div class="detail-value">${subject.target}%</div>
+                            <div class="detail-label">목표 성취도</div>
+                        </div>
+                        <div class="detail-metric">
+                            <div class="detail-value">${getStudyFrequency(subject.priority)}</div>
+                            <div class="detail-label">주간 학습</div>
+                        </div>
+                        <div class="detail-metric">
+                            <div class="detail-value">${getStudyTime(subject.priority)}분</div>
+                            <div class="detail-label">1회 학습량</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 15px; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                        <strong style="color: rgba(255,255,255,0.9);">📚 학습 전략:</strong>
+                        <div style="margin-top: 5px; opacity: 0.9; line-height: 1.4;">
+                            ${getDetailedStudyTask(subject.name, subject.current)}
+                        </div>
+                    </div>
+                    
+                    <div class="study-materials">
+                        <h5 style="margin-bottom: 10px; color: rgba(255,255,255,0.9);">📁 추천 학습 자료</h5>
+                        <div class="material-links">
+                            ${subject.materials.map(material => `
+                                <a href="${material.url}" target="_blank" class="material-link" 
+                                   title="${material.description}">
+                                    📄 ${material.name}
+                                </a>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        
+        html += '</div>';
+    } else {
+        html += `
+            <div class="improvement-analysis">
+                <h4 style="text-align: center; color: #28a745; margin: 30px 0;">
+                    🌟 모든 영역에서 우수한 성취도를 보이고 있습니다!
+                </h4>
+                <div style="text-align: center; padding: 20px; background: rgba(40,167,69,0.1); border-radius: 12px;">
+                    현재 수준을 유지하며 더욱 발전시켜 나가세요. 종합 모의고사로 실전 감각을 기르는 것을 추천합니다.
+                </div>
+            </div>
+        `;
+    }
+    
+    // 주간 학습 스케줄
+    html += createWeeklyScheduleHTML(plan.weeklyPlan);
+    
+    // 동기부여 메시지
+    html += `
+        <div class="motivation-banner">
+            <h4>🌟 선생님의 응원 메시지</h4>
+            <div class="motivation-text">
+                ${plan.motivationMessage}
+            </div>
+        </div>
+    `;
+    
+    html += `
+        </div>
+        
+        <!-- 액션 버튼들 -->
+        <div class="plan-actions">
+            <button class="action-button pdf-download-btn" onclick="downloadStudyPlanPDF()">
+                📄 PDF 다운로드
+            </button>
+            <button class="action-button edit-plan-btn" onclick="editStudyPlan()">
+                ✏️ 계획 수정
+            </button>
+        </div>
+    `;
+    
+    planContainer.innerHTML = html;
+}
+
+// 🆕 주간 스케줄 HTML 생성 함수
+function createWeeklyScheduleHTML(weeklyPlan) {
+    const days = ['월', '화', '수', '목', '금', '토', '일'];
+    
+    let html = `
+        <div class="weekly-schedule-advanced">
+            <h4 style="margin-bottom: 15px; color: rgba(255,255,255,0.95);">
+                📅 주간 맞춤 학습 스케줄
+            </h4>
+            <div style="margin-bottom: 20px; opacity: 0.9; line-height: 1.5;">
+                과목별 우선순위와 개인 약점을 고려하여 최적화된 주간 계획입니다.
+                매일 정해진 시간에 꾸준히 실천하는 것이 핵심입니다!
+            </div>
+            
+            <div class="schedule-week-grid">
+    `;
+    
+    days.forEach(day => {
+        html += `
+            <div class="schedule-day">
+                <div class="day-name">${day}요일</div>
+        `;
+        
+        if (weeklyPlan[day] && weeklyPlan[day].length > 0) {
+            let totalTime = 0;
+            weeklyPlan[day].forEach(session => {
+                const priorityColor = {
+                    'high': 'rgba(220, 53, 69, 0.3)',
+                    'medium': 'rgba(255, 193, 7, 0.3)',
+                    'low': 'rgba(23, 162, 184, 0.3)'
+                };
+                
+                html += `
+                    <div class="study-session" style="background: ${priorityColor[session.priority] || priorityColor.medium};">
+                        <div class="session-subject">${session.subject}</div>
+                        <div class="session-time">${session.time}분</div>
+                    </div>
+                `;
+                totalTime += session.time;
+            });
+            
+            html += `<div style="margin-top: 8px; font-size: 0.75em; opacity: 0.8; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 5px;">총 ${totalTime}분</div>`;
+        } else {
+            html += `<div class="study-session">자유 학습</div>`;
+        }
+        
+        html += `</div>`;
+    });
+    
+    html += `
+            </div>
+            <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 10px; text-align: center;">
+                <strong>💡 학습 효과 극대화 팁</strong><br>
+                🔴 최우선 과목은 컨디션이 좋은 오전에 | 🟡 중요 과목은 집중력이 높은 저녁에 | 🔵 보통 과목은 틈틈이 꾸준히
+            </div>
+        </div>
+    `;
+    
+    return html;
+}
+
+// 🆝 보조 함수들
+function getGradePercentile(grade) {
+    const percentiles = {
+        1: '4%',
+        2: '11%',
+        3: '23%',
+        4: '40%',
+        5: '60%',
+        6: '77%',
+        7: '89%',
+        8: '96%',
+        9: '100%'
+    };
+    return percentiles[grade] || '알 수 없음';
+}
+
+function getStudyFrequency(priority) {
+    const frequencies = {
+        'high': '주 5회',
+        'medium': '주 4회',
+        'low': '주 3회'
+    };
+    return frequencies[priority] || '주 3회';
+}
+
+function getStudyTime(priority) {
+    const times = {
+        'high': 40,
+        'medium': 30,
+        'low': 25
+    };
+    return times[priority] || 30;
+}
+
+// 🆕 PDF 다운로드 함수 (인쇄 기능으로 수정)
+function downloadStudyPlanPDF() {
+    const element = document.getElementById('generatedAdvancedPlan');
+    if (!element) {
+        alert('먼저 학습 계획서를 생성해주세요.');
+        return;
+    }
+    
+    const studentName = getCurrentStudentData()?.name || '학생';
+    
+    // 버튼 숨기기
+    const buttons = document.querySelector('.plan-actions');
+    if (buttons) {
+        const originalDisplay = buttons.style.display;
+        buttons.style.display = 'none';
+        
+        // 인쇄 안내 메시지
+        alert(`${studentName} 학생의 학습계획서를 인쇄합니다.\n\n인쇄 창에서 "PDF로 저장"을 선택하면 PDF 파일로 저장할 수 있습니다.`);
+        
+        // 잠깐 후 인쇄 창 열기
+        setTimeout(() => {
+            window.print();
+            
+            // 인쇄 후 버튼 다시 보이기
+            setTimeout(() => {
+                buttons.style.display = originalDisplay;
+            }, 1000);
+        }, 500);
+    } else {
+        // 버튼이 없어도 인쇄는 실행
+        window.print();
+    }
+}
+// 🆕 계획 수정 함수
+function editStudyPlan() {
+    // 목표 설정 섹션으로 스크롤
+    document.querySelector('.plan-target-setting').scrollIntoView({ 
+        behavior: 'smooth' 
+    });
+    
+    // 입력 필드에 포커스
+    document.getElementById('planTargetGrade').focus();
+}   
+        
         // 분석 함수
         function generateAIAnalysis(student) {
             console.log('분석 시작:', student.name);
@@ -3214,7 +4625,7 @@
         }
             
         
-        function displayStudentInfo(student) {
+               function displayStudentInfo(student) {
             var studentInfoDiv = document.getElementById('studentInfo');
             var gradeKeys = Object.keys(student.grades);
             var totalTests = window.discoveredTestSheets ? window.discoveredTestSheets.length : 12;
@@ -3229,6 +4640,9 @@
                 '</div></div>' +
                 displayStudyFortune(student.name) +
                 displayDashboard(student);
+            
+            // 🆕 학습 계획서 섹션 표시 (새로 추가)
+            document.getElementById('studyPlanSection').style.display = 'block';
         }
 
         function displaySummaryTable(student) {
