@@ -813,6 +813,92 @@
             .header p {
                 font-size: 4vw; /* 화면 너비의 4% */
             }
+
+            @media (max-width: 768px) {
+    /* 기존 모바일 CSS들... */
+    
+    /* 🆕 학습 계획서 모바일 최적화 추가 */
+    .target-input-grid {
+        grid-template-columns: 1fr !important;
+        gap: 10px;
+    }
+    
+    .target-input-item {
+        padding: 10px;
+    }
+    
+    .target-input-item label {
+        font-size: 3.2vw;
+    }
+    
+    .target-input-item input,
+    .target-input-item select {
+        font-size: 3.5vw;
+        padding: 8px;
+    }
+    
+    .generate-plan-btn {
+        font-size: 3.8vw;
+        padding: 12px 25px;
+    }
+    
+    .status-dashboard {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .status-metrics {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    .subject-details {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    .schedule-week-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .material-links {
+        flex-direction: column;
+    }
+    
+    .material-link {
+        font-size: 3vw;
+        padding: 10px 15px;
+    }
+    
+    .plan-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .action-button {
+        font-size: 3.5vw;
+        padding: 12px 20px;
+    }
+    
+    .weak-subject-card {
+        margin-bottom: 20px;
+    }
+    
+    .subject-name {
+        font-size: 3.8vw;
+    }
+    
+    .priority-badge {
+        font-size: 2.8vw;
+        padding: 4px 8px;
+    }
+    
+    .motivation-banner h4 {
+        font-size: 4vw;
+    }
+    
+    .motivation-text {
+        font-size: 3.2vw;
+    }
+}
+
             
             /* 탭 버튼 크기 조정 */
             .tab {
@@ -1385,16 +1471,16 @@
         }
         
         .weak-subject-card.priority-high {
-            border-left-color: #dc3545;
-        }
-        
-        .weak-subject-card.priority-medium {
-            border-left-color: #ffc107;
-        }
-        
-        .weak-subject-card.priority-low {
-            border-left-color: #17a2b8;
-        }
+    border-left-color: rgba(220, 53, 69, 0.8); /* 연하게 */
+}
+
+.weak-subject-card.priority-medium {
+    border-left-color: rgba(255, 193, 7, 0.8); /* 연하게 */
+}
+
+.weak-subject-card.priority-low {
+    border-left-color: rgba(23, 162, 184, 0.8); /* 연하게 */
+}
         
         .subject-header {
             display: flex;
@@ -1417,9 +1503,18 @@
             color: white;
         }
         
-        .priority-high { background: #dc3545; }
-        .priority-medium { background: #ffc107; color: #333; }
-        .priority-low { background: #17a2b8; }
+      .priority-high { 
+    background: rgba(220, 53, 69, 0.8); /* 기존보다 연하게 */
+    color: white; 
+}
+.priority-medium { 
+    background: rgba(255, 193, 7, 0.9); /* 기존보다 연하게 */
+    color: #333; 
+}
+.priority-low { 
+    background: rgba(23, 162, 184, 0.8); /* 기존보다 연하게 */
+    color: white; 
+}
         
         .subject-details {
             display: grid;
@@ -2609,62 +2704,42 @@ function getCurrentStudentData() {
 
 // 🆕 고급 학습 계획 생성 함수
 function createAdvancedStudyPlan(student, targets) {
-    // 약한 과목 찾기 (70% 미만)
-    const weakSubjects = [];
-    const subjectNames = {
-        '화법과 작문': '화법과 작문',
-        '화법과작문': '화법과 작문',
-        '화작': '화법과 작문',
-        '문법': '문법',
-        '언어와 매체': '문법',
-        '언어와매체': '문법',
-        '언매': '문법',
-        '독서(인문)': '독서(인문)',
-        '독서인문': '독서(인문)',
-        '인문': '독서(인문)',
-        '독서(사회)': '독서(사회)',
-        '독서사회': '독서(사회)',
-        '사회': '독서(사회)',
-        '독서(과학)': '독서(과학)',
-        '독서과학': '독서(과학)',
-        '과학': '독서(과학)',
-        '문학(현대시)': '문학(현대시)',
-        '문학현대시': '문학(현대시)',
-        '현대시': '문학(현대시)',
-        '현시': '문학(현대시)',
-        '문학(현대소설)': '문학(현대소설)',
-        '문학현대소설': '문학(현대소설)',
-        '현대소설': '문학(현대소설)',
-        '현소': '문학(현대소설)',
-        '문학(고전시가)': '문학(고전시가)',
-        '문학고전시가': '문학(고전시가)',
-        '고전시가': '문학(고전시가)',
-        '고시': '문학(고전시가)',
-        '문학(고전소설)': '문학(고전소설)',
-        '문학고전소설': '문학(고전소설)',
-        '고전소설': '문학(고전소설)',
-        '고소': '문학(고전소설)'
-    };
+    // 🆕 기존 AI 분석 결과 활용
+    const analysisResult = performAIAnalysis(student);
+    const aiWeaknesses = analysisResult.weaknesses || [];
     
-    Object.entries(student.subjects).forEach(([subject, ratio]) => {
-        if (ratio > 0 && ratio < 70) {
-            const displayName = subjectNames[subject] || subject;
-            const priority = ratio < 50 ? 'high' : ratio < 60 ? 'medium' : 'low';
-            
-            weakSubjects.push({
-                name: displayName,
-                original: subject,
-                current: ratio,
-                target: 85,
-                improvement: 85 - ratio,
-                priority: priority,
-                materials: getStudyMaterials(displayName, ratio)
-            });
+    // AI 분석 결과를 학습 계획용 형태로 변환
+    const weakSubjects = aiWeaknesses.map(weakness => {
+        // 우선순위 결정 (AI 분석의 urgency와 평균 점수 활용)
+        let priority = 'medium';
+        if (weakness.urgency === 'high' || weakness.average < 50) {
+            priority = 'high';
+        } else if (weakness.average < 60) {
+            priority = 'medium';
+        } else {
+            priority = 'low';
         }
+        
+        return {
+            name: weakness.subject,
+            original: weakness.subject,
+            current: weakness.average,
+            target: 85,
+            improvement: 85 - weakness.average,
+            priority: priority,
+            description: weakness.description,
+            materials: getStudyMaterials(weakness.subject, weakness.average)
+        };
     });
     
-    // 우선순위 정렬 (낮은 점수부터)
-    weakSubjects.sort((a, b) => a.current - b.current);
+    // 우선순위별 정렬 (high -> medium -> low, 같은 우선순위 내에서는 낮은 점수부터)
+    weakSubjects.sort((a, b) => {
+        const priorityOrder = { 'high': 0, 'medium': 1, 'low': 2 };
+        if (priorityOrder[a.priority] !== priorityOrder[b.priority]) {
+            return priorityOrder[a.priority] - priorityOrder[b.priority];
+        }
+        return a.current - b.current;
+    });
     
     return {
         student: student,
@@ -2839,17 +2914,10 @@ function getTargetScoreFromGrade(grade) {
     return scoreMap[grade] || 80;
 }  
 
-     // 🆕 고급 학습 계획서 표시 함수
 function displayAdvancedStudyPlan(plan) {
     const planContainer = document.getElementById('generatedAdvancedPlan');
     const student = plan.student;
     const targets = plan.targets;
-    
-    // D-day 계산
-    const today = new Date();
-    const examDate = new Date('2025-11-13'); // 2025년 수능일
-    const diffTime = examDate - today;
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     
     let html = `
         <div class="advanced-study-plan">
@@ -2860,13 +2928,12 @@ function displayAdvancedStudyPlan(plan) {
                     <strong>${student.name} 학생 (출결번호: ${student.attendanceNumber})</strong>
                     <div style="margin-top: 8px; opacity: 0.9;">
                         계획 수립일: ${new Date().toLocaleDateString('ko-KR')} | 
-                        목표 기간: ${targets.targetPeriod}개월 | 
-                        수능까지 D-${diffDays}일
+                        목표 기간: ${targets.targetPeriod}개월
                     </div>
                 </div>
             </div>
             
-            <!-- 현재 vs 목표 대시보드 -->
+            <!-- 현재 vs 목표 대시보드 (수정됨) -->
             <div class="status-dashboard">
                 <div class="status-card current-status-card">
                     <h4>📊 현재 상태</h4>
@@ -2898,48 +2965,37 @@ function displayAdvancedStudyPlan(plan) {
                             <div class="metric-label">목표 등급</div>
                         </div>
                         <div class="metric-item">
-                            <div class="metric-value">${targets.targetScore}</div>
-                            <div class="metric-label">목표 점수</div>
-                        </div>
-                        <div class="metric-item">
                             <div class="metric-value">${getGradePercentile(targets.targetGrade)}</div>
                             <div class="metric-label">목표 상위 %</div>
                         </div>
                         <div class="metric-item">
-                            <div class="metric-value">+${targets.targetScore - student.currentScore}</div>
-                            <div class="metric-label">필요 상승</div>
+                            <div class="metric-value">${student.currentGrade - targets.targetGrade}</div>
+                            <div class="metric-label">등급 상승</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-value">${targets.targetPeriod}개월</div>
+                            <div class="metric-label">목표 기간</div>
                         </div>
                     </div>
                 </div>
             </div>
     `;
     
-    // 목표 대학 정보 추가
-    if (targets.targetUniversity && targets.targetUniversity !== '목표 대학') {
-        html += `
-            <div style="text-align: center; background: rgba(255,255,255,0.1); border-radius: 12px; padding: 15px; margin-bottom: 25px;">
-                <h4 style="color: rgba(255,255,255,0.9); margin-bottom: 8px;">🏫 희망 진로</h4>
-                <div style="font-size: 1.2em; font-weight: bold;">
-                    ${targets.targetUniversity} ${targets.targetMajor}
-                </div>
-            </div>
-        `;
-    }
+    // 🆕 AI 분석 기준으로 상위 3개 약한 과목만 표시
+const topWeakSubjects = plan.weakSubjects.slice(0, 3); // AI가 이미 우선순위 정렬했으므로 상위 3개만
     
-    // 개선 필요 과목 분석
-    if (plan.weakSubjects.length > 0) {
+    if (topWeakSubjects.length > 0) {
         html += `
             <div class="improvement-analysis">
                 <h4 style="margin-bottom: 20px; color: rgba(255,255,255,0.95);">
-                    ⚠️ 집중 보강 과목 분석 (${plan.weakSubjects.length}개 과목)
+                    ⚠️ 집중 보강 과목 분석 (${topWeakSubjects.length}개 과목)
                 </h4>
         `;
         
-        plan.weakSubjects.forEach((subject, index) => {
+        topWeakSubjects.forEach((subject, index) => {
             const priorityText = {
                 'high': '🔴 최우선',
-                'medium': '🟡 중요',
-                'low': '🔵 보통'
+                'medium': '🟡 중요'
             };
             
             html += `
@@ -2978,12 +3034,12 @@ function displayAdvancedStudyPlan(plan) {
                     </div>
                     
                     <div class="study-materials">
-                        <h5 style="margin-bottom: 10px; color: rgba(255,255,255,0.9);">📁 추천 학습 자료</h5>
+                        <h5 style="margin-bottom: 10px; color: rgba(255,255,255,0.9);">📁 추천 학습자료 다운로드 링크</h5>
                         <div class="material-links">
                             ${subject.materials.map(material => `
                                 <a href="${material.url}" target="_blank" class="material-link" 
                                    title="${material.description}">
-                                    📄 ${material.name}
+                                    ⬇️ ${material.name}
                                 </a>
                             `).join('')}
                         </div>
@@ -3046,9 +3102,9 @@ function createWeeklyScheduleHTML(weeklyPlan) {
                 📅 주간 맞춤 학습 스케줄
             </h4>
             <div style="margin-bottom: 20px; opacity: 0.9; line-height: 1.5;">
-                과목별 우선순위와 개인 약점을 고려하여 최적화된 주간 계획입니다.
-                매일 정해진 시간에 꾸준히 실천하는 것이 핵심입니다!
-            </div>
+    과목별 우선순위와 개인 약점을 고려하여 최적화된 주간 계획입니다.
+    매일 정해진 시간에 꾸준히 실천하는 것이 핵심입니다! 학습 자료는 위 추천학습자료 다운로드 링크를 이용하세요.
+</div>
             
             <div class="schedule-week-grid">
     `;
@@ -3085,14 +3141,14 @@ function createWeeklyScheduleHTML(weeklyPlan) {
         html += `</div>`;
     });
     
-    html += `
-            </div>
-            <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 10px; text-align: center;">
-                <strong>💡 학습 효과 극대화 팁</strong><br>
-                🔴 최우선 과목은 컨디션이 좋은 오전에 | 🟡 중요 과목은 집중력이 높은 저녁에 | 🔵 보통 과목은 틈틈이 꾸준히
-            </div>
+   html += `
         </div>
-    `;
+        <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 10px; text-align: center;">
+            <strong>💡 학습 효과 극대화 팁</strong><br>
+            🔴 최우선 과목은 집중력이 좋은 저녁 시간에 | 🟡 중요 과목은 컨디션이 좋은 주말에 | 학습 자료는 위 추천학습자료 다운로드 링크를 이용하세요.
+        </div>
+    </div>
+`;
     
     return html;
 }
