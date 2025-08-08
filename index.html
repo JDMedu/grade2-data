@@ -3458,34 +3458,36 @@ setTimeout(function() {
             };
         }
         
-        // 구체적 등급 상승 전략 생성 함수
-        function generateGradeStrategy(student, gradeKeys, subjectRatios, subjectAverages) {
-            if (gradeKeys.length < 2) return null;
-            
-            // 최근 4회 시험 데이터 추출
-            var recentTests = gradeKeys.slice(-4);
-            var recentData = [];
-            
-            recentTests.forEach(function(testName) {
-                var gradeData = student.grades[testName];
-                if (gradeData) {
-                    recentData.push({
-                        name: testName,
-                        grade: parseInt(gradeData.grade),
-                        score: parseInt(gradeData.score)
-                    });
-                }
+ function generateGradeStrategy(student, gradeKeys, subjectRatios, subjectAverages) {
+    if (gradeKeys.length < 2) return null;
+    
+    // 최근 4회 시험 데이터 추출
+    var recentTests = gradeKeys.slice(-4);
+    var recentData = [];
+    
+    recentTests.forEach(function(testName) {
+        var gradeData = student.grades[testName];
+        if (gradeData) {
+            recentData.push({
+                name: testName,
+                grade: parseInt(gradeData.grade),
+                score: parseInt(gradeData.score)
             });
-            
-            if (recentData.length < 2) return null;
-            
-            // 최근 4회 평균 계산
-            var recentAvgGrade = Math.round(recentData.reduce((sum, test) => sum + test.grade, 0) / recentData.length * 10) / 10;
-            var recentAvgScore = Math.round(recentData.reduce((sum, test) => sum + test.score, 0) / recentData.length);
-            
-            // 목표 등급 설정 (현재 평균보다 한 등급 위)
-            var targetGrade;
-            if (averageGrade <= 1.5) {
+        }
+    });
+    
+    if (recentData.length < 2) return null;
+    
+    // 최근 4회 평균 계산
+    var recentAvgGrade = Math.round(recentData.reduce((sum, test) => sum + test.grade, 0) / recentData.length * 10) / 10;
+    var recentAvgScore = Math.round(recentData.reduce((sum, test) => sum + test.score, 0) / recentData.length);
+    
+    // averageGrade 변수 추가
+    var averageGrade = recentAvgGrade;
+    
+    // 목표 등급 설정 (현재 평균보다 한 등급 위)
+    var targetGrade;
+    if (averageGrade <= 1.5) {
                 targetGrade = 1; // 이미 최상위권
             } else if (averageGrade <= 2.5) {
                 targetGrade = Math.max(1, Math.floor(averageGrade) - 1);
