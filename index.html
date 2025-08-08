@@ -998,161 +998,159 @@
     }
 
     .advanced-study-plan > div {
-    margin-bottom: 15px;
+        margin-bottom: 15px;
+    }
+
+    /* 탭 버튼 크기 조정 */
+    .tab {
+        font-size: 3.5vw;
+        padding: 3vw 5vw;
+    }
+    
+    /* 검색 입력창과 버튼 */
+    .search-input {
+        font-size: 4vw;
+        padding: 3vw;
+    }
+    
+    .search-btn {
+        font-size: 3.5vw;
+        padding: 3vw 5vw;
+    }
+    
+    /* AI 분석 섹션 */
+    .ai-analysis h3 {
+        font-size: 4.5vw;
+    }
+    
+    .ai-analysis h4 {
+        font-size: 3.5vw;
+    }
+    
+    /* 테이블 */
+    .grade-table {
+        font-size: 2.8vw;
+    }
+    
+    /* 테이블 컨테이너 오버플로우 해결 */
+    .summary-table {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .grade-table {
+        min-width: 100%;
+        white-space: nowrap;
+    }
+    
+    .grade-table th,
+    .grade-table td {
+        min-width: 60px;
+        padding: 2vw 1vw;
+        font-size: 2.5vw;
+    }
+    
+    .test-name {
+        min-width: 80px !important;
+    }
+    
+    /* 기존 레이아웃 조정들 */
+    .search-box {
+        flex-direction: column;
+    }
+    
+    .grade-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .tab-container {
+        flex-direction: column;
+    }
+    
+    .analysis-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .recent-tests-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* 과목별 성취도 테이블 개선 */
+    .summary-table div[style*="overflow-x: auto"] {
+        padding-bottom: 10px;
+    }
+    
+    .summary-table table[style*="min-width: 1200px"] {
+        min-width: 800px !important;
+    }
+    
+    /* 대시보드 모바일 최적화 */
+    .dashboard-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px;
+    }
+    
+    .dashboard-card {
+        padding: 15px;
+        font-size: 3.2vw;
+    }
+    
+    .dashboard-card h3 {
+        font-size: 4vw;
+        margin-bottom: 12px;
+    }
+    
+    .stat-item {
+        padding: 2vw 0;
+        font-size: 3vw;
+    }
+    
+    .stat-label {
+        font-size: 3vw;
+    }
+    
+    .stat-value {
+        font-size: 3.2vw;
+    }
+    
+    /* D-day 카운터 모바일 최적화 */
+    .dday-counter {
+        padding: 15px;
+        margin: 15px 0;
+    }
+    
+    .dday-number {
+        font-size: 2.5em;
+    }
+    
+    .dday-text {
+        font-size: 4vw;
+    }
+    
+    /* 뱃지 컨테이너 모바일 최적화 */
+    .badge-container {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 6px;
+    }
+    
+    .achievement-badge {
+        padding: 6px 8px;
+        font-size: 2.8vw;
+        min-height: 32px;
+    }
+    
+    .badge-summary {
+        font-size: 3vw;
+        padding: 8px;
+        margin: 12px 0;
+    }
+    
+    /* 차트 컨테이너 모바일 최적화 */
+    .chart-container {
+        height: 250px;
+        margin: 15px 0;
+    }
 }
-
-/* 탭 버튼 크기 조정 */ ← @media 블록 안으로 이동
-.tab {
-    font-size: 3.5vw;
-    padding: 3vw 5vw;
-}
-
-} /* @media 블록 끝 */
-            
-            /* 검색 입력창과 버튼 */
-            .search-input {
-                font-size: 4vw;
-                padding: 3vw;
-            }
-            
-            .search-btn {
-                font-size: 3.5vw;
-                padding: 3vw 5vw;
-            }
-            
-            /* AI 분석 섹션 */
-            .ai-analysis h3 {
-                font-size: 4.5vw;
-            }
-            
-            .ai-analysis h4 {
-                font-size: 3.5vw;
-            }
-            
-            /* 테이블 */
-            .grade-table {
-                font-size: 2.8vw;
-            }
-            
-            /* 테이블 컨테이너 오버플로우 해결 */
-            .summary-table {
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch; /* iOS 부드러운 스크롤 */
-            }
-            
-            .grade-table {
-                min-width: 100%;
-                white-space: nowrap; /* 텍스트 줄바꿈 방지 */
-            }
-            
-            .grade-table th,
-            .grade-table td {
-                min-width: 60px; /* 최소 너비 설정 */
-                padding: 2vw 1vw; /* 패딩을 뷰포트 단위로 */
-                font-size: 2.5vw; /* 조금 더 작게 */
-            }
-            
-            .test-name {
-                min-width: 80px !important; /* 시험명 칸은 조금 더 넓게 */
-            }
-            
-            /* 기존 레이아웃 조정들 */
-            .search-box {
-                flex-direction: column;
-            }
-            
-            .grade-cards {
-                grid-template-columns: 1fr;
-            }
-            
-            .tab-container {
-                flex-direction: column;
-            }
-            
-            .analysis-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .recent-tests-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            /* 과목별 성취도 테이블 개선 */
-            .summary-table div[style*="overflow-x: auto"] {
-                padding-bottom: 10px; /* 스크롤바 여백 */
-            }
-            
-            .summary-table table[style*="min-width: 1200px"] {
-                min-width: 800px !important; /* 모바일에서는 800px로 축소 */
-            }
-            
-            /* 대시보드 모바일 최적화 */
-            .dashboard-grid {
-                grid-template-columns: 1fr !important; /* 한 열로 변경 */
-                gap: 15px;
-            }
-            
-            .dashboard-card {
-                padding: 15px; /* 패딩 축소 */
-                font-size: 3.2vw; /* 뷰포트 단위 적용 */
-            }
-            
-            .dashboard-card h3 {
-                font-size: 4vw;
-                margin-bottom: 12px;
-            }
-            
-            .stat-item {
-                padding: 2vw 0;
-                font-size: 3vw;
-            }
-            
-            .stat-label {
-                font-size: 3vw;
-            }
-            
-            .stat-value {
-                font-size: 3.2vw;
-            }
-            
-            /* D-day 카운터 모바일 최적화 */
-            .dday-counter {
-                padding: 15px;
-                margin: 15px 0;
-            }
-            
-            .dday-number {
-                font-size: 2.5em; /* 3em에서 축소 */
-            }
-            
-            .dday-text {
-                font-size: 4vw;
-            }
-            
-            /* 뱃지 컨테이너 모바일 최적화 */
-            .badge-container {
-                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* 140px에서 120px로 축소 */
-                gap: 6px;
-            }
-            
-            .achievement-badge {
-                padding: 6px 8px; /* 8px 10px에서 축소 */
-                font-size: 2.8vw; /* 0.85em에서 뷰포트 단위로 */
-                min-height: 32px; /* 36px에서 축소 */
-            }
-            
-            .badge-summary {
-                font-size: 3vw;
-                padding: 8px;
-                margin: 12px 0;
-            }
-            
-            /* 차트 컨테이너 모바일 최적화 */
-            .chart-container {
-                height: 250px; /* 300px에서 축소 */
-                margin: 15px 0;
-            }
-        }
         }
         /* 추가 기능 스타일 */
 .dashboard-grid {
@@ -2954,7 +2952,7 @@ function displayAutoGeneratedPlan(planData) {
             <div class="motivation-banner">
                 <h4>${student.name}님을 위한 격려 메시지</h4>
                 <div class="motivation-text">
-                    현재 ${averageGrade.toFixed(1)}등급에서 ${Math.max(1, Math.floor(averageGrade))}등급으로 향상하기 위한 
+                    현재 ${averageGrade.toFixed(1)}등급에서 ${Math.max(1, Math.floor(averageGrade) - 1)}등급으로 향상하기 위한
                     체계적인 계획을 수립했습니다. 꾸준히 실천하면 반드시 목표를 달성할 수 있습니다! 
                     정동민국어논술학원이 여러분의 성공을 응원합니다! 💪
                 </div>
