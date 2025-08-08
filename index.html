@@ -2585,7 +2585,11 @@ function getCurrentWeekNumber() {
     const diff = now - start;
     const oneWeek = 1000 * 60 * 60 * 24 * 7;
     const weekNumber = Math.ceil(diff / oneWeek);
-    return ((weekNumber - 1) % 10) + 1; // 1-10 순환
+    
+    console.log('📅 올해 ' + now.getFullYear() + '년 ' + weekNumber + '주차');
+    
+    // 1-52주 순환 (52주를 넘으면 다음 해로 넘어감)
+    return ((weekNumber - 1) % 52) + 1;
 }
 
 // 🆕 등급별 학습 계획 설정 함수
@@ -2621,6 +2625,8 @@ function getStudyPlanConfig(averageGrade) {
 function getSystematicStudyMaterials(subjectName, currentScore, isMainStudy = true) {
     const materials = [];
     const currentWeek = getCurrentWeekNumber();
+    
+    console.log('🔍 학습자료 검색:', subjectName, '점수:', currentScore);
     
     // 과목명 매핑 (실제 데이터와 학습자료 DB 매칭)
     const subjectMapping = {
@@ -2660,115 +2666,93 @@ function getSystematicStudyMaterials(subjectName, currentScore, isMainStudy = tr
     
     // 매핑된 과목명 찾기
     const mappedSubject = subjectMapping[subjectName] || subjectName;
+    console.log('📝 매핑된 과목명:', subjectName, '→', mappedSubject);
     
-    // 주 교재 (과목별 심화/기초)
+    // 주 교재 (과목별 심화/기초) - 해당 레벨의 모든 자료 추가
     if (isMainStudy && studyMaterialsDB[mappedSubject]) {
         const level = currentScore < 60 ? "기초" : "심화";
+        console.log('📊 선택된 레벨:', level, '(점수:', currentScore + ')');
         
         if (studyMaterialsDB[mappedSubject][level] && studyMaterialsDB[mappedSubject][level].length > 0) {
-            materials.push({
-                ...studyMaterialsDB[mappedSubject][level][0],
-                studyTime: 40,
-                type: "main"
+            console.log('✅ 과목별 자료 발견 (개수: ' + studyMaterialsDB[mappedSubject][level].length + ')');
+            
+            // 해당 레벨의 모든 자료 추가
+            studyMaterialsDB[mappedSubject][level].forEach((material, index) => {
+                console.log('  - 추가:', material.name);
+                materials.push({
+                    ...material,
+                    studyTime: 40,
+                    type: "main"
+                });
             });
+        } else {
+            console.log('❌ 해당 레벨 자료 없음:', mappedSubject, level);
+            
+            // 다른 레벨의 모든 자료도 확인
+            const otherLevel = level === "기초" ? "심화" : "기초";
+            if (studyMaterialsDB[mappedSubject][otherLevel] && studyMaterialsDB[mappedSubject][otherLevel].length > 0) {
+                console.log('🔄 대체 레벨 자료 사용:', otherLevel, '(개수: ' + studyMaterialsDB[mappedSubject][otherLevel].length + ')');
+                
+                // 대체 레벨의 모든 자료 추가
+                studyMaterialsDB[mappedSubject][otherLevel].forEach((material, index) => {
+                    console.log('  - 추가:', material.name);
+                    materials.push({
+                        ...material,
+                        studyTime: 40,
+                        type: "main"
+                    });
+                });
+            }
         }
+    } else {
+        console.log('❌ 해당 과목 전체 자료 없음:', mappedSubject);
     }
     
-    // 매일 푸는 주간지 (주차별 순환)
+    // 매일 푸는 주간지 (52주 순환, 1-10 반복)
     if (studyMaterialsDB["매일학습"]) {
-        const weeklyMaterials = [
+        const allWeeklyMaterials = [
             ...studyMaterialsDB["매일학습"]["기본"],
             ...studyMaterialsDB["매일학습"]["심화"]
         ];
         
-        if (weeklyMaterials.length > 0) {
-            const weeklyIndex = (currentWeek - 1) % weeklyMaterials.length;
+        if (allWeeklyMaterials.length > 0) {
+            // 현재 주차에 따라 1-10 순환 (52주 기준)
+            const weeklyIndex = (currentWeek - 1) % 10; // 1-10 순환
+            console.log('📅 현재 주차:', currentWeek + '주차, 선택된 주간지 번호:', (weeklyIndex + 1));
+            console.log('📅 선택된 주간지:', allWeeklyMaterials[weeklyIndex].name);
+            
             materials.push({
-                ...weeklyMaterials[weeklyIndex],
+                ...allWeeklyMaterials[weeklyIndex],
                 studyTime: 20,
                 type: "daily"
             });
         }
     }
     
-    // 자료가 없으면 기본 종합 자료 추천
-    if (materials.length === 0 && studyMaterialsDB["종합모의고사"]) {
-        if (studyMaterialsDB["종합모의고사"]["기본"].length > 0) {
-            materials.push({
-                ...studyMaterialsDB["종합모의고사"]["기본"][0],
-                studyTime: 30,
-                type: "general"
+    // 과목별 자료가 없으면 종합 자료의 모든 자료 추천
+    const hasMainMaterial = materials.some(m => m.type === "main");
+    if (!hasMainMaterial && studyMaterialsDB["종합모의고사"]) {
+        console.log('🔄 종합 자료로 대체');
+        const level = currentScore < 60 ? "기초" : "심화";
+        const generalMaterials = studyMaterialsDB["종합모의고사"][level];
+        
+        if (generalMaterials && generalMaterials.length > 0) {
+            // 종합 자료의 모든 자료 추가
+            generalMaterials.forEach((material, index) => {
+                console.log('  - 종합자료 추가:', material.name);
+                materials.push({
+                    ...material,
+                    studyTime: 30,
+                    type: "general"
+                });
             });
         }
     }
     
+    console.log('📚 최종 추천 자료 수:', materials.length);
+    materials.forEach(m => console.log('  -', m.name, '(' + m.type + ')'));
+    
     return materials;
-}
-
-   // 🆕 현실적인 주간 계획 생성
-function generateRealisticWeeklyPlan(weakSubjects, averageGrade) {
-    const config = getStudyPlanConfig(averageGrade);
-    const days = ['월', '화', '수', '목', '금', '토', '일'];
-    const plan = {};
-    
-    // 초기화
-    days.forEach(day => {
-        plan[day] = [];
-    });
-    
-    // 매일 푸는 주간지 먼저 배치
-    const currentWeek = getCurrentWeekNumber();
-    const dailyWorkbook = studyMaterialsDB["매일학습"] ? 
-        [...studyMaterialsDB["매일학습"]["기본"], ...studyMaterialsDB["매일학습"]["심화"]] : [];
-    
-    if (dailyWorkbook.length > 0) {
-        const weeklyIndex = (currentWeek - 1) % dailyWorkbook.length;
-        const selectedWorkbook = dailyWorkbook[weeklyIndex];
-        
-        config.dailyWorkbook.forEach(day => {
-            plan[day].push({
-                subject: "매일 푸는 주간지",
-                material: selectedWorkbook.name,
-                time: 20,
-                priority: "daily",
-                url: selectedWorkbook.url,
-                description: selectedWorkbook.description
-            });
-        });
-    }
-    
-    // 약한 과목 배치
-    let dayIndex = 0;
-    const studyDays = days.slice(0, config.studyDays);
-    
-    weakSubjects.forEach((subject, subjectIndex) => {
-        const materials = getSystematicStudyMaterials(subject.name, subject.current, true);
-        
-        materials.forEach(material => {
-            if (material.type === "main") {
-                // 하루 시간 제한 확인
-                const targetDay = studyDays[dayIndex % studyDays.length];
-                const isWeekend = targetDay === '토' || targetDay === '일';
-                const timeLimit = isWeekend ? config.weekendLimit : config.weekdayLimit;
-                const currentTime = plan[targetDay].reduce((sum, item) => sum + item.time, 0);
-                
-                if (currentTime + material.studyTime <= timeLimit) {
-                    plan[targetDay].push({
-                        subject: subject.name,
-                        material: material.name,
-                        time: material.studyTime,
-                        priority: subject.priority,
-                        url: material.url,
-                        description: material.description
-                    });
-                    
-                    dayIndex++;
-                }
-            }
-        });
-    });
-    
-    return plan;
 }
 
 // 🆕 자동 생성된 학습 계획서 표시 함수
@@ -2813,14 +2797,11 @@ function displayAutoGeneratedPlan(planData) {
                                     <div class="detail-value">${subject.current}%</div>
                                     <div class="detail-label">현재 성취도</div>
                                 </div>
-                                <div class="detail-metric">
-                                    <div class="detail-value">+${subject.improvement}%</div>
-                                    <div class="detail-label">목표 향상</div>
-                                </div>
+                                
                             </div>
                             
                             <div class="study-materials">
-                                <h5 style="margin-bottom: 10px;">📚 추천 학습 자료</h5>
+                                <h5 style="margin-bottom: 10px;">📚 추천 학습 자료 다운로드 링크</h5>
                                 <div class="material-links">
                                     ${materials.map(material => `
                                         <a href="${material.url}" target="_blank" class="material-link">
