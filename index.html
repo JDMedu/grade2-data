@@ -3593,16 +3593,16 @@ setTimeout(function() {
     var averageGrade = recentAvgGrade;
     
     // 목표 등급 설정 (현재 평균보다 한 등급 위)
-    var targetGrade;
-    if (averageGrade <= 1.5) {
-                targetGrade = 1; // 이미 최상위권
-            } else if (averageGrade <= 2.5) {
-                targetGrade = Math.max(1, Math.floor(averageGrade) - 1);
-            } else if (averageGrade <= 4.0) {
-                targetGrade = Math.max(1, Math.floor(averageGrade) - 1);
-            } else {
-                targetGrade = Math.max(1, Math.floor(averageGrade) - 2); // 5등급 이하는 2등급 향상
-            }
+        var targetGrade;
+        if (averageGrade <= 1.5) {
+            targetGrade = 1; // 이미 최상위권
+        } else if (averageGrade <= 2.5) {
+            targetGrade = Math.max(1, Math.floor(averageGrade));
+        } else if (averageGrade <= 4.0) {
+            targetGrade = Math.max(1, Math.floor(averageGrade) - 1);
+        } else {
+            targetGrade = Math.max(1, Math.floor(averageGrade) - 2); // 5등급 이하는 2등급 향상
+        }
             var targetScore = getTargetScore(targetGrade);
             var neededPoints = targetScore - recentAvgScore;
             
