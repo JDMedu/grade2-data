@@ -798,209 +798,108 @@
             border-radius: 15px;
         }
         
-   @media (max-width: 768px) {
+  @media (max-width: 768px) {
     /* 뷰포트 단위로 전체 크기 자동 조정 */
     .container {
-        padding: 4vw;
-        font-size: 3.5vw;
+        padding: 4vw; /* 화면 너비의 4% */
+        font-size: 3.5vw; /* 기본 폰트를 화면 너비의 3.5%로 */
     }
     
+    /* 제목들 뷰포트 단위 적용 */
     .header h1 {
-        font-size: 7vw;
+        font-size: 7vw; /* 화면 너비의 7% */
     }
     
     .header p {
-        font-size: 4vw;
+        font-size: 4vw; /* 화면 너비의 4% */
     }
+
+    @media (max-width: 768px) {
+/* 기존 모바일 CSS들... */
+
+/* 🆕 학습 계획서 모바일 최적화 추가 */
+.target-input-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px;
+}
+
+.target-input-item {
+    padding: 10px;
+}
+
+.target-input-item label {
+    font-size: 3.2vw;
+}
+
+.target-input-item input,
+.target-input-item select {
+    font-size: 3.5vw;
+    padding: 8px;
+}
+
+.generate-plan-btn {
+    font-size: 3.8vw;
+    padding: 12px 25px;
+}
+
+.status-dashboard {
+    grid-template-columns: 1fr !important;
+}
+
+.status-metrics {
+    grid-template-columns: repeat(2, 1fr) !important;
+}
+
+.subject-details {
+    grid-template-columns: repeat(2, 1fr) !important;
+}
+
+.schedule-week-grid {
+    grid-template-columns: 1fr !important;
+}
+
+.material-links {
+    flex-direction: column;
+}
+
+.material-link {
+    font-size: 3vw;
+    padding: 10px 15px;
+}
+
+.plan-actions {
+    flex-direction: column;
+    gap: 10px;
+}
+
+.action-button {
+    font-size: 3.5vw;
+    padding: 12px 20px;
+}
+
+.weak-subject-card {
+    margin-bottom: 20px;
+}
+
+.subject-name {
+    font-size: 3.8vw;
+}
+
+.priority-badge {
+    font-size: 2.8vw;
+    padding: 4px 8px;
+}
+
+.motivation-banner h4 {
+    font-size: 4vw;
+}
+
+.motivation-text {
+    font-size: 3.2vw;
+}
+}
+
     
-    /* 학습 계획서 전용 모바일 최적화 - 컴팩트 버전 */
-    .advanced-study-plan {
-        padding: 15px;
-        margin: 15px 0;
-    }
-
-    .plan-document-header {
-        text-align: center;
-        margin-bottom: 20px;
-        padding-bottom: 15px;
-    }
-
-    .plan-document-header h3 {
-        font-size: 4.5vw;
-        margin-bottom: 8px;
-    }
-
-    .student-info-banner {
-        font-size: 3vw;
-        padding: 10px;
-        margin: 10px 0;
-    }
-
-    .improvement-analysis {
-        padding: 15px;
-        margin-bottom: 20px;
-    }
-
-    .improvement-analysis h4 {
-        font-size: 4vw;
-        margin-bottom: 12px;
-    }
-
-    .weak-subject-card {
-        padding: 12px;
-        margin-bottom: 12px;
-    }
-
-    .subject-header {
-        margin-bottom: 10px;
-    }
-
-    .subject-name {
-        font-size: 4vw;
-        margin-bottom: 6px;
-    }
-
-    .priority-badge {
-        font-size: 2.8vw;
-        padding: 4px 8px;
-    }
-
-    .subject-details {
-        grid-template-columns: 1fr 1fr;
-        gap: 6px;
-        margin-bottom: 10px;
-    }
-
-    .detail-metric {
-        padding: 6px 8px;
-        border-radius: 4px;
-    }
-
-    .detail-value {
-        font-size: 3.2vw;
-        margin-bottom: 2px;
-    }
-
-    .detail-label {
-        font-size: 2.5vw;
-    }
-
-    /* 취약영역 개념 클리닉 섹션 컴팩트화 */
-    .advanced-study-plan div[style*="background: rgba(255, 255, 255, 0.05)"] {
-        padding: 10px;
-        margin: 10px 0;
-    }
-
-    .advanced-study-plan div[style*="background: rgba(255, 255, 255, 0.05)"] h5 {
-        font-size: 3.2vw;
-        margin-bottom: 8px;
-    }
-
-    .advanced-study-plan div[style*="background: rgba(255, 255, 255, 0.05)"] p {
-        font-size: 2.8vw;
-        line-height: 1.4;
-    }
-
-    .study-materials {
-        padding: 10px;
-        margin-top: 10px;
-    }
-
-    .study-materials h5 {
-        font-size: 3.2vw;
-        margin-bottom: 8px;
-    }
-
-    .material-links {
-        flex-direction: column;
-        gap: 6px;
-    }
-
-    .material-link {
-        font-size: 2.8vw;
-        padding: 8px 12px;
-        border-radius: 15px;
-    }
-
-    /* 주간 스케줄 컴팩트화 */
-    .weekly-schedule-advanced {
-        padding: 15px;
-        margin-bottom: 20px;
-    }
-
-    .weekly-schedule-advanced h4 {
-        font-size: 4vw;
-        margin-bottom: 12px;
-    }
-
-    .schedule-week-grid {
-        grid-template-columns: 1fr;
-        gap: 8px;
-    }
-
-    .schedule-day {
-        padding: 10px 8px;
-        min-height: 80px;
-    }
-
-    .day-name {
-        font-size: 3.2vw;
-        margin-bottom: 6px;
-        padding-bottom: 4px;
-    }
-
-    .study-session {
-        padding: 4px 6px;
-        margin-bottom: 3px;
-        font-size: 2.5vw;
-        border-radius: 4px;
-    }
-
-    .session-subject {
-        font-size: 2.5vw;
-        margin-bottom: 1px;
-    }
-
-    .session-time {
-        font-size: 2.2vw;
-    }
-
-    /* 동기부여 메시지 컴팩트화 */
-    .motivation-banner {
-        padding: 15px;
-        margin-bottom: 15px;
-    }
-
-    .motivation-banner h4 {
-        font-size: 4vw;
-        margin-bottom: 10px;
-    }
-
-    .motivation-text {
-        font-size: 3vw;
-        line-height: 1.4;
-    }
-
-    /* 액션 버튼 컴팩트화 */
-    .plan-actions {
-        margin-top: 20px;
-        gap: 8px;
-    }
-
-    .action-button {
-        font-size: 3.5vw;
-        padding: 10px 16px;
-    }
-
-    /* 전체 여백 줄이기 */
-    .advanced-study-plan * {
-        margin-top: 0;
-    }
-
-    .advanced-study-plan > div {
-        margin-bottom: 15px;
-    }
-
     /* 탭 버튼 크기 조정 */
     .tab {
         font-size: 3.5vw;
@@ -1035,23 +934,23 @@
     /* 테이블 컨테이너 오버플로우 해결 */
     .summary-table {
         overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
+        -webkit-overflow-scrolling: touch; /* iOS 부드러운 스크롤 */
     }
     
     .grade-table {
         min-width: 100%;
-        white-space: nowrap;
+        white-space: nowrap; /* 텍스트 줄바꿈 방지 */
     }
     
     .grade-table th,
     .grade-table td {
-        min-width: 60px;
-        padding: 2vw 1vw;
-        font-size: 2.5vw;
+        min-width: 60px; /* 최소 너비 설정 */
+        padding: 2vw 1vw; /* 패딩을 뷰포트 단위로 */
+        font-size: 2.5vw; /* 조금 더 작게 */
     }
     
     .test-name {
-        min-width: 80px !important;
+        min-width: 80px !important; /* 시험명 칸은 조금 더 넓게 */
     }
     
     /* 기존 레이아웃 조정들 */
@@ -1077,22 +976,22 @@
 
     /* 과목별 성취도 테이블 개선 */
     .summary-table div[style*="overflow-x: auto"] {
-        padding-bottom: 10px;
+        padding-bottom: 10px; /* 스크롤바 여백 */
     }
     
     .summary-table table[style*="min-width: 1200px"] {
-        min-width: 800px !important;
+        min-width: 800px !important; /* 모바일에서는 800px로 축소 */
     }
     
     /* 대시보드 모바일 최적화 */
     .dashboard-grid {
-        grid-template-columns: 1fr !important;
+        grid-template-columns: 1fr !important; /* 한 열로 변경 */
         gap: 15px;
     }
     
     .dashboard-card {
-        padding: 15px;
-        font-size: 3.2vw;
+        padding: 15px; /* 패딩 축소 */
+        font-size: 3.2vw; /* 뷰포트 단위 적용 */
     }
     
     .dashboard-card h3 {
@@ -1120,7 +1019,7 @@
     }
     
     .dday-number {
-        font-size: 2.5em;
+        font-size: 2.5em; /* 3em에서 축소 */
     }
     
     .dday-text {
@@ -1129,14 +1028,14 @@
     
     /* 뱃지 컨테이너 모바일 최적화 */
     .badge-container {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* 140px에서 120px로 축소 */
         gap: 6px;
     }
     
     .achievement-badge {
-        padding: 6px 8px;
-        font-size: 2.8vw;
-        min-height: 32px;
+        padding: 6px 8px; /* 8px 10px에서 축소 */
+        font-size: 2.8vw; /* 0.85em에서 뷰포트 단위로 */
+        min-height: 32px; /* 36px에서 축소 */
     }
     
     .badge-summary {
@@ -1147,7 +1046,7 @@
     
     /* 차트 컨테이너 모바일 최적화 */
     .chart-container {
-        height: 250px;
+        height: 250px; /* 300px에서 축소 */
         margin: 15px 0;
     }
 }
