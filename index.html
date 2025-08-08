@@ -2674,19 +2674,19 @@ if (isMainStudy && studyMaterialsDB[mappedSubject]) {
     
     let levelsToInclude = [];
     
-    if (currentScore < 60) {
-        // 60점 미만: 기초만
-        levelsToInclude = ["기초"];
-        console.log('📊 선택된 레벨: 기초만 (60점 미만)');
-    } else if (currentScore <= 80) {
-        // 60~80점: 기초 + 심화
-        levelsToInclude = ["기초", "심화"];
-        console.log('📊 선택된 레벨: 기초 + 심화 (60~80점)');
-    } else {
-        // 80점 초과: 심화만
-        levelsToInclude = ["심화"];
-        console.log('📊 선택된 레벨: 심화만 (80점 초과)');
-    }
+            if (currentScore < 60) {
+            // 60% 미만: 기초만
+            levelsToInclude = ["기초"];
+            console.log('📊 선택된 레벨: 기초만 (60% 미만)');
+        } else if (currentScore <= 80) {
+            // 60~80%: 기초 + 심화
+            levelsToInclude = ["기초", "심화"];
+            console.log('📊 선택된 레벨: 기초 + 심화 (60~80%)');
+        } else {
+            // 80% 초과: 심화만
+            levelsToInclude = ["심화"];
+            console.log('📊 선택된 레벨: 심화만 (80% 초과)');
+        }
     
     // 선택된 레벨들의 모든 자료 추가
     levelsToInclude.forEach(level => {
