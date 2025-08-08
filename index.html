@@ -817,49 +817,71 @@
             @media (max-width: 768px) {
     /* 기존 모바일 CSS들... */
     
-    /* 🆕 학습 계획서 모바일 최적화 추가 */
-    .target-input-grid {
-        grid-template-columns: 1fr !important;
-        gap: 10px;
+  /* 🆕 학습 계획서 모바일 최적화 */
+    .advanced-study-plan {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 15px;
+        padding: 20px;
+        margin-top: 25px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
     }
     
-    .target-input-item {
-        padding: 10px;
+    .plan-document-header h3 {
+        font-size: 5vw;
     }
     
-    .target-input-item label {
+    .student-info-banner {
         font-size: 3.2vw;
+        padding: 12px;
     }
     
-    .target-input-item input,
-    .target-input-item select {
-        font-size: 3.5vw;
-        padding: 8px;
+    .improvement-analysis h4 {
+        font-size: 4vw;
+        margin-bottom: 12px;
     }
     
-    .generate-plan-btn {
-        font-size: 3.8vw;
-        padding: 12px 25px;
+    .weak-subject-card {
+        padding: 15px;
+        margin-bottom: 15px;
     }
     
-    .status-dashboard {
-        grid-template-columns: 1fr !important;
+    .subject-header {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
     }
     
-    .status-metrics {
-        grid-template-columns: repeat(2, 1fr) !important;
+    .subject-name {
+        font-size: 4vw;
+    }
+    
+    .priority-badge {
+        font-size: 3vw;
+        padding: 6px 12px;
+        align-self: center;
     }
     
     .subject-details {
         grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px;
     }
     
-    .schedule-week-grid {
-        grid-template-columns: 1fr !important;
+    .detail-value {
+        font-size: 3.5vw;
+    }
+    
+    .detail-label {
+        font-size: 2.8vw;
+    }
+    
+    .study-materials h5 {
+        font-size: 3.5vw;
+        margin-bottom: 8px;
     }
     
     .material-links {
         flex-direction: column;
+        gap: 8px;
     }
     
     .material-link {
@@ -867,38 +889,66 @@
         padding: 10px 15px;
     }
     
-    .plan-actions {
-        flex-direction: column;
+    .weekly-schedule-advanced h4 {
+        font-size: 4vw;
+        margin-bottom: 12px;
+    }
+    
+    .schedule-week-grid {
+        grid-template-columns: 1fr !important;
         gap: 10px;
     }
     
-    .action-button {
-        font-size: 3.5vw;
-        padding: 12px 20px;
+    .schedule-day {
+        padding: 12px 8px;
+        min-height: 100px;
     }
     
-    .weak-subject-card {
+    .day-name {
+        font-size: 3.2vw;
+        margin-bottom: 8px;
+    }
+    
+    .study-session {
+        padding: 6px;
+        margin-bottom: 4px;
+        font-size: 2.8vw;
+    }
+    
+    .session-subject {
+        font-size: 2.8vw;
+        margin-bottom: 2px;
+    }
+    
+    .session-time {
+        font-size: 2.5vw;
+    }
+    
+    .motivation-banner {
+        padding: 20px;
         margin-bottom: 20px;
     }
     
-    .subject-name {
-        font-size: 3.8vw;
-    }
-    
-    .priority-badge {
-        font-size: 2.8vw;
-        padding: 4px 8px;
-    }
-    
     .motivation-banner h4 {
-        font-size: 4vw;
+        font-size: 4.2vw;
+        margin-bottom: 12px;
     }
     
     .motivation-text {
-        font-size: 3.2vw;
+        font-size: 3.5vw;
+        line-height: 1.5;
     }
-}
-
+    
+    .plan-actions {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 25px;
+    }
+    
+    .action-button {
+        font-size: 3.8vw;
+        padding: 12px 20px;
+    }
             
             /* 탭 버튼 크기 조정 */
             .tab {
