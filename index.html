@@ -5648,8 +5648,7 @@ document.getElementById('studyPlanSection').style.display = 'block';
                 ]
             };
         }
-        
-      // 통합 대시보드 표시 함수
+        // 통합 대시보드 표시 함수
 function displayDashboard(student) {
     var stats = calculateStatistics(student);
     var badges = generateAchievementBadges(student, stats);
@@ -5751,13 +5750,13 @@ function displayDashboard(student) {
                         📱 <strong>모바일:</strong> 뱃지를 터치하면 설명이 나타납니다!
                     </div>
             </div>
-        </div>
-        
-        <!-- 📈 성적 변화 그래프 -->
-        <div class="dashboard-card" style="margin: 25px 0;">
-            <h3>📈 성적 변화 추이</h3>
-            <div class="chart-container">
-                <canvas id="gradeChart_${student.attendanceNumber}"></canvas>
+            
+            <!-- 📈 성적 변화 그래프 -->
+            <div class="dashboard-card">
+                <h3>📈 성적 변화 추이</h3>
+                <div class="chart-container">
+                    <canvas id="gradeChart_${student.attendanceNumber}"></canvas>
+                </div>
             </div>
         </div>
     `;
