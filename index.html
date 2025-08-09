@@ -5649,119 +5649,119 @@ document.getElementById('studyPlanSection').style.display = 'block';
             };
         }
         
-        // 통합 대시보드 표시 함수
-        function displayDashboard(student) {
-            var stats = calculateStatistics(student);
-            var badges = generateAchievementBadges(student, stats);
-            var dday = calculateDday();
-            
-            if (!stats) return '';
-            
-            var changeIcon = stats.scoreChange > 0 ? '📈' : stats.scoreChange < 0 ? '📉' : '➡️';
-            var changeClass = stats.scoreChange > 0 ? 'stat-positive' : stats.scoreChange < 0 ? 'stat-negative' : 'stat-neutral';
-            var changeText = stats.scoreChange > 0 ? '+' + stats.scoreChange : stats.scoreChange;
-            
-            return `
-                <!-- D-day 카운터 -->
-                <div class="dday-counter">
-                    <div class="dday-text">${dday.isGrade3 ? '🎯 수능' : '📚 수능'}까지</div>
-                    <div class="dday-number">D-${dday.days}</div>
-                    <div style="font-size: 1em; opacity: 0.9;">
-                        ${dday.examDate.toLocaleDateString('ko-KR', {year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'})}
-                    </div>
+      // 통합 대시보드 표시 함수
+function displayDashboard(student) {
+    var stats = calculateStatistics(student);
+    var badges = generateAchievementBadges(student, stats);
+    var dday = calculateDday();
+    
+    if (!stats) return '';
+    
+    var changeIcon = stats.scoreChange > 0 ? '📈' : stats.scoreChange < 0 ? '📉' : '➡️';
+    var changeClass = stats.scoreChange > 0 ? 'stat-positive' : stats.scoreChange < 0 ? 'stat-negative' : 'stat-neutral';
+    var changeText = stats.scoreChange > 0 ? '+' + stats.scoreChange : stats.scoreChange;
+    
+    return `
+        <!-- D-day 카운터 -->
+        <div class="dday-counter">
+            <div class="dday-text">${dday.isGrade3 ? '🎯 수능' : '📚 수능'}까지</div>
+            <div class="dday-number">D-${dday.days}</div>
+            <div style="font-size: 1em; opacity: 0.9;">
+                ${dday.examDate.toLocaleDateString('ko-KR', {year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'})}
+            </div>
+        </div>
+        
+        <div class="dashboard-grid">
+            <!-- 📊 통계 대시보드 -->
+            <div class="dashboard-card">
+                <h3>📊 성적 통계</h3>
+                <div class="stat-item">
+                    <span class="stat-label">평균 점수</span>
+                    <span class="stat-value">${stats.avgScore}점</span>
                 </div>
-                
-                <div class="dashboard-grid">
-                    <!-- 📊 통계 대시보드 -->
-                    <div class="dashboard-card">
-                        <h3>📊 성적 통계</h3>
-                        <div class="stat-item">
-                            <span class="stat-label">평균 점수</span>
-                            <span class="stat-value">${stats.avgScore}점</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">평균 등급</span>
-                            <span class="stat-value">${stats.avgGrade}등급</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">최고 성적</span>
-                            <span class="stat-value">${stats.bestGrade}등급 ${stats.bestScore}점</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">최근 변화</span>
-                            <span class="stat-value ${changeClass}">${changeIcon} ${changeText}점</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">예상 순위</span>
-                            <span class="stat-value">상위 ${stats.percentile}%</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">응시율</span>
-                            <span class="stat-value">${Math.round(stats.testCount/stats.totalTests*100)}% (${stats.testCount}/${stats.totalTests}회)</span>
-                        </div>
-                    </div>
-                    
-                   <!-- 🏆 성취 뱃지 -->
+                <div class="stat-item">
+                    <span class="stat-label">평균 등급</span>
+                    <span class="stat-value">${stats.avgGrade}등급</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">최고 성적</span>
+                    <span class="stat-value">${stats.bestGrade}등급 ${stats.bestScore}점</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">최근 변화</span>
+                    <span class="stat-value ${changeClass}">${changeIcon} ${changeText}점</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">예상 순위</span>
+                    <span class="stat-value">상위 ${stats.percentile}%</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">응시율</span>
+                    <span class="stat-value">${Math.round(stats.testCount/stats.totalTests*100)}% (${stats.testCount}/${stats.totalTests}회)</span>
+                </div>
+            </div>
+            
+            <!-- 🏆 성취 뱃지 -->
             <div class="dashboard-card">
                 <h3>🏆 성취 뱃지 <span style="font-size: 0.8em; color: #667eea;">(${badges.length}/40개 획득)</span></h3>
                 
-              
-            ${badges.length >= 25 ? 
-            `<div style="
-                background: linear-gradient(135deg, #ffd700, #ff8c00); 
-                color: white; 
-                border-radius: 15px; 
-                padding: 20px; 
-                margin: 15px 0; 
-                text-align: center; 
-                box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
-                animation: grand-master-glow 2s infinite alternate;
-            ">
-                <div style="font-size: 2em; margin-bottom: 10px;">🎊👑🎊</div>
-                <div style="font-size: 1.3em; font-weight: bold; margin-bottom: 10px;">
-                    축하합니다! 25개 이상의 뱃지를 모아<br>
-                    국어 그랜드 마스터가 되었습니다! 🏆
-                </div>
-                <div style="font-size: 1.1em; opacity: 0.95;">
-                    이대건T에게 가서 선물을 수령하세요! 🎁
-                </div>
-            </div>` : 
-            ''
-            }
-            
-            ${badges.length > 0 ? 
-                '<div class="badge-summary">총 ' + badges.length + '/40개의 뱃지를 획득했습니다!' + 
-                (badges.length >= 35 ? ' 🔥 사랑한다 제자야. 고생많았어.!' : 
-                 badges.length >= 30 ? ' 🌟 거의 다 모았어요!' : 
-                 badges.length >= 25 ? ' 🎉 국어 그랜드 마스터 달성!' : 
-                 badges.length >= 15 ? ' 💪 많이 모았네요!' : '') + '</div>' +
-                    '<div class="badge-container">' +
-                    badges.map(badge => 
-                       `<div class="achievement-badge ${badge.type} ${badge.isNew ? 'badge-new' : ''}">
-                            <span>${badge.icon}</span>
-                            <span>${badge.text}</span>
-                            ${badge.isNew ? '<span style="font-size: 0.7em;">NEW!</span>' : ''}
-                        </div>`
-                    ).join('') +
-                    '</div>' :
-                '<p style="color: #666; text-align: center; padding: 20px;">더 많은 시험을 치르면 뱃지를 획득할 수 있어요!</p>'
+                ${badges.length >= 25 ? 
+                `<div style="
+                    background: linear-gradient(135deg, #ffd700, #ff8c00); 
+                    color: white; 
+                    border-radius: 15px; 
+                    padding: 20px; 
+                    margin: 15px 0; 
+                    text-align: center; 
+                    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+                    animation: grand-master-glow 2s infinite alternate;
+                ">
+                    <div style="font-size: 2em; margin-bottom: 10px;">🎊👑🎊</div>
+                    <div style="font-size: 1.3em; font-weight: bold; margin-bottom: 10px;">
+                        축하합니다! 25개 이상의 뱃지를 모아<br>
+                        국어 그랜드 마스터가 되었습니다! 🏆
+                    </div>
+                    <div style="font-size: 1.1em; opacity: 0.95;">
+                        이대건T에게 가서 선물을 수령하세요! 🎁
+                    </div>
+                </div>` : 
+                ''
                 }
                 
-                <div style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 8px; font-size: 0.85em; text-align: center;">
-                    💡 <strong>PC:</strong> 뱃지를 클릭하면 설명을 볼 수 있어요!<br>
-                    📱 <strong>모바일:</strong> 뱃지를 터치하면 설명이 나타납니다!
-                </div>
-            </div>
-                
-                <!-- 📈 성적 변화 그래프 -->
-                <div class="dashboard-card" style="margin: 25px 0;">
-                    <h3>📈 성적 변화 추이</h3>
-                    <div class="chart-container">
-                        <canvas id="gradeChart_${student.attendanceNumber}"></canvas>
+                ${badges.length > 0 ? 
+                    '<div class="badge-summary">총 ' + badges.length + '/40개의 뱃지를 획득했습니다!' + 
+                    (badges.length >= 35 ? ' 🔥 사랑한다 제자야. 고생많았어.!' : 
+                     badges.length >= 30 ? ' 🌟 거의 다 모았어요!' : 
+                     badges.length >= 25 ? ' 🎉 국어 그랜드 마스터 달성!' : 
+                     badges.length >= 15 ? ' 💪 많이 모았네요!' : '') + '</div>' +
+                        '<div class="badge-container">' +
+                        badges.map(badge => 
+                           `<div class="achievement-badge ${badge.type} ${badge.isNew ? 'badge-new' : ''}">
+                                <span>${badge.icon}</span>
+                                <span>${badge.text}</span>
+                                ${badge.isNew ? '<span style="font-size: 0.7em;">NEW!</span>' : ''}
+                            </div>`
+                        ).join('') +
+                        '</div>' :
+                    '<p style="color: #666; text-align: center; padding: 20px;">더 많은 시험을 치르면 뱃지를 획득할 수 있어요!</p>'
+                    }
+                    
+                    <div style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 8px; font-size: 0.85em; text-align: center;">
+                        💡 <strong>PC:</strong> 뱃지를 클릭하면 설명을 볼 수 있어요!<br>
+                        📱 <strong>모바일:</strong> 뱃지를 터치하면 설명이 나타납니다!
                     </div>
-                </div>
-            `;
-        }
+            </div>
+        </div>
+        
+        <!-- 📈 성적 변화 그래프 -->
+        <div class="dashboard-card" style="margin: 25px 0;">
+            <h3>📈 성적 변화 추이</h3>
+            <div class="chart-container">
+                <canvas id="gradeChart_${student.attendanceNumber}"></canvas>
+            </div>
+        </div>
+    `;
+}
         
         // Chart.js 그래프 생성
         function createChart(student) {
