@@ -5879,7 +5879,7 @@ function displayDashboard(student) {
             });
         }
         
-        // 🖨️ PDF 리포트 생성 기능 (완전 새 버전)
+       // 🖨️ PDF 리포트 생성 기능 (스크롤 테이블 포함 버전)
         async function generatePdfReport(studentName) {
             const reportElement = document.getElementById('results');
             
@@ -5890,33 +5890,77 @@ function displayDashboard(student) {
             
             // 상태 메시지 표시
             if (typeof showStatus === 'function') {
-                showStatus('📄 PDF 리포트를 생성 중입니다... 잠시만 기다려주세요.', 'warning');
+                showStatus('📄 PDF 리포트를 생성 중... 테이블 전체를 포함시키는 중입니다.', 'warning');
             } else {
                 alert('PDF 생성 중...');
             }
             
             try {
-                // PDF 생성 전 모든 요소가 보이도록 설정
+                // PDF 생성 전 준비 작업
                 const originalDisplay = reportElement.style.display;
                 reportElement.style.display = 'block';
                 
-                // 2초 대기 (라이브러리 로딩 완료 보장)
+                // 🔧 스크롤 테이블을 위한 특별 처리
+                const scrollTables = reportElement.querySelectorAll('[style*="overflow-x: auto"]');
+                const originalScrollStyles = [];
+                
+                // 모든 스크롤 테이블의 스크롤을 임시로 제거
+                scrollTables.forEach((table, index) => {
+                    originalScrollStyles[index] = {
+                        element: table,
+                        originalStyle: table.style.overflowX,
+                        originalWidth: table.style.width,
+                        originalMinWidth: table.style.minWidth
+                    };
+                    
+                    // 스크롤 제거하고 전체 너비 표시
+                    table.style.overflowX = 'visible';
+                    table.style.width = 'auto';
+                    table.style.minWidth = 'none';
+                });
+                
+                // 테이블 내부의 min-width 스타일도 임시 제거
+                const tablesWithMinWidth = reportElement.querySelectorAll('table[style*="min-width"]');
+                const originalTableStyles = [];
+                
+                tablesWithMinWidth.forEach((table, index) => {
+                    originalTableStyles[index] = {
+                        element: table,
+                        originalStyle: table.style.minWidth
+                    };
+                    table.style.minWidth = 'none';
+                });
+                
+                // 2초 대기 (레이아웃 재조정 시간)
                 await new Promise(resolve => setTimeout(resolve, 2000));
                 
-                // html2canvas로 이미지 생성
+                // html2canvas로 이미지 생성 (더 큰 스케일과 너비로)
                 const canvas = await html2canvas(reportElement, {
-                    scale: 1.5,
+                    scale: 2,  // 해상도 높임
                     useCORS: true,
                     allowTaint: true,
                     logging: false,
                     height: reportElement.scrollHeight,
-                    width: reportElement.scrollWidth,
-                    backgroundColor: '#ffffff'
+                    width: Math.max(reportElement.scrollWidth, 1400), // 최소 너비 보장
+                    backgroundColor: '#ffffff',
+                    scrollX: 0,
+                    scrollY: 0
                 });
                 
-                // jsPDF로 PDF 생성
+                // 원래 스타일 복원
+                originalScrollStyles.forEach(styleInfo => {
+                    styleInfo.element.style.overflowX = styleInfo.originalStyle;
+                    styleInfo.element.style.width = styleInfo.originalWidth;
+                    styleInfo.element.style.minWidth = styleInfo.originalMinWidth;
+                });
+                
+                originalTableStyles.forEach(styleInfo => {
+                    styleInfo.element.style.minWidth = styleInfo.originalStyle;
+                });
+                
+                // jsPDF로 PDF 생성 (A4 가로 모드로 변경)
                 const { jsPDF } = window.jspdf;
-                const pdf = new jsPDF('p', 'mm', 'a4');
+                const pdf = new jsPDF('l', 'mm', 'a4');  // 'l' = landscape (가로)
                 
                 const imgData = canvas.toDataURL('image/png');
                 const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -5951,7 +5995,7 @@ function displayDashboard(student) {
                 
                 // 성공 메시지
                 if (typeof showStatus === 'function') {
-                    showStatus('✅ PDF 리포트가 성공적으로 저장되었습니다!', 'success');
+                    showStatus('✅ 전체 테이블이 포함된 PDF 리포트가 저장되었습니다!', 'success');
                 } else {
                     alert('PDF 리포트가 저장되었습니다!');
                 }
