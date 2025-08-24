@@ -12,9 +12,11 @@
     gtag('js', new Date()); 
     gtag('config', 'G-BCEK0772SC'); 
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-    <style>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+<style>
         * {
             margin: 0;
             padding: 0;
@@ -5877,8 +5879,8 @@ function displayDashboard(student) {
             });
         }
         
-        // 🖨️ PDF 리포트 생성 기능 (완전 수정된 버전)
-        function generatePdfReport(studentName) {
+        // 🖨️ PDF 리포트 생성 기능 (완전 새 버전)
+        async function generatePdfReport(studentName) {
             const reportElement = document.getElementById('results');
             
             if (!reportElement) {
@@ -5889,75 +5891,82 @@ function displayDashboard(student) {
             // 상태 메시지 표시
             if (typeof showStatus === 'function') {
                 showStatus('📄 PDF 리포트를 생성 중입니다... 잠시만 기다려주세요.', 'warning');
+            } else {
+                alert('PDF 생성 중...');
             }
             
-            // PDF 생성 전 모든 요소가 보이도록 설정
-            const originalDisplay = reportElement.style.display;
-            reportElement.style.display = 'block';
-            
-            // 1초 후 PDF 생성 (페이지 렌더링 완료 대기)
-            setTimeout(() => {
-                html2canvas(reportElement, { 
-                    scale: 1.2,
+            try {
+                // PDF 생성 전 모든 요소가 보이도록 설정
+                const originalDisplay = reportElement.style.display;
+                reportElement.style.display = 'block';
+                
+                // 2초 대기 (라이브러리 로딩 완료 보장)
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // html2canvas로 이미지 생성
+                const canvas = await html2canvas(reportElement, {
+                    scale: 1.5,
                     useCORS: true,
+                    allowTaint: true,
                     logging: false,
                     height: reportElement.scrollHeight,
-                    width: reportElement.scrollWidth
-                }).then(canvas => {
-                    // jsPDF 생성 (올바른 방법)
-                    const pdf = new window.jsPDF('p', 'mm', 'a4');
-                    
-                    const imgData = canvas.toDataURL('image/png');
-                    const pdfWidth = pdf.internal.pageSize.getWidth();
-                    const pdfHeight = pdf.internal.pageSize.getHeight();
-                    const canvasWidth = canvas.width;
-                    const canvasHeight = canvas.height;
-                    const ratio = canvasWidth / canvasHeight;
-                    const imgHeight = pdfWidth / ratio;
-                    let heightLeft = imgHeight;
-                    let position = 0;
-                    
-                    // 첫 페이지 추가
+                    width: reportElement.scrollWidth,
+                    backgroundColor: '#ffffff'
+                });
+                
+                // jsPDF로 PDF 생성
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                
+                const imgData = canvas.toDataURL('image/png');
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = pdf.internal.pageSize.getHeight();
+                const canvasWidth = canvas.width;
+                const canvasHeight = canvas.height;
+                const ratio = canvasWidth / canvasHeight;
+                const imgHeight = pdfWidth / ratio;
+                let heightLeft = imgHeight;
+                let position = 0;
+                
+                // 첫 페이지 추가
+                pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
+                heightLeft -= pdfHeight;
+                
+                // 추가 페이지가 필요한 경우
+                while (heightLeft > 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
                     pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
                     heightLeft -= pdfHeight;
-                    
-                    // 추가 페이지가 필요한 경우
-                    while (heightLeft > 0) {
-                        position = heightLeft - imgHeight;
-                        pdf.addPage();
-                        pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
-                        heightLeft -= pdfHeight;
-                    }
-                    
-                    // 파일명에 날짜 추가
-                    const today = new Date();
-                    const dateStr = today.getFullYear() + '-' + 
-                                   String(today.getMonth() + 1).padStart(2, '0') + '-' + 
-                                   String(today.getDate()).padStart(2, '0');
-                    
-                    // PDF 저장
-                    pdf.save(studentName + '_성적분석리포트_' + dateStr + '.pdf');
-                    
-                    // 성공 메시지
-                    if (typeof showStatus === 'function') {
-                        showStatus('✅ PDF 리포트가 성공적으로 저장되었습니다!', 'success');
-                    } else {
-                        alert('PDF 리포트가 저장되었습니다!');
-                    }
-                    
-                    // 원래 상태로 복원
-                    reportElement.style.display = originalDisplay;
-                    
-                }).catch(err => {
-                    console.error('PDF 생성 오류:', err);
-                    if (typeof showStatus === 'function') {
-                        showStatus('❌ PDF 생성 중 오류가 발생했습니다. 다시 시도해주세요.', 'error');
-                    } else {
-                        alert('PDF 생성 중 오류가 발생했습니다.');
-                    }
-                    reportElement.style.display = originalDisplay;
-                });
-            }, 1000);
+                }
+                
+                // 파일명에 날짜 추가
+                const today = new Date();
+                const dateStr = today.getFullYear() + '-' + 
+                               String(today.getMonth() + 1).padStart(2, '0') + '-' + 
+                               String(today.getDate()).padStart(2, '0');
+                
+                // PDF 저장
+                pdf.save(studentName + '_성적분석리포트_' + dateStr + '.pdf');
+                
+                // 성공 메시지
+                if (typeof showStatus === 'function') {
+                    showStatus('✅ PDF 리포트가 성공적으로 저장되었습니다!', 'success');
+                } else {
+                    alert('PDF 리포트가 저장되었습니다!');
+                }
+                
+                // 원래 상태로 복원
+                reportElement.style.display = originalDisplay;
+                
+            } catch (error) {
+                console.error('PDF 생성 오류:', error);
+                if (typeof showStatus === 'function') {
+                    showStatus('❌ PDF 생성 중 오류가 발생했습니다. 다시 시도해주세요.', 'error');
+                } else {
+                    alert('PDF 생성 중 오류가 발생했습니다: ' + error.message);
+                }
+            }
         }
         
         
